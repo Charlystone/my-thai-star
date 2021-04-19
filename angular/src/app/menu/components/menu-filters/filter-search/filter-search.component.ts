@@ -42,7 +42,7 @@ export class FilterSearchComponent implements ControlValueAccessor {
 
   // Binding Methods
 
-  onChange($event: any): void {
+  onChange($event: any): void { //@abdu here we expect all type of event Keybpard pr mouse 
     this.setInputValue($event.target.value);
   }
 

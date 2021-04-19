@@ -5,6 +5,7 @@ import { ConfigService } from '../../../core/config/config.service';
 import { BookingView, OrderView } from '../../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-cockpit-order-dialog',

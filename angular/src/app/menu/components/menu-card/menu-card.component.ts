@@ -10,8 +10,8 @@ export class MenuCardComponent {
   @Input() extras: ExtraView;
   @Input() menuInfo: DishView;
   @Input() auth: boolean;
-  @Output() orderAdded = new EventEmitter<any>();
-  @Output() extraSelected = new EventEmitter<any>();
+  @Output() orderAdded = new EventEmitter<DishView>();//@abdu emit-method is from type Dishview
+  @Output() extraSelected = new EventEmitter<any>();//@abdu because of generic we can not add 2 types 
 
   constructor() {}
 

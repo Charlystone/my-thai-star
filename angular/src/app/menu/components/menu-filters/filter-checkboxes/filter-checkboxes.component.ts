@@ -15,7 +15,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class FilterCheckboxesComponent {
   categoriesValue: CategoriesModel;
-  updateForm: (fn: any) => void;
+  updateForm: (fn: any) => void; //@abdu updateForm is a function
   disabled: boolean;
 
   // ControlValueAccessor
