@@ -43,7 +43,7 @@ export class OrderDialogComponent implements OnInit {
   totalPrice: number;
 
   constructor(
-    private waiterCockpitService: WaiterCockpitService,
+    private waiterCockpitService: WaiterCockpitService,//Test
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
