@@ -9,7 +9,7 @@ interface Role {
   permission: number;
 }
 
-interface Lang {
+export interface Lang { // here we must write export to make it global
   label: string;
   value: string;
 }
