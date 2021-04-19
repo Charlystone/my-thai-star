@@ -62,7 +62,7 @@ const STATE = {
     menu: {
       loading: true,
       loaded: true,
-      dishes: menuDishes.content as any[],
+      dishes: menuDishes.content as any[], //@abdu content is a json type
       errorMessage: '',
     },
   },
