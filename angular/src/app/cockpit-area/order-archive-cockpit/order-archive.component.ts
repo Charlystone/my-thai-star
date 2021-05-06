@@ -153,8 +153,8 @@ export class OrderArchiveComponent implements OnInit {
     const obj = JSON.parse(str);
     const id = obj.order.id;
     this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
+      this.applyFilters();
     });
-    this.applyFilters();
   }
 
   ngOnDestroy(): void {
