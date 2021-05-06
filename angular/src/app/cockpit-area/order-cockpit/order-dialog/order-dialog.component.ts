@@ -6,6 +6,7 @@ import {BookingView, OrderListView, OrderView} from '../../../shared/view-models
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
 import {OrderEditComponent} from './order-edit/order-edit.component';
+import {OrderCockpitComponent} from '../order-cockpit.component';
 
 @Component({
   selector: 'app-cockpit-order-dialog',
@@ -49,6 +50,7 @@ export class OrderDialogComponent implements OnInit {
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
+    //private orderCockpitComponent: OrderCockpitComponent,
   ) {
     this.data = dialogData;
     this.pageSizes = this.configService.getValues().pageSizesDialog;
@@ -114,10 +116,8 @@ export class OrderDialogComponent implements OnInit {
   editButtonPressed(): void {
     this.dialog.open(OrderEditComponent, {
       width: '80%',
-      //data: selection,
+      //data: this.orderCockpitComponent.currentOrderListView
     });
 
   }
 }
-
-

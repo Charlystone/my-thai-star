@@ -30,6 +30,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   pageSize = 8;
 
+  currentOrderListView: OrderListView;
+
   @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
 
   orders: OrderListView[] = [];
@@ -52,7 +54,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     email: undefined,
     bookingToken: undefined,
   };
-  
+
 
   constructor(
     private dialog: MatDialog,
@@ -141,17 +143,18 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'order delivered',
     'order paid',
     'canceled',
-    
+
   ];*/
   //abd
   selected(selection: OrderListView): void {
+    this.currentOrderListView = selection,
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,
     });
-  
-  } 
-  
+
+  }
+
   updateState(option , selectedOrder: OrderListView):void {
     this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);

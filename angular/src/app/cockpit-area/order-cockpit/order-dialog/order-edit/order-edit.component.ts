@@ -4,7 +4,7 @@ import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
 import {TranslocoService} from '@ngneat/transloco';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ConfigService} from '../../../../core/config/config.service';
-import {PageEvent} from "@angular/material/paginator";
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-order-edit',
