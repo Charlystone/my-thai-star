@@ -52,8 +52,8 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
   @Override
-  public void setOrderStatus(long id, String statusString) {
-    this.ordermanagement.setOrderStatus(id, statusString);
+  public void setOrderStatus(long id, OrderEto order) {
+    this.ordermanagement.setOrderStatus(id, order);
   }
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 
