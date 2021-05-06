@@ -262,6 +262,14 @@ paths:
           description: Forbidden. Authorization error.
         '500':
           description: Internal Server Error. The search process ended with error.
+  /mythaistar/services/rest/ordermanagement/v1/order/orderstatus/{id}:
+    get:
+      tags:
+        - Order
+        summary: changes order status to specified string
+        operationId: ordermanagement_changeorderstatus
+        consumes: []
+        produces: 
   /mythaistar/services/rest/ordermanagement/v1/order:
     post:
       tags:
