@@ -103,6 +103,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
+          console.log(this.orders);
         }
         this.totalOrders = data.totalElements;
       });

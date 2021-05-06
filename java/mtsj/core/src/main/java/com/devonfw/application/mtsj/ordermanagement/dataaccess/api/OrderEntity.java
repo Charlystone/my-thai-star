@@ -26,7 +26,7 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 
   private static final long serialVersionUID = 1L;
 //-------------------------------------------------------------------------------------------------------------------------------------------
-  private String status;
+  private String state;
 //-------------------------------------------------------------------------------------------------------------------------------------------
   private BookingEntity booking;
 
@@ -43,8 +43,8 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
    * @return Status der Bestellung
    */
   @Override
-  public String getStatus() {
-    return this.status;
+  public String getState() {
+    return this.state;
   }
   
   /**
@@ -52,8 +52,8 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   * @param statusString
   */  
   @Override
-  public void setStatus(String statusString) {
-    this.status = statusString;
+  public void setState(String statusString) {
+    this.state = statusString;
   }
 //-------------------------------------------------------------------------------------------------------------------------------------------
   /**
