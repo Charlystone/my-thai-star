@@ -81,7 +81,7 @@ public interface Ordermanagement {
    * @param statusString new status as String
    * @return boolean <code>true</code> if the order can be deleted, else <code>false</code> 
    */
-  boolean setOrderStatus(long orderId, String statusString);
+  boolean setOrderStatus(Long orderId, String statusString);
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
   /**
