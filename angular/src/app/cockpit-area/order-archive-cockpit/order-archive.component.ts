@@ -12,14 +12,14 @@ import {
 } from '../../shared/backend-models/interfaces';
 import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
-import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import { OrderDialogComponent } from '../order-cockpit/order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
 @Component({
-  selector: 'app-cockpit-order-cockpit',
-  templateUrl: './order-cockpit.component.html',
-  styleUrls: ['./order-cockpit.component.scss'],
+  selector: 'app-order-archive',
+  templateUrl: './order-archive.component.html',
+  styleUrls: ['./order-archive.component.scss']
 })
-export class OrderCockpitComponent implements OnInit, OnDestroy {
+export class OrderArchiveComponent implements OnInit {
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
     pageSize: 8,
@@ -104,7 +104,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         } else {
           for (let entry of data.content) {
             console.log(entry);
-            if (entry.order.state !== 'canceled' || entry.order.state !== 'order paid') {
+            if (entry.order.state == 'canceled' || entry.order.state == 'order paid') {
               this.orders.push(entry);
             }
           }
@@ -138,7 +138,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     }
     this.applyFilters();
   }
-
+  
   selected(selection: OrderListView): void {
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
@@ -161,3 +161,4 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.translocoSubscription.unsubscribe();
   }
 }
+

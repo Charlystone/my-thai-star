@@ -95,6 +95,7 @@
     "menu": "Menü",
     "book": "Tisch buchen",
     "orders": "Bestellungen",
+    "archive": "Archivierte Bestellungen",
     "reservations": "Reservierungen",
     "userActions": {
       "user": "Benutzer",
@@ -177,6 +178,17 @@
     "filter": "Filter",
     "orders": {
       "title": "Bestellungen",
+      "dialogTitle": "BESTELLDETAILS - REFERENZNUMMER",
+      "dialogTable": {
+        "dishH": "Gericht",
+        "commentsH": "Kommentare",
+        "extrasH": "Extra",
+        "quantityH": "Anzahl",
+        "priceH": "Preis"
+      }
+    },
+    "archive": {
+      "title": "Archivierte Bestellungen",
       "dialogTitle": "BESTELLDETAILS - REFERENZNUMMER",
       "dialogTable": {
         "dishH": "Gericht",

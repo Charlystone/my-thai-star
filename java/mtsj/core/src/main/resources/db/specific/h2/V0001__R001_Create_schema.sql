@@ -75,7 +75,7 @@ CREATE TABLE InvitedGuest (
 -- *** OrderDish ***
 CREATE TABLE Orders (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  status VARCHAR(255) NOT NULL,
+  state VARCHAR(255) NOT NULL,
   modificationCounter INTEGER NOT NULL,
   idBooking BIGINT NOT NULL,
   idInvitedGuest BIGINT,
