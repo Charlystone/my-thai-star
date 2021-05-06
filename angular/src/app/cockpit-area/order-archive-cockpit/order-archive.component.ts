@@ -86,10 +86,10 @@ export class OrderArchiveComponent implements OnInit {
       .selectTranslateObject('cockpit.status', {}, lang)
       .subscribe((cockpitTable) => {
         this.status = [
-          { name: 'order taken', label: cockpitTable.orderTakenH },
-          { name: 'delivering order', label: cockpitTable.deliveringOrderH },
-          { name: 'order delivered', label: cockpitTable.orderDeliveredH },
-          { name: 'order paid', label: cockpitTable.orderPaidH },
+          { name: 'orderTaken', label: cockpitTable.orderTakenH },
+          { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
+          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH },
+          { name: 'orderPaid', label: cockpitTable.orderPaidH },
           { name: 'canceled', label: cockpitTable.canceledH } //abd
         ];
       });
@@ -104,7 +104,7 @@ export class OrderArchiveComponent implements OnInit {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (entry.order.state == "canceled" || entry.order.state == "order paid") {
+            if (entry.order.state == "canceled" || entry.order.state == "orderPaid") {
               this.orders.push(entry);
             }
           }
