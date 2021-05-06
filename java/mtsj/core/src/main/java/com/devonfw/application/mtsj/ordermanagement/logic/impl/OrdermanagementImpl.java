@@ -242,7 +242,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     if (order == null) {
       return false;
     }
-    order.setStatus(statusString);
+    order.setState(statusString);
     
     return true;
   }

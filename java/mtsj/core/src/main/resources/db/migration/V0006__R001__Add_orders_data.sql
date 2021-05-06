@@ -4,6 +4,7 @@ INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, i
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (3, 'order taken', 1, 3, 2, null);
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (4, 'order paid', 1, 3, 3, null);
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (5, 'canceled', 1, 3, 4, null);
+
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (6, 'order taken', 1, 4, 8, null);
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (7, 'order taken', 1, 4, 9, null);
 
