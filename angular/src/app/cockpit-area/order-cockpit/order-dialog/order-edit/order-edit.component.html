@@ -1,37 +1,6 @@
 <h3 mat-dialog-title>{{'cockpit.orders.dialogTitle' | transloco}} : {{data.booking.bookingToken}} </h3>
 <mat-divider></mat-divider>
 <div class="tableContainer">
-   <table mat-table [dataSource]="datat">
-    <!-- Reservation Date Column -->
-    <ng-container matColumnDef="bookingDate">
-      <th mat-header-cell *matHeaderCellDef> {{columnst[0].label}} </th>
-      <td mat-cell *matCellDef="let element" class="bookingDateData"> {{element.bookingDate|amFromUnix|amDateFormat:'lll'}} </td>
-    </ng-container>
-    <!-- Creation Date Column -->
-    <ng-container matColumnDef="creationDate">
-      <th mat-header-cell *matHeaderCellDef class="creationDateHeader"> {{columnst[1].label}} </th>
-      <td mat-cell *matCellDef="let element" class="creationDateData"> {{element.creationDate|amFromUnix|amDateFormat:'lll'}} </td>
-    </ng-container>
-    <!-- Owner Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef class="nameHeader"> {{columnst[2].label}} </th>
-      <td mat-cell *matCellDef="let element" class="nameData"> {{element.name}} </td>
-    </ng-container>
-    <!-- Email Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef class="emailHeader"> {{columnst[3].label}} </th>
-      <td mat-cell *matCellDef="let element" class="emailData"> {{element.email}} </td>
-    </ng-container>
-    <!-- Table Column -->
-    <ng-container matColumnDef="tableId">
-      <th mat-header-cell *matHeaderCellDef class="tableIdHeader"> {{columnst[4].label}} </th>
-      <td mat-cell *matCellDef="let element" class="tableIdData"> {{element.tableId}} </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumnsT"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumnsT;"></tr>
-  </table>
-</div>
-<div class="tableContainer">
   <table mat-table [dataSource]="filteredData">
     <!-- Dish Column -->
     <ng-container matColumnDef="dish.name">
@@ -70,6 +39,6 @@
 <mat-paginator [length]="datao.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizes" [showFirstLastButtons]="false" (page)="page($event)">
 </mat-paginator>
 <div class="align-right actionButtons">
-  <button mat-button mat-raised-button color="accent" (click)="editButtonPressed();">{{'buttons.edit' | transloco | uppercase}}</button>
+  <button mat-button color="accent">{{'buttons.save' | transloco | uppercase}}</button>
   <button mat-button mat-dialog-close color="accent">{{'buttons.close' | transloco | uppercase}}</button>
 </div>

@@ -3,6 +3,8 @@
     "cancel": "Cancel",
     "apply": "Apply",
     "close": "Close",
+    "save": "Save",
+    "edit": "Edit",
     "send": "Send",
     "login": "Login",
     "register": "Register",
@@ -205,7 +207,7 @@
       "orderDeliveredH": "order delivered",
       "orderPaidH": "order paid",
       "canceledH": "canceled"
-   
+
     }
   }
 }

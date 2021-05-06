@@ -1,34 +1,24 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { ConfigService } from '../../../core/config/config.service';
-import {BookingView, OrderListView, OrderView} from '../../../shared/view-models/interfaces';
-import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
-import { TranslocoService } from '@ngneat/transloco';
-import {OrderEditComponent} from './order-edit/order-edit.component';
+import {Component, Inject, OnInit} from '@angular/core';
+import {BookingView, OrderView} from '../../../../shared/view-models/interfaces';
+import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
+import {TranslocoService} from '@ngneat/transloco';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ConfigService} from '../../../../core/config/config.service';
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
-  selector: 'app-cockpit-order-dialog',
-  templateUrl: './order-dialog.component.html',
-  styleUrls: ['./order-dialog.component.scss'],
+  selector: 'app-order-edit',
+  templateUrl: './order-edit.component.html',
+  styleUrls: ['./order-edit.component.scss']
 })
-export class OrderDialogComponent implements OnInit {
+export class OrderEditComponent implements OnInit {
+
   private fromRow = 0;
   private currentPage = 1;
 
   pageSize = 4;
 
   data: any;
-  datat: BookingView[] = [];
-  columnst: any[];
-  displayedColumnsT: string[] = [
-    'bookingDate',
-    'creationDate',
-    'name',
-    'email',
-    'tableId',
-  ];
-
   datao: OrderView[] = [];
   columnso: any[];
   displayedColumnsO: string[] = [
@@ -44,7 +34,6 @@ export class OrderDialogComponent implements OnInit {
   totalPrice: number;
 
   constructor(
-    private dialog: MatDialog,
     private waiterCockpitService: WaiterCockpitService,
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
@@ -63,23 +52,10 @@ export class OrderDialogComponent implements OnInit {
       this.data.orderLines,
     );
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
-    this.datat.push(this.data.booking);
     this.filter();
   }
 
   setTableHeaders(lang: string): void {
-    this.translocoService
-      .selectTranslateObject('cockpit.table', {}, lang)
-      .subscribe((cockpitTable) => {
-        this.columnst = [
-          { name: 'bookingDate', label: cockpitTable.reservationDateH },
-          { name: 'creationDate', label: cockpitTable.creationDateH },
-          { name: 'name', label: cockpitTable.ownerH },
-          { name: 'email', label: cockpitTable.emailH },
-          { name: 'tableId', label: cockpitTable.tableH },
-        ];
-      });
-
     this.translocoService
       .selectTranslateObject('cockpit.orders.dialogTable', {}, lang)
       .subscribe((cockpitDialogTable) => {
@@ -111,13 +87,4 @@ export class OrderDialogComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  editButtonPressed(): void {
-    this.dialog.open(OrderEditComponent, {
-      width: '80%',
-      //data: selection,
-    });
-
-  }
 }
-
-
