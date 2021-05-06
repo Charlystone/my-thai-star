@@ -66,7 +66,7 @@ public interface OrdermanagementRestService {
 
   @POST
   @Path("/order/orderstatus/{id}/")
-  public void setOrderStatus(@PathParam("id") long id, String status);
+  public void setOrderStatus(@PathParam("id") long id, String state);
 
 //----------------------------------------------------------------------------------------------------------------------
 

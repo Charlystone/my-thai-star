@@ -152,7 +152,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
     const id = obj.order.id;
-    this.waiterCockpitService.postBookingStauts(this.orders[this.orders.indexOf(selectedOrder)].state,id).subscribe((data: any) => {
+    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
     });
     this.applyFilters();
   }
