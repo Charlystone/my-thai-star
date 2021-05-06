@@ -102,16 +102,14 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         if (!data) {
           this.orders = [];
         } else {
+          this.orders = [];
           for (let entry of data.content) {
-            if (entry.order.state == "canceled" || entry.order.state == "order paid") {
-              
-            } else {
-              console.log(entry.order.state);
+            if (!(entry.order.state == "canceled" || entry.order.state == "order paid")) {
               this.orders.push(entry);
             }
           }
         }
-        this.totalOrders = data.totalElements;
+        this.totalOrders = this.orders.length;
       });
   }
 

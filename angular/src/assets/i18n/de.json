@@ -217,11 +217,11 @@
       "statusH": "Status"
     },
     "status": {
-      "orderTakenH": "Bestellung Aufgenommen",
-      "deliveringOrderH": "Bestellung wird ausgeliefert",
-      "orderDeliveredH": "Bestellung beim Gast",
-      "orderPaidH": "Bezahlt",
-      "canceledH": "Storniert"
+      "orderTakenH": "order taken",
+      "deliveringOrderH": "delivering order",
+      "orderDeliveredH": "order delivered",
+      "orderPaidH": "order paid",
+      "canceledH": "canceled"
    
     }
   }

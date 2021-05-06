@@ -102,14 +102,14 @@ export class OrderArchiveComponent implements OnInit {
         if (!data) {
           this.orders = [];
         } else {
+          this.orders = [];
           for (let entry of data.content) {
             if (entry.order.state == "canceled" || entry.order.state == "order paid") {
-              console.log(entry.order.state);
               this.orders.push(entry);
             }
           }
         }
-        this.totalOrders = data.totalElements;
+        this.totalOrders = this.orders.length;
       });
   }
 
