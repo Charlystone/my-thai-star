@@ -74,7 +74,6 @@ public interface Ordermanagement {
    */
   boolean deleteOrder(Long orderId);
 
- //------------------------------------------------------------------------------------------------------------------------------------------- 
   /**
    * 
    * @param orderId Id of order thats status is to be set
@@ -82,7 +81,6 @@ public interface Ordermanagement {
    * @return boolean <code>true</code> if the order can be deleted, else <code>false</code> 
    */
   boolean setOrderStatus(Long orderId, OrderEto order);
-//-------------------------------------------------------------------------------------------------------------------------------------------
 
   /**
    * Saves a order and store it in the database.

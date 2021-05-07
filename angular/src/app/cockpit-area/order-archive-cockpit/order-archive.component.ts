@@ -36,13 +36,13 @@ export class OrderArchiveComponent implements OnInit {
   totalOrders: number;
 
   columns: any[];
-  status: any[];
+  states: any[];
 
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.email',
     'booking.bookingToken',
-    'booking.status', //abd
+    'booking.state', //abd
   ];
 
   pageSizes: number[];
@@ -79,13 +79,13 @@ export class OrderArchiveComponent implements OnInit {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
-          { name: 'booking.state', label: cockpitTable.statusH }, //abd
+          { name: 'booking.state', label: cockpitTable.stateH }, //abd
         ];
       });
       this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.status', {}, lang)
+      .selectTranslateObject('cockpit.states', {}, lang)
       .subscribe((cockpitTable) => {
-        this.status = [
+        this.states = [
           { name: 'orderTaken', label: cockpitTable.orderTakenH },
           { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
           { name: 'orderDelivered', label: cockpitTable.orderDeliveredH },

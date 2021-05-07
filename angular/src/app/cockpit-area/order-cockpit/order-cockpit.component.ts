@@ -37,7 +37,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   totalOrders: number;
 
   columns: any[];
-  status: any[];
+  states: any[];
 
   displayedColumns: string[] = [
     'booking.bookingDate',
@@ -86,9 +86,9 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         ];
       });
       this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.status', {}, lang)
+      .selectTranslateObject('cockpit.states', {}, lang)
       .subscribe((cockpitTable) => {
-        this.status = [
+        this.states = [
           { name: 'orderTaken', label: cockpitTable.orderTakenH },
           { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
           { name: 'orderDelivered', label: cockpitTable.orderDeliveredH } //abd
