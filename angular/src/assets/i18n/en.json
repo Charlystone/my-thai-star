@@ -15,7 +15,8 @@
     "removeComment": "Remove Comment",
     "addComment": "Add comment",
     "createBill": "Create bill",
-    "printBill": "Print bill"
+    "printBill": "Print bill",
+    "cancelOrder": "Cancel Order"
   },
   "table": {
     "rowsPage": "Rows per page",

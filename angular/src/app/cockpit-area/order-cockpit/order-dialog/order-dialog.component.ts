@@ -18,6 +18,7 @@ export class OrderDialogComponent implements OnInit {
   pageSize = 4;
   showBillCreationButton: boolean = false;
   showBillPrintButton: boolean = false;
+  showCancelButton: boolean = false;
 
   data: any;
   datat: BookingView[] = [];
@@ -62,8 +63,12 @@ export class OrderDialogComponent implements OnInit {
     const state = this.data.order.state;
     if (state == "orderDelivered") {
       this.showBillCreationButton = true;
-    } else if (state == "orderPaid") {
+    }
+    if (state == "orderPaid") {
       this.showBillPrintButton = true;
+    }
+    if (state == "orderTaken") {
+      this.showCancelButton = true;
     }
 
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
@@ -128,5 +133,12 @@ export class OrderDialogComponent implements OnInit {
 
   printBill() {
     // TODO print bill
+  }
+
+  cancelOrder() {
+    const id = this.data.order.id;
+    this.waiterCockpitService.postBookingState("canceled", id).subscribe((data: any) => {
+      // TODO refresh order overview
+    });
   }
 }

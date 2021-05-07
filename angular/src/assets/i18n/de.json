@@ -15,7 +15,8 @@
     "removeComment": "Kommentar entfernen",
     "addComment": "Kommentar hinzufügen",
     "createBill": "Rechnung erstellen",
-    "printBill": "Rechnung drucken"
+    "printBill": "Rechnung drucken",
+    "cancelOrder": "Stornieren"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",

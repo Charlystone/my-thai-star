@@ -88,9 +88,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.status = [
           { name: 'orderTaken', label: cockpitTable.orderTakenH },
           { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
-          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH },
-          { name: 'orderPaid', label: cockpitTable.orderPaidH },
-          { name: 'canceled', label: cockpitTable.canceledH } //abd
+          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH } //abd
         ];
       });
   }

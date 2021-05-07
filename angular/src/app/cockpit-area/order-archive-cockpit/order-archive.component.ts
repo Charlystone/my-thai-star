@@ -145,16 +145,6 @@ export class OrderArchiveComponent implements OnInit {
       data: selection,
     });
   
-  } 
-  
-  updateState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
-    const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
-    const obj = JSON.parse(str);
-    const id = obj.order.id;
-    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
-      this.applyFilters();
-    });
   }
 
   ngOnDestroy(): void {
