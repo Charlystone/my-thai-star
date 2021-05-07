@@ -48,6 +48,14 @@
       </a>
       <a
         mat-tab-link
+        routerLink="/archive"
+        routerLinkActive="navBottomBorder"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'main.archive' | transloco | uppercase }}
+      </a>
+      <a
+        mat-tab-link
         routerLink="/reservations"
         routerLinkActive="navBottomBorder"
         [routerLinkActiveOptions]="{ exact: true }"

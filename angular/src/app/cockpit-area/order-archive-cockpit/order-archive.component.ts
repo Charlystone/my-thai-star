@@ -12,14 +12,14 @@ import {
 } from '../../shared/backend-models/interfaces';
 import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
-import { OrderDialogComponent } from './order-dialog/order-dialog.component';
+import { OrderDialogComponent } from '../order-cockpit/order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
 @Component({
-  selector: 'app-cockpit-order-cockpit',
-  templateUrl: './order-cockpit.component.html',
-  styleUrls: ['./order-cockpit.component.scss'],
+  selector: 'app-order-archive',
+  templateUrl: './order-archive.component.html',
+  styleUrls: ['./order-archive.component.scss']
 })
-export class OrderCockpitComponent implements OnInit, OnDestroy {
+export class OrderArchiveComponent implements OnInit {
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
     pageSize: 8,
@@ -88,7 +88,9 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.status = [
           { name: 'orderTaken', label: cockpitTable.orderTakenH },
           { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
-          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH } //abd
+          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH },
+          { name: 'orderPaid', label: cockpitTable.orderPaidH },
+          { name: 'canceled', label: cockpitTable.canceledH } //abd
         ];
       });
   }
@@ -102,7 +104,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (!(entry.order.state == "canceled" || entry.order.state == "orderPaid")) {
+            if (entry.order.state == "canceled" || entry.order.state == "orderPaid") {
               this.orders.push(entry);
             }
           }
@@ -136,25 +138,17 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     }
     this.applyFilters();
   }
-
+  
   selected(selection: OrderListView): void {
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,
     });
-  } 
   
-  updateState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
-    const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
-    const obj = JSON.parse(str);
-    const id = obj.order.id;
-    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
-      this.applyFilters();
-    });
   }
 
   ngOnDestroy(): void {
     this.translocoSubscription.unsubscribe();
   }
 }
+

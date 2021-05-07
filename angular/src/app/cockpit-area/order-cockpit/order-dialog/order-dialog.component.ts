@@ -1,12 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ConfigService } from '../../../core/config/config.service';
-import {BookingView, OrderListView, OrderView} from '../../../shared/view-models/interfaces';
+import { BookingView, OrderView } from '../../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../../services/waiter-cockpit.service';
 import { TranslocoService } from '@ngneat/transloco';
-import {OrderEditComponent} from './order-edit/order-edit.component';
-import {OrderCockpitComponent} from '../order-cockpit.component';
 
 @Component({
   selector: 'app-cockpit-order-dialog',
@@ -18,6 +16,9 @@ export class OrderDialogComponent implements OnInit {
   private currentPage = 1;
 
   pageSize = 4;
+  showBillCreationButton: boolean = false;
+  showBillPrintButton: boolean = false;
+  showCancelButton: boolean = false;
 
   data: any;
   datat: BookingView[] = [];
@@ -45,12 +46,10 @@ export class OrderDialogComponent implements OnInit {
   totalPrice: number;
 
   constructor(
-    private dialog: MatDialog,
     private waiterCockpitService: WaiterCockpitService,
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
-    //private orderCockpitComponent: OrderCockpitComponent,
   ) {
     this.data = dialogData;
     this.pageSizes = this.configService.getValues().pageSizesDialog;
@@ -60,6 +59,17 @@ export class OrderDialogComponent implements OnInit {
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
+
+    const state = this.data.order.state;
+    if (state == "orderDelivered") {
+      this.showBillCreationButton = true;
+    }
+    if (state == "orderPaid") {
+      this.showBillPrintButton = true;
+    }
+    if (state == "orderTaken") {
+      this.showCancelButton = true;
+    }
 
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
@@ -113,4 +123,22 @@ export class OrderDialogComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
+  createBill() {
+    const id = this.data.order.id;
+    this.waiterCockpitService.postBookingState("orderPaid", id).subscribe((data: any) => {
+      // TODO refresh order overview
+    });
+    // TODO create bill
+  }
+
+  printBill() {
+    // TODO print bill
+  }
+
+  cancelOrder() {
+    const id = this.data.order.id;
+    this.waiterCockpitService.postBookingState("canceled", id).subscribe((data: any) => {
+      // TODO refresh order overview
+    });
+  }
 }

@@ -43,7 +43,6 @@ export interface BookingView {
   tableId?: number;
   bookingToken?: number;
   creationDate?: string;
-  status?: string;//abd
 }
 
 

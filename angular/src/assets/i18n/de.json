@@ -13,7 +13,10 @@
     "clearFilters": "Filter zurücksetzen",
     "applyFilters": "Filter anwenden",
     "removeComment": "Kommentar entfernen",
-    "addComment": "Kommentar hinzufügen"
+    "addComment": "Kommentar hinzufügen",
+    "createBill": "Rechnung erstellen",
+    "printBill": "Rechnung drucken",
+    "cancelOrder": "Stornieren"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -95,6 +98,7 @@
     "menu": "Menü",
     "book": "Tisch buchen",
     "orders": "Bestellungen",
+    "archive": "Archivierte Bestellungen",
     "reservations": "Reservierungen",
     "userActions": {
       "user": "Benutzer",
@@ -186,6 +190,17 @@
         "priceH": "Preis"
       }
     },
+    "archive": {
+      "title": "Archivierte Bestellungen",
+      "dialogTitle": "BESTELLDETAILS - REFERENZNUMMER",
+      "dialogTable": {
+        "dishH": "Gericht",
+        "commentsH": "Kommentare",
+        "extrasH": "Extra",
+        "quantityH": "Anzahl",
+        "priceH": "Preis"
+      }
+    },
     "reservations": {
       "title": "Reservierungen",
       "dialogTitle": "RESERVIERUNGSDETAILS - REFERENZNUMMER",
@@ -205,7 +220,7 @@
       "statusH": "Status"
     },
     "status": {
-      "orderTakenH": "Bestellung Aufgenommen",
+      "orderTakenH": "Bestellung aufgenommen",
       "deliveringOrderH": "Bestellung wird ausgeliefert",
       "orderDeliveredH": "Bestellung beim Gast",
       "orderPaidH": "Bezahlt",

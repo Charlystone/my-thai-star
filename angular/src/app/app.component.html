@@ -48,6 +48,10 @@
             </a>
           </mat-nav-list>
           <mat-nav-list menu-items *ngIf="(role$ | async) === 'WAITER'">
+            <a mat-list-item (click)="navigateTo('archive')">
+              <mat-icon>home</mat-icon>
+              ARCHIVE
+            </a>
             <a mat-list-item (click)="navigateTo('orders')">
               <mat-icon>home</mat-icon>
               ORDERS

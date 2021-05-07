@@ -15,7 +15,10 @@
     "clearFilters": "Clear Filters",
     "applyFilters": "Apply Filters",
     "removeComment": "Remove Comment",
-    "addComment": "Add comment"
+    "addComment": "Add comment",
+    "createBill": "Create bill",
+    "printBill": "Print bill",
+    "cancelOrder": "Cancel Order"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -92,6 +95,7 @@
     "menu": "Menu",
     "book": "Book table",
     "orders": "Orders",
+    "archive": "Archived orders",
     "reservations": "Reservations",
     "userActions": {
       "user": "User",
@@ -174,6 +178,17 @@
     "filter": "Filter",
     "orders": {
       "title": "Orders",
+      "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",
+      "dialogTable": {
+        "dishH": "Dish",
+        "commentsH": "Comments",
+        "extrasH": "Extra",
+        "quantityH": "Quantity",
+        "priceH": "Price"
+      }
+    },
+    "archive": {
+      "title": "Archived orders",
       "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",
       "dialogTable": {
         "dishH": "Dish",

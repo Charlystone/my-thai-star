@@ -89,12 +89,14 @@ export class WaiterCockpitService {
     return this.priceCalculator.getTotalPrice(orderLines);
   }
 
-
-    postBookingStauts(orderState: any, orderId: number): Observable<any> {
-      return this.restServiceRoot$.pipe(
-        exhaustMap((restServiceRoot) =>
-          this.http.post(`${restServiceRoot}${this.orderUpdateStatus}`+orderId+'/',orderState),
-        ),
-      );
+  postBookingState(orderState: string, orderId: number): Observable<OrderResponse[]> {
+    const payload = {
+      state : orderState
     }
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdateStatus}` + orderId + `/`, payload),
+      ),
+    );
+  }
 }
