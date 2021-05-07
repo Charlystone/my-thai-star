@@ -47,15 +47,13 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
   public void cancelOrder(long id) {
 
     this.ordermanagement.deleteOrder(id);
-
   }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
   @Override
   public void setOrderStatus(long id, OrderEto order) {
+    
     this.ordermanagement.setOrderStatus(id, order);
   }
-//-----------------------------------------------------------------------------------------------------------------------------------------------
 
   @Override
   public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo) {

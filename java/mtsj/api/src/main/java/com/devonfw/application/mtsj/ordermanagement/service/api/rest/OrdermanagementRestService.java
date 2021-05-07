@@ -62,13 +62,14 @@ public interface OrdermanagementRestService {
   @Path("/order/cancelorder/{id}/")
   public void cancelOrder(@PathParam("id") long id);
 
-//----------------------------------------------------------------------------------------------------------------------
-
+  /**
+   * 
+   * @param id ID of the {@link OrderEto} thats status needs to be changed
+   * @param order fields of the {@link OrderEto} that need to be changed
+   */
   @POST
   @Path("/order/orderstatus/{id}/")
   public void setOrderStatus(@PathParam("id") long id, OrderEto order);
-
-//----------------------------------------------------------------------------------------------------------------------
 
   /**
    * Delegates to {@link Ordermanagement#findOrderCtos}.
