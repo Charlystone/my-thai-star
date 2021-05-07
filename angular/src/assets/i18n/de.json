@@ -217,9 +217,9 @@
       "ownerH": "Eigentümer",
       "tableH": "Tisch",
       "creationDateH": "Erstelldatum",
-      "statusH": "Status"
+      "stateH": "Status"
     },
-    "status": {
+    "states": {
       "orderTakenH": "Bestellung aufgenommen",
       "deliveringOrderH": "Bestellung wird ausgeliefert",
       "orderDeliveredH": "Bestellung beim Gast",

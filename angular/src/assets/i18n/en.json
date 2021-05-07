@@ -212,9 +212,9 @@
       "ownerH": "Owner",
       "tableH": "Table",
       "creationDateH": "Creation date",
-      "statusH": "State"
+      "stateH": "State"
     },
-    "status": {
+    "states": {
       "orderTakenH": "order taken",
       "deliveringOrderH": "delivering order",
       "orderDeliveredH": "order delivered",
