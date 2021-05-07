@@ -14,6 +14,7 @@ import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
+import {OrderEditComponent} from "./order-dialog/order-edit/order-edit.component";
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -42,6 +43,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'booking.bookingDate',
     'booking.email',
     'booking.bookingToken',
+    'buttons.edit',
     'booking.status', //abd
   ];
 
@@ -52,7 +54,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     email: undefined,
     bookingToken: undefined,
   };
-  
+
 
   constructor(
     private dialog: MatDialog,
@@ -79,6 +81,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'buttons.edit', label: cockpitTable.editH},
           { name: 'booking.state', label: cockpitTable.statusH }, //abd
         ];
       });
@@ -142,10 +145,18 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       width: '80%',
       data: selection,
     });
-  } 
-  
-  updateState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
+  }
+
+  selectedEdit(selection: OrderListView): void {
+    this.dialog.open(OrderEditComponent, {
+      width: '80%',
+      data: selection,
+    });
+  }
+
+  updateState(option , selectedOrder: OrderListView): void {
+    this.orders[this.orders.indexOf(selectedOrder)].state = option.name;//abd
+    console.log(this.orders);
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
     const id = obj.order.id;

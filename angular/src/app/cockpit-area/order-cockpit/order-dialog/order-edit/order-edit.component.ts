@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {BookingView, OrderView} from '../../../../shared/view-models/interfaces';
+import {BookingView, OrderListView, OrderView} from '../../../../shared/view-models/interfaces';
 import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
 import {TranslocoService} from '@ngneat/transloco';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -40,6 +40,7 @@ export class OrderEditComponent implements OnInit {
     private configService: ConfigService,
   ) {
     this.data = dialogData;
+    console.log(this.data);
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 
@@ -85,6 +86,15 @@ export class OrderEditComponent implements OnInit {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
+  }
+
+  decreaseAmount(element: any): void {
+    //element.orderLines[0][0].orderLine.amount--;
+    console.log(element.orderLine.amount);
+    //console.log(element.orderLines[0].orderLine.amount);
+    //this.waiterCockpitService.postBookingState(element.subscribe((data: any) => {
+      //this.applyFilters();
+    //});
   }
 
 }

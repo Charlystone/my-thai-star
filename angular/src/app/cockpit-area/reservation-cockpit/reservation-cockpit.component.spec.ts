@@ -41,6 +41,7 @@ const translocoServiceStub = {
     tableH: 'Table',
     creationDateH: 'Creation date',
     statusH: 'Status',//abd
+    editH: 'Edit'
   } as any),
 };
 
