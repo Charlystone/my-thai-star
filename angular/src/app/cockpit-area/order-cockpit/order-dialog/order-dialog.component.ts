@@ -113,11 +113,4 @@ export class OrderDialogComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  editButtonPressed(): void {
-    this.dialog.open(OrderEditComponent, {
-      width: '80%',
-      //data: this.orderCockpitComponent.currentOrderListView
-    });
-
-  }
 }
