@@ -36,11 +36,9 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 
   private List<OrderLineEntity> orderLines;
 
-
-//-------------------------------------------------------------------------------------------------------------------------------------------
   /**
    * 
-   * @return Status der Bestellung
+   * @return state of the order
    */
   @Override
   public String getState() {
@@ -49,13 +47,13 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   
   /**
   * 
-  * @param statusString
+  * @param statusString new state
   */  
   @Override
   public void setState(String statusString) {
     this.state = statusString;
   }
-//-------------------------------------------------------------------------------------------------------------------------------------------
+
   /**
    * @return booking
    */

@@ -232,8 +232,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     return true;
   }
 
-  //----------------------------------------------------------------------------------------------------------------------------------------------------------
-
   @Override
   public boolean setOrderStatus(Long orderId, OrderEto order) {
     
@@ -246,8 +244,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     
     return true;
   }
-
-  //----------------------------------------------------------------------------------------------------------------------------------------------------------
 
   @Override
   public OrderEto saveOrder(OrderCto order) {
