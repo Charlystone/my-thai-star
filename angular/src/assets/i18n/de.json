@@ -13,7 +13,9 @@
     "clearFilters": "Filter zurücksetzen",
     "applyFilters": "Filter anwenden",
     "removeComment": "Kommentar entfernen",
-    "addComment": "Kommentar hinzufügen"
+    "addComment": "Kommentar hinzufügen",
+    "createBill": "Rechnung erstellen",
+    "printBill": "Rechnung drucken"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",

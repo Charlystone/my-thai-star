@@ -144,7 +144,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       width: '80%',
       data: selection,
     });
-  
   } 
   
   updateState(option , selectedOrder: OrderListView):void {

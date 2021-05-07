@@ -13,7 +13,9 @@
     "clearFilters": "Clear Filters",
     "applyFilters": "Apply Filters",
     "removeComment": "Remove Comment",
-    "addComment": "Add comment"
+    "addComment": "Add comment",
+    "createBill": "Create bill",
+    "printBill": "Print bill"
   },
   "table": {
     "rowsPage": "Rows per page",

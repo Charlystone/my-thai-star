@@ -16,6 +16,8 @@ export class OrderDialogComponent implements OnInit {
   private currentPage = 1;
 
   pageSize = 4;
+  showBillCreationButton: boolean = false;
+  showBillPrintButton: boolean = false;
 
   data: any;
   datat: BookingView[] = [];
@@ -56,6 +58,13 @@ export class OrderDialogComponent implements OnInit {
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
     });
+
+    const state = this.data.order.state;
+    if (state == "orderDelivered") {
+      this.showBillCreationButton = true;
+    } else if (state == "orderPaid") {
+      this.showBillPrintButton = true;
+    }
 
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
@@ -107,5 +116,17 @@ export class OrderDialogComponent implements OnInit {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
+  }
+
+  createBill() {
+    const id = this.data.order.id;
+    this.waiterCockpitService.postBookingState("orderPaid", id).subscribe((data: any) => {
+      // TODO refresh order overview
+    });
+    // TODO create bill
+  }
+
+  printBill() {
+    // TODO print bill
   }
 }
