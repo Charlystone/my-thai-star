@@ -6,6 +6,7 @@ public interface Order extends ApplicationEntity {
   public String getState();
 
   public void setState(String statuString);
+  
   public Long getBookingId();
 
   public void setBookingId(Long bookingId);

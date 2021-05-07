@@ -25,9 +25,9 @@ import com.devonfw.application.mtsj.ordermanagement.common.api.Order;
 public class OrderEntity extends ApplicationPersistenceEntity implements Order {
 
   private static final long serialVersionUID = 1L;
-//-------------------------------------------------------------------------------------------------------------------------------------------
+
   private String state;
-//-------------------------------------------------------------------------------------------------------------------------------------------
+  
   private BookingEntity booking;
 
   private InvitedGuestEntity invitedGuest;
