@@ -3,6 +3,7 @@
     "cancel": "Abbrechen",
     "apply": "Bestätigen",
     "close": "Schließen",
+    "edit": "Bearbeiten",
     "send": "Senden",
     "login": "Anmelden",
     "register": "Registrieren",
@@ -225,7 +226,7 @@
       "orderDeliveredH": "Bestellung beim Gast",
       "orderPaidH": "Bezahlt",
       "canceledH": "Storniert"
-   
+
     }
   }
 }

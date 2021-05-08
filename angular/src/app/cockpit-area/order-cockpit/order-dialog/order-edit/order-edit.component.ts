@@ -88,12 +88,24 @@ export class OrderEditComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  decreaseAmount(element: any): void {
-    //element.orderLines[0][0].orderLine.amount--;
-    console.log(element.orderLine.amount);
-    //console.log(element.orderLines[0].orderLine.amount);
-    //this.waiterCockpitService.postBookingState(element.subscribe((data: any) => {
-      //this.applyFilters();
+  decreaseAmountAndUpdate(element: any): void {
+    element.orderLine.amount--;
+    // = element.dish.price * element.orderLine.amount;
+   //  this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
+   //   this.applyFilters();
+   // });
+  }
+
+  increaseAmountAndUpdate(element: any): void {
+    element.orderLine.amount++;
+    // this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
+    //   this.applyFilters();
+    // });
+  }
+
+  deleteDishAndUpdate(element: any): void {
+    //this.waiterCockpitService.postBookingState(element.orderline).subscribe((data: any) => {
+    //  this.applyFilters();
     //});
   }
 

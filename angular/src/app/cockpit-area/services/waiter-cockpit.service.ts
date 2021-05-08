@@ -16,6 +16,7 @@ import {
   OrderViewResult,
 } from '../../shared/view-models/interfaces';
 import { PriceCalculatorService } from '../../sidenav/services/price-calculator.service';
+import {OrderLine} from "../../../../../serverless (deprecated)/src/model/database";
 
 @Injectable()
 export class WaiterCockpitService {
@@ -92,11 +93,22 @@ export class WaiterCockpitService {
   postBookingState(orderState: string, orderId: number): Observable<OrderResponse[]> {
     const payload = {
       state : orderState
-    }
+    };
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdateStatus}` + orderId + `/`, payload),
       ),
     );
   }
+
+/*  postOrderLine(orderLine: OrderLine): Observable<OrderResponse[]> {
+    const payload = {
+      state : orderState
+    };
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdateStatus}` + orderId + `/`, payload),
+      ),
+    );
+  }*/
 }

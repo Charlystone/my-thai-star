@@ -44,7 +44,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'booking.email',
     'booking.bookingToken',
     'buttons.edit',
-    'booking.status', //abd
+    'booking.state', //abd
   ];
 
   pageSizes: number[];
@@ -82,7 +82,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
           { name: 'buttons.edit', label: cockpitTable.editH},
-          { name: 'booking.state', label: cockpitTable.statusH }, //abd
+          { name: 'booking.state', label: cockpitTable.stateH }, //abd
         ];
       });
       this.translocoSubscription = this.translocoService
