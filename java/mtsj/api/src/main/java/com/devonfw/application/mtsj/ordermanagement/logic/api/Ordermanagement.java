@@ -82,6 +82,17 @@ public interface Ordermanagement {
    */
   boolean setOrderStatus(Long orderId, OrderEto order);
 
+//--------------------------------------------------------------------------------------------------------------------------------------
+
+  /**
+   * 
+   * @param id ID of the {@link orderLineEto} that needs to be updated
+   * @param orderLine fields of the {@link OrderLineEto} that need to be updated 
+   */
+  public boolean updateOrder(Long oldOrderLineId, OrderLineCto newOrderLine);
+
+//--------------------------------------------------------------------------------------------------------------------------------------
+
   /**
    * Saves a order and store it in the database.
    *
