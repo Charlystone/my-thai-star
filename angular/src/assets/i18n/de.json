@@ -44,6 +44,9 @@
       "registerFail":
         "Registrierung fehlgeschlagen, Benutzername bereits in Verwendung",
       "logoutSuccess": "Abmeldung erfolgreich, komme bald wieder!"
+    },
+    "orderStateAlerts": {
+      "updateStateSuccess": "Statusänderung der Bestellung erfolgreich!"
     }
   },
   "formFields": {
@@ -216,17 +219,17 @@
       "emailH": "Email",
       "bookingTokenH": "Referenznummer",
       "ownerH": "Eigentümer",
-      "tableH": "Tisch",
+      "tableH": "Tisch Nr",
       "creationDateH": "Erstelldatum",
-      "stateH": "Status"
+      "orderStateH": "Bestellstatus",
+      "paymentStateH": "Bezahlstatus"
     },
     "states": {
-      "orderTakenH": "Bestellung aufgenommen",
-      "deliveringOrderH": "Bestellung wird ausgeliefert",
-      "orderDeliveredH": "Bestellung beim Gast",
-      "orderPaidH": "Bezahlt",
-      "canceledH": "Storniert"
-
+      "orderTakenH": "aufgenommen",
+      "deliveringOrderH": "wird ausgeliefert",
+      "orderDeliveredH": "beim Gast",
+      "orderCompletedH": "abgeschlossen",
+      "canceledH": "storniert"
     }
   }
 }

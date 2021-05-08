@@ -126,9 +126,7 @@ export class OrderDialogComponent implements OnInit {
 
   createBill() {
     const id = this.data.order.id;
-    this.waiterCockpitService.postBookingState("orderPaid", id).subscribe((data: any) => {
-      // TODO refresh order overview
-    });
+    // TODO set payment state in backend
     // TODO create bill
   }
 

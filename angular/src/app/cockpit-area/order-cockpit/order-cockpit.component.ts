@@ -15,6 +15,7 @@ import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
 import {OrderEditComponent} from "./order-dialog/order-edit/order-edit.component";
+import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -38,13 +39,15 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   columns: any[];
   states: any[];
+  stateUpdateSuccessAlert: string;
 
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.email',
-    'booking.bookingToken',
+    'booking.table',
     'buttons.edit',
-    'booking.state', //abd
+    'booking.paymentState',
+    'booking.orderState', //abd
   ];
 
   pageSizes: number[];
@@ -61,6 +64,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     private translocoService: TranslocoService,
     private waiterCockpitService: WaiterCockpitService,
     private configService: ConfigService,
+    private snackBarService: SnackBarService
   ) {
     this.pageSizes = this.configService.getValues().pageSizes;
   }
@@ -80,19 +84,26 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
+          { name: 'booking.table', label: cockpitTable.tableH },
           { name: 'buttons.edit', label: cockpitTable.editH},
-          { name: 'booking.state', label: cockpitTable.stateH }, //abd
+          { name: 'booking.paymentState', label: cockpitTable.paymentStateH },
+          { name: 'booking.orderState', label: cockpitTable.orderStateH }, //abd
         ];
       });
       this.translocoSubscription = this.translocoService
       .selectTranslateObject('cockpit.states', {}, lang)
-      .subscribe((cockpitTable) => {
+      .subscribe((cockpitStates) => {
         this.states = [
-          { name: 'orderTaken', label: cockpitTable.orderTakenH },
-          { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
-          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH } //abd
+          { name: 'orderTaken', label: cockpitStates.orderTakenH },
+          { name: 'deliveringOrder', label: cockpitStates.deliveringOrderH },
+          { name: 'orderDelivered', label: cockpitStates.orderDeliveredH }, //abd
+          { name: 'orderCompleted', label: cockpitStates.orderCompletedH }
         ];
+      });
+      this.translocoSubscription = this.translocoService
+      .selectTranslateObject('alerts.orderStateAlerts', {}, lang)
+      .subscribe((alertsOrderStateAlerts) => {
+        this.stateUpdateSuccessAlert = alertsOrderStateAlerts.updateStateSuccess;
       });
   }
 
@@ -105,7 +116,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (!(entry.order.state == "canceled" || entry.order.state == "orderPaid")) {
+            if (!(entry.order.state == "canceled" || entry.order.state == "orderCompleted")) {
               this.orders.push(entry);
             }
           }
@@ -154,14 +165,14 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateState(option , selectedOrder: OrderListView): void {
-    this.orders[this.orders.indexOf(selectedOrder)].state = option.name;//abd
-    console.log(this.orders);
+  updateState(option , selectedOrder: OrderListView):void {
+    this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
     const id = obj.order.id;
     this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
       this.applyFilters();
+      this.snackBarService.openSnack(this.stateUpdateSuccessAlert, 5000, "green");
     });
   }
 

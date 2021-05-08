@@ -2,7 +2,7 @@ INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, i
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (1, 'orderTaken', 1, 3, 0, null);
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (2, 'deliveringOrder', 1, 3, 1, null);
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (3, 'orderTaken', 1, 3, 2, null);
-INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (4, 'orderPaid', 1, 3, 3, null);
+INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (4, 'orderCompleted', 1, 3, 3, null);
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (5, 'canceled', 1, 3, 4, null);
 
 INSERT INTO Orders (id, state, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (6, 'orderTaken', 1, 4, 8, null);

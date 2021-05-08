@@ -44,6 +44,10 @@ th {
   font-weight: bold;
 }
 
+td.mat-cell {
+  min-width: 120px;
+}
+
 td:not(:nth-child(1)) {
   word-break: break-all;
 }

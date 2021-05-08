@@ -38,6 +38,10 @@
     width: 100%;
     min-width: 600px;
   }
+
+  td.mat-cell {
+    min-width: 120px;
+  }
   
   th {
     width: 33.33%;
