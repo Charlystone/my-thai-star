@@ -41,6 +41,9 @@
       "registerSuccess": "Register successful",
       "registerFail": "Register failed, username already in use",
       "logoutSuccess": "Log out successful, come back soon!"
+    },
+    "orderStateAlerts": {
+      "updateStateSuccess": "Order state update successful!"
     }
   },
   "formFields": {
@@ -210,15 +213,16 @@
       "emailH": "Email",
       "bookingTokenH": "Reference Number",
       "ownerH": "Owner",
-      "tableH": "Table",
+      "tableH": "Table Nr",
       "creationDateH": "Creation date",
-      "stateH": "State"
+      "orderStateH": "Order state",
+      "paymentStateH": "Payment state"
     },
     "states": {
-      "orderTakenH": "order taken",
-      "deliveringOrderH": "delivering order",
-      "orderDeliveredH": "order delivered",
-      "orderPaidH": "order paid",
+      "orderTakenH": "taken",
+      "deliveringOrderH": "delivering",
+      "orderDeliveredH": "delivered",
+      "orderCompletedH": "completed",
       "canceledH": "canceled"
    
     }

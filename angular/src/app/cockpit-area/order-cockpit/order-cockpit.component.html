@@ -53,15 +53,21 @@
           <td mat-cell *matCellDef="let element"> {{element.booking.email}} </td>
         </ng-container>
 
-        <!-- Ref No Column -->
-        <ng-container matColumnDef="booking.bookingToken">
+        <!-- Table Column -->
+        <ng-container matColumnDef="booking.table">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.booking.bookingToken}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.booking.tableId}} </td>
         </ng-container>
 
-        <!-- State Column -->
-        <ng-container matColumnDef="booking.state">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[3].label}} </th>
+        <!-- Payment State Column -->
+        <ng-container matColumnDef="booking.paymentState">
+          <th mat-header-cell *matHeaderCellDef> {{columns[3].label}} </th>
+          <td mat-cell *matCellDef="let element"> {{ element.order.paymentState }} </td>
+        </ng-container>
+
+        <!-- Order State Column -->
+        <ng-container matColumnDef="booking.orderState">
+          <th mat-header-cell *matHeaderCellDef> {{columns[4].label}} </th>
           <td mat-cell *matCellDef="let element"> 
             <mat-form-field (click)="$event.stopPropagation();"  appearance="fill">
               <mat-select [placeholder]="'cockpit.states.' + element.order.state + 'H' | transloco">

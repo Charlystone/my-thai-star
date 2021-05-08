@@ -41,8 +41,9 @@ export class OrderArchiveComponent implements OnInit {
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.email',
-    'booking.bookingToken',
-    'booking.state', //abd
+    'booking.table',
+    'booking.paymentState',
+    'booking.orderState', //abd
   ];
 
   pageSizes: number[];
@@ -78,8 +79,9 @@ export class OrderArchiveComponent implements OnInit {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
-          { name: 'booking.state', label: cockpitTable.stateH }, //abd
+          { name: 'booking.table', label: cockpitTable.tableH },
+          { name: 'booking.paymentState', label: cockpitTable.paymentStateH },
+          { name: 'booking.orderState', label: cockpitTable.orderStateH }, //abd
         ];
       });
       this.translocoSubscription = this.translocoService
@@ -89,7 +91,7 @@ export class OrderArchiveComponent implements OnInit {
           { name: 'orderTaken', label: cockpitTable.orderTakenH },
           { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
           { name: 'orderDelivered', label: cockpitTable.orderDeliveredH },
-          { name: 'orderPaid', label: cockpitTable.orderPaidH },
+          { name: 'orderCompleted', label: cockpitTable.orderCompletedH },
           { name: 'canceled', label: cockpitTable.canceledH } //abd
         ];
       });
@@ -104,7 +106,7 @@ export class OrderArchiveComponent implements OnInit {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (entry.order.state == "canceled" || entry.order.state == "orderPaid") {
+            if (entry.order.state == "canceled" || entry.order.state == "orderCompleted") {
               this.orders.push(entry);
             }
           }

@@ -14,6 +14,7 @@ import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
+import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -37,12 +38,14 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   columns: any[];
   states: any[];
+  stateUpdateSuccessAlert: string;
 
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.email',
-    'booking.bookingToken',
-    'booking.state', //abd
+    'booking.table',
+    'booking.paymentState',
+    'booking.orderState', //abd
   ];
 
   pageSizes: number[];
@@ -59,6 +62,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     private translocoService: TranslocoService,
     private waiterCockpitService: WaiterCockpitService,
     private configService: ConfigService,
+    private snackBarService: SnackBarService
   ) {
     this.pageSizes = this.configService.getValues().pageSizes;
   }
@@ -78,18 +82,25 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
           { name: 'booking.email', label: cockpitTable.emailH },
-          { name: 'booking.bookingToken', label: cockpitTable.bookingTokenH },
-          { name: 'booking.state', label: cockpitTable.stateH }, //abd
+          { name: 'booking.table', label: cockpitTable.tableH },
+          { name: 'booking.paymentState', label: cockpitTable.paymentStateH },
+          { name: 'booking.orderState', label: cockpitTable.orderStateH }, //abd
         ];
       });
       this.translocoSubscription = this.translocoService
       .selectTranslateObject('cockpit.states', {}, lang)
-      .subscribe((cockpitTable) => {
+      .subscribe((cockpitStates) => {
         this.states = [
-          { name: 'orderTaken', label: cockpitTable.orderTakenH },
-          { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
-          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH } //abd
+          { name: 'orderTaken', label: cockpitStates.orderTakenH },
+          { name: 'deliveringOrder', label: cockpitStates.deliveringOrderH },
+          { name: 'orderDelivered', label: cockpitStates.orderDeliveredH }, //abd
+          { name: 'orderCompleted', label: cockpitStates.orderCompletedH }
         ];
+      });
+      this.translocoSubscription = this.translocoService
+      .selectTranslateObject('alerts.orderStateAlerts', {}, lang)
+      .subscribe((alertsOrderStateAlerts) => {
+        this.stateUpdateSuccessAlert = alertsOrderStateAlerts.updateStateSuccess;
       });
   }
 
@@ -102,7 +113,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (!(entry.order.state == "canceled" || entry.order.state == "orderPaid")) {
+            if (!(entry.order.state == "canceled" || entry.order.state == "orderCompleted")) {
               this.orders.push(entry);
             }
           }
@@ -151,6 +162,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     const id = obj.order.id;
     this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
       this.applyFilters();
+      this.snackBarService.openSnack(this.stateUpdateSuccessAlert, 5000, "green");
     });
   }
 
