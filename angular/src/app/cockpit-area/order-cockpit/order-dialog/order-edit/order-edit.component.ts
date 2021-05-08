@@ -97,6 +97,8 @@ export class OrderEditComponent implements OnInit {
 
   decreaseAmountAndUpdate(element: any): void {
     element.orderLine.amount--;
+  
+    console.log(element.orderLine);
     // TODO send post request to BE
     // = element.dish.price * element.orderLine.amount;
    //  this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
@@ -107,10 +109,11 @@ export class OrderEditComponent implements OnInit {
 
   increaseAmountAndUpdate(element: any): void {
     element.orderLine.amount++;
+    
     // TODO send post request to BE
-    // this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
-    //   this.applyFilters();
-    // });
+      this.waiterCockpitService.postOrderLine(element.orderLine,element.orderLine.id).subscribe((data: any) => {
+    
+     });
     // TODO confirm by snackbar
   }
 

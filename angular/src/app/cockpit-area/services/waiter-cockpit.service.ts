@@ -28,6 +28,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
     private readonly orderUpdateStatus: string =
     'ordermanagement/v1/order/orderstatus/';
+    private readonly orderUpdate: string =
+    'ordermanagement/v1/order/updateorder/';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -101,14 +103,12 @@ export class WaiterCockpitService {
     );
   }
 
-/*  postOrderLine(orderLine: OrderLine): Observable<OrderResponse[]> {
-    const payload = {
-      state : orderState
-    };
+  postOrderLine(orderLine: any, orderId: number): Observable<OrderResponse[]> {
+   
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdateStatus}` + orderId + `/`, payload),
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdate}` + orderId + `/`, orderLine),
       ),
     );
-  }*/
+  }
 }
