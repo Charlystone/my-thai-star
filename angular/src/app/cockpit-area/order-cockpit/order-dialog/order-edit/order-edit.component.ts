@@ -88,25 +88,39 @@ export class OrderEditComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
+  cancelOrder() {
+    const id = this.data.order.id;
+    this.waiterCockpitService.postBookingState("canceled", id).subscribe((data: any) => {
+      // TODO refresh order overview
+    });
+  }
+
   decreaseAmountAndUpdate(element: any): void {
     element.orderLine.amount--;
+    // TODO send post request to BE
     // = element.dish.price * element.orderLine.amount;
    //  this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
    //   this.applyFilters();
    // });
+    // TODO confirm by snackbar
   }
 
   increaseAmountAndUpdate(element: any): void {
     element.orderLine.amount++;
+    // TODO send post request to BE
     // this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
     //   this.applyFilters();
     // });
+    // TODO confirm by snackbar
   }
 
   deleteDishAndUpdate(element: any): void {
+    // TODO send delete request to BE
     //this.waiterCockpitService.postBookingState(element.orderline).subscribe((data: any) => {
     //  this.applyFilters();
     //});
+    // TODO refresh order overview
+    // TODO confirm by snackbar
   }
 
 }
