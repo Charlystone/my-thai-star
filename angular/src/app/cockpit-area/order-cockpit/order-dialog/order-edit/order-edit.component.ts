@@ -5,7 +5,7 @@ import {TranslocoService} from '@ngneat/transloco';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ConfigService} from '../../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
-
+import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 @Component({
   selector: 'app-order-edit',
   templateUrl: './order-edit.component.html',
@@ -28,7 +28,7 @@ export class OrderEditComponent implements OnInit {
     'orderLine.amount',
     'dish.price',
   ];
-
+  updateSuccessAlert: string;
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
@@ -38,6 +38,7 @@ export class OrderEditComponent implements OnInit {
     private translocoService: TranslocoService,
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
+    private snackBarService: SnackBarService,
   ) {
     this.data = dialogData;
     console.log(this.data);
@@ -73,6 +74,12 @@ export class OrderEditComponent implements OnInit {
           },
         ];
       });
+      this.translocoService
+      .selectTranslateObject('alerts.orderUpdateAlerts', {}, lang)
+      .subscribe((alertsUpdateAlerts) => {
+        this.updateSuccessAlert = alertsUpdateAlerts.updateSuccess;
+      });
+      
   }
 
   page(pagingEvent: PageEvent): void {
@@ -92,6 +99,7 @@ export class OrderEditComponent implements OnInit {
     const id = this.data.order.id;
     this.waiterCockpitService.postBookingState("canceled", id).subscribe((data: any) => {
       // TODO refresh order overview
+      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
     });
   }
 
@@ -109,10 +117,9 @@ export class OrderEditComponent implements OnInit {
 
   increaseAmountAndUpdate(element: any): void {
     element.orderLine.amount++;
-    
     // TODO send post request to BE
       this.waiterCockpitService.postOrderLine(element.orderLine,element.orderLine.id).subscribe((data: any) => {
-    
+        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
      });
     // TODO confirm by snackbar
   }

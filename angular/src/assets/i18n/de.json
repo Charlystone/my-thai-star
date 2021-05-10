@@ -47,6 +47,9 @@
     },
     "orderStateAlerts": {
       "updateStateSuccess": "Statusänderung der Bestellung erfolgreich!"
+    },
+    "orderUpdateAlerts": {
+      "updateSuccess": "Änderung erfolgreich!"
     }
   },
   "formFields": {
