@@ -42,8 +42,9 @@
       "registerFail": "Register failed, username already in use",
       "logoutSuccess": "Log out successful, come back soon!"
     },
-    "orderStateAlerts": {
-      "updateStateSuccess": "Order state update successful!"
+    "waiterCockpitAlerts": {
+      "updateOrderStateSuccess": "Order state update successful!",
+      "updatePaymentStateSuccess": "Payment state update successful!"
     }
   },
   "formFields": {
@@ -219,15 +220,15 @@
       "paymentStateH": "Payment state"
     },
     "orderStates": {
-      "orderTakenH": "taken",
-      "orderDeliveredH": "delivered",
-      "orderCompletedH": "completed",
-      "canceledH": "canceled"
+      "orderTakenH": "Taken",
+      "orderDeliveredH": "Delivered",
+      "orderCompletedH": "Completed",
+      "canceledH": "Canceled"
     },
     "paymentStates": {
-      "pendingH": "pending",
-      "paidH": "paid",
-      "canceledH": "canceled"
+      "pendingH": "Pay bill",
+      "paidH": "Paid",
+      "canceledH": "Canceled"
     }
   }
 }

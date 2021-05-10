@@ -83,6 +83,14 @@ public interface Ordermanagement {
   boolean setOrderState(Long orderId, OrderEto order);
 
   /**
+   * 
+   * @param orderId Id of order thats status is to be set
+   * @param order order data
+   * @return boolean <code>true</code> if the order can be deleted, else <code>false</code> 
+   */
+  boolean setPaymentState(Long orderId, OrderEto order);
+
+  /**
    * Saves a order and store it in the database.
    *
    * @param order the {@link OrderEto} to create.

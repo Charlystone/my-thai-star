@@ -38,7 +38,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   columns: any[];
   states: any[];
-  stateUpdateSuccessAlert: string;
+  orderStateUpdateSuccessAlert: string;
+  paymentStateUpdateSuccessAlert: string;
 
   displayedColumns: string[] = [
     'booking.bookingDate',
@@ -97,9 +98,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         ];
       });
       this.translocoSubscription = this.translocoService
-      .selectTranslateObject('alerts.orderStateAlerts', {}, lang)
-      .subscribe((alertsOrderStateAlerts) => {
-        this.stateUpdateSuccessAlert = alertsOrderStateAlerts.updateStateSuccess;
+      .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
+      .subscribe((alertsWaiterCockpitAlerts) => {
+        this.orderStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderStateSuccess;
+        this.paymentStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updatePaymentStateSuccess;
       });
   }
 
@@ -154,14 +156,25 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   } 
   
-  updateState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].orderState= option.name;//abd
+  updateOrderState(option , selectedOrder: OrderListView):void {
+    this.orders[this.orders.indexOf(selectedOrder)].orderState = option.name;//abd
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
     const id = obj.order.id;
     this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
       this.applyFilters();
-      this.snackBarService.openSnack(this.stateUpdateSuccessAlert, 5000, "green");
+      this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
+    });
+  }
+
+  payBill(selectedOrder: OrderListView):void {
+    this.orders[this.orders.indexOf(selectedOrder)].paymentState = 'paid';
+    const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
+    const obj = JSON.parse(str);
+    const id = obj.order.id;
+    this.waiterCockpitService.updatePaymentState(this.orders[this.orders.indexOf(selectedOrder)].paymentState, id).subscribe((data: any) => {
+      this.applyFilters();
+      this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
     });
   }
 

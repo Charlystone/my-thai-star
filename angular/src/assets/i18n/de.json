@@ -44,8 +44,9 @@
         "Registrierung fehlgeschlagen, Benutzername bereits in Verwendung",
       "logoutSuccess": "Abmeldung erfolgreich, komme bald wieder!"
     },
-    "orderStateAlerts": {
-      "updateStateSuccess": "Statusänderung der Bestellung erfolgreich!"
+    "waiterCockpitAlerts": {
+      "updateOrderStateSuccess": "Bestellstatus erfolreich geändert!",
+      "updatePaymentStateSuccess": "Bezahlstatus erfolreich geändert!"
     }
   },
   "formFields": {
@@ -224,15 +225,15 @@
       "paymentStateH": "Bezahlstatus"
     },
     "orderStates": {
-      "orderTakenH": "aufgenommen",
-      "orderDeliveredH": "beim Gast",
-      "orderCompletedH": "abgeschlossen",
-      "canceledH": "storniert"
+      "orderTakenH": "Aufgenommen",
+      "orderDeliveredH": "Beim Gast",
+      "orderCompletedH": "Abgeschlossen",
+      "canceledH": "Storniert"
     },
     "paymentStates": {
-      "pendingH": "ausstehend",
-      "paidH": "bezahlt",
-      "canceledH": "storniert"
+      "pendingH": "Bezahlen",
+      "paidH": "Bezahlt",
+      "canceledH": "Storniert"
     }
   }
 }

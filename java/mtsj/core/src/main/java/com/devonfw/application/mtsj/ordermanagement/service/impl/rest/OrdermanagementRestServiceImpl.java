@@ -91,4 +91,10 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
     return this.ordermanagement.findOrderedDishes(searchCriteriaTo);
   }
 
+  @Override
+  public void setPaymentState(long id, OrderEto order) {
+
+    this.ordermanagement.setPaymentState(id, order);
+  }
+
 }
