@@ -69,7 +69,7 @@ public interface OrdermanagementRestService {
    */
   @POST
   @Path("/order/orderstatus/{id}/")
-  public void setOrderStatus(@PathParam("id") long id, OrderEto order);
+  public void setOrderState(@PathParam("id") long id, OrderEto order);
 
   /**
    * Delegates to {@link Ordermanagement#findOrderCtos}.

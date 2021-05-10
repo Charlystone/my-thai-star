@@ -220,7 +220,6 @@
     },
     "states": {
       "orderTakenH": "taken",
-      "deliveringOrderH": "delivering",
       "orderDeliveredH": "delivered",
       "orderCompletedH": "completed",
       "canceledH": "canceled"

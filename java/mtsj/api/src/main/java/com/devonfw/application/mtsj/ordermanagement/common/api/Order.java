@@ -3,9 +3,13 @@ package com.devonfw.application.mtsj.ordermanagement.common.api;
 import com.devonfw.application.mtsj.general.common.api.ApplicationEntity;
 
 public interface Order extends ApplicationEntity {
-  public String getState();
+  public String getOrderState();
 
-  public void setState(String statuString);
+  public void setOrderState(String newOrderState);
+
+  public String getPaymentState();
+
+  public void setPaymentState(String newPaymentState);
   
   public Long getBookingId();
 
