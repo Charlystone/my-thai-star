@@ -225,7 +225,6 @@
     },
     "states": {
       "orderTakenH": "aufgenommen",
-      "deliveringOrderH": "wird ausgeliefert",
       "orderDeliveredH": "beim Gast",
       "orderCompletedH": "abgeschlossen",
       "canceledH": "storniert"

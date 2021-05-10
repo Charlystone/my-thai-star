@@ -84,17 +84,6 @@ export class OrderArchiveComponent implements OnInit {
           { name: 'booking.orderState', label: cockpitTable.orderStateH }, //abd
         ];
       });
-      this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.states', {}, lang)
-      .subscribe((cockpitTable) => {
-        this.states = [
-          { name: 'orderTaken', label: cockpitTable.orderTakenH },
-          { name: 'deliveringOrder', label: cockpitTable.deliveringOrderH },
-          { name: 'orderDelivered', label: cockpitTable.orderDeliveredH },
-          { name: 'orderCompleted', label: cockpitTable.orderCompletedH },
-          { name: 'canceled', label: cockpitTable.canceledH } //abd
-        ];
-      });
   }
 
   applyFilters(): void {

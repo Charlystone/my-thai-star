@@ -92,7 +92,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitStates) => {
         this.states = [
           { name: 'orderTaken', label: cockpitStates.orderTakenH },
-          { name: 'deliveringOrder', label: cockpitStates.deliveringOrderH },
           { name: 'orderDelivered', label: cockpitStates.orderDeliveredH }, //abd
           { name: 'orderCompleted', label: cockpitStates.orderCompletedH }
         ];
