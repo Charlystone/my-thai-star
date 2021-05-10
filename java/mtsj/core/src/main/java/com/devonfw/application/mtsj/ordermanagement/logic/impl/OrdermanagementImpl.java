@@ -241,48 +241,12 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       return false;
     }
     oldOrder.setOrderState(order.getOrderState());
+    if(order.getPaymentState() != null) {
+      oldOrder.setPaymentState(order.getPaymentState());
+    }
     
     return true;
   }
-
-//--------------------------------------------------------------------------------------------------------------------------------------
-
-  @Override
-  public boolean updateOrder(Long oldOrderLineId, OrderLineCto newOrderLine) {
-
-    Objects.requireNonNull(newOrderLine, "newOrderLine");
-
-    //first: create list of ingredient entities by parsing and mapping ingredient ETOs
-    List<IngredientEto> ingredientEtos = newOrderLine.getExtras();
-    List<IngredientEntity> ingredientEntities = new ArrayList<>();
-    for (IngredientEto ingredientEto : ingredientEtos) {
-      IngredientEntity ingredientEntity = getBeanMapper().map(ingredientEto, IngredientEntity.class);
-      ingredientEntity.setDescription(ingredientEto.getDescription());
-      ingredientEntity.setName(ingredientEto.getName());
-      ingredientEntity.setPrice(ingredientEto.getPrice());
-      ingredientEntities.add(ingredientEntity);
-    }
-    //mapping data
-    OrderLineEntity newOrderLineEntity = getBeanMapper().map(newOrderLine, OrderLineEntity.class);
-    newOrderLineEntity.setExtras(ingredientEntities); //test:newOrderLineEntity.setExtras(getBeanMapper().mapList(newOrderLine.getExtras(), IngredientEntity.class));
-    newOrderLineEntity.setDishId(newOrderLine.getOrderLine().getDishId());
-    newOrderLineEntity.setAmount(newOrderLine.getOrderLine().getAmount());
-    newOrderLineEntity.setComment(newOrderLine.getOrderLine().getComment());
-
-    OrderLineEntity resultOrderLineEntity = getOrderLineDao().save(newOrderLineEntity);
-
-    //do I need this?????
-    newOrderLineEntity.setOrderId(resultOrderLineEntity.getId());
-
-    //get the order oldOrderLineId belongs to and add newOrderLine
-    getOrderLineDao().find(oldOrderLineId).getOrder().getOrderLines().add(resultOrderLineEntity); //→ problem: getOrderLines() returns List<OrderLineEntity> and I cannot get the entity
-    //delete oldOrderLineId
-    getOrderLineDao().find(oldOrderLineId).getOrder().getOrderLines().remove(getOrderLineDao().find(oldOrderLineId));
-
-    return true;
-  }
-
-//--------------------------------------------------------------------------------------------------------------------------------------
 
   @Override
   public OrderEto saveOrder(OrderCto order) {

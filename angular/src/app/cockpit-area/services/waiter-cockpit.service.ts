@@ -32,6 +32,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/updateorder/';
   private readonly orderPaymentState: string =
     'ordermanagement/v1/order/paymentstate/';
+  private readonly orderLine: string =
+    'ordermanagement/v1/orderline/';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -94,9 +96,17 @@ export class WaiterCockpitService {
     return this.priceCalculator.getTotalPrice(orderLines);
   }
 
-  postBookingState(orderState: string, orderId: number): Observable<OrderResponse[]> {
-    const payload = {
-      orderState : orderState
+  updateOrderState(orderState: string, orderId: number): Observable<OrderResponse[]> {
+    let payload;
+    if(orderState == 'canceled') {
+      payload = {
+        orderState : orderState,
+        paymentState: 'canceled'
+      }
+    } else {
+      payload = {
+        orderState : orderState
+      }
     }
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
@@ -116,11 +126,19 @@ export class WaiterCockpitService {
     );
   }
 
-  postOrderLine(orderLine: any, orderId: number): Observable<OrderResponse[]> {
-
+  updateOrderLine(orderLine: any, orderLineId: number): Observable<OrderResponse[]> {
+    console.log(orderLine)
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdate}` + orderId + `/`, orderLine),
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderLine}`, orderLine),
+      ),
+    );
+  }
+
+  deleteOrderLine(orderLineId: number): Observable<OrderResponse[]>  {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.orderLine}` + orderLineId + `/`),
       ),
     );
   }

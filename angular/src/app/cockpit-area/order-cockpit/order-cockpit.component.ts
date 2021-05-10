@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
@@ -158,7 +158,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,
-    });
+    })
   }
 
   selectedEdit(selection: OrderListView): void {
@@ -177,7 +177,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
       const obj = JSON.parse(str);
       const id = obj.order.id;
-      this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
+      this.waiterCockpitService.updateOrderState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
         this.applyFilters();
         this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
       });

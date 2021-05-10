@@ -81,17 +81,6 @@ public interface OrdermanagementRestService {
   public void setPaymentState(@PathParam("id") long id, OrderEto order);
 
   /**
-   *
-   * @param id ID of the {@link OrderLineEto} thats details need to be updated
-   * @param orderLine fields of the {@link OrderLineEto} that need to be updated
-   */
-  @POST
-  @Path("/order/updateorder/{id}/")
-  public void updateOrder(@PathParam("id") long id, OrderLineCto orderLine);
-
-//--------------------------------------------------------------------------------------------------------------------------------------------------
-
-  /**
    * Delegates to {@link Ordermanagement#findOrderCtos}.
    *
    * @param searchCriteriaTo the pagination and search criteria to be used for finding orders.

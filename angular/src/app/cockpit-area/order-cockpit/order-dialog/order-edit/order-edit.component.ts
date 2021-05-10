@@ -6,6 +6,8 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ConfigService} from '../../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-order-edit',
   templateUrl: './order-edit.component.html',
@@ -39,9 +41,9 @@ export class OrderEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
+    private router: Router,
   ) {
     this.data = dialogData;
-    console.log(this.data);
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 
@@ -75,9 +77,9 @@ export class OrderEditComponent implements OnInit {
         ];
       });
       this.translocoService
-      .selectTranslateObject('alerts.orderUpdateAlerts', {}, lang)
-      .subscribe((alertsUpdateAlerts) => {
-        this.updateSuccessAlert = alertsUpdateAlerts.updateSuccess;
+      .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
+      .subscribe((alertsWaiterCockpitAlerts) => {
+        this.updateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderLineSuccess;
       });
       
   }
@@ -97,40 +99,42 @@ export class OrderEditComponent implements OnInit {
 
   cancelOrder() {
     const id = this.data.order.id;
-    this.waiterCockpitService.postBookingState("canceled", id).subscribe((data: any) => {
+    this.waiterCockpitService.updateOrderState("canceled", id).subscribe((data: any) => {
       // TODO refresh order overview
       this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
+      this.reload();
     });
   }
 
-  decreaseAmountAndUpdate(element: any): void {
+  decreaceOrderLineAmount(element: any): void {
     element.orderLine.amount--;
-  
-    console.log(element.orderLine);
-    // TODO send post request to BE
-    // = element.dish.price * element.orderLine.amount;
-   //  this.waiterCockpitService.postOrderLine(element.orderLine).subscribe((data: any) => {
-   //   this.applyFilters();
-   // });
-    // TODO confirm by snackbar
+    this.waiterCockpitService.updateOrderLine(element.orderLine, element.orderLine.id).subscribe((data: any) => {
+      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
+      this.reload();
+    });
   }
 
-  increaseAmountAndUpdate(element: any): void {
+  increaseOrderLineAmount(element: any): void {
     element.orderLine.amount++;
-    // TODO send post request to BE
-      this.waiterCockpitService.postOrderLine(element.orderLine,element.orderLine.id).subscribe((data: any) => {
-        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-     });
-    // TODO confirm by snackbar
+    this.waiterCockpitService.updateOrderLine(element.orderLine, element.orderLine.id).subscribe((data: any) => {
+      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
+      this.reload();
+    });
   }
 
-  deleteDishAndUpdate(element: any): void {
-    // TODO send delete request to BE
-    //this.waiterCockpitService.postBookingState(element.orderline).subscribe((data: any) => {
-    //  this.applyFilters();
-    //});
-    // TODO refresh order overview
-    // TODO confirm by snackbar
+  deleteOrderLine(element: any): void {
+    for (let orderLine of this.data.orderLines) {
+      if (orderLine.orderLine.id == element.orderLine.id) {
+        this.data.orderLines.splice(this.data.orderLines.indexOf(orderLine), 1);
+      }
+    }
+    this.waiterCockpitService.deleteOrderLine(element.orderLine.id).subscribe((data: any) => {
+      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
+      this.reload();
+    });
   }
 
+  reload() {
+    this.router.navigateByUrl("/archive");
+  }
 }

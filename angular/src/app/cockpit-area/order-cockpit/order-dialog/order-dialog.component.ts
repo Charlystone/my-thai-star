@@ -119,14 +119,4 @@ export class OrderDialogComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  createBill() {
-    const id = this.data.order.id;
-    // TODO set payment state in backend
-    // TODO create bill
-  }
-
-  printBill() {
-    // TODO print bill
-  }
-
 }

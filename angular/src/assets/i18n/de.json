@@ -48,7 +48,8 @@
     "waiterCockpitAlerts": {
       "updateOrderStateSuccess": "Bestellstatus erfolreich geändert!",
       "updateOrderStateFail": "Bestellstatus konnte nicht geändert werden!",
-      "updatePaymentStateSuccess": "Bezahlstatus erfolreich geändert!"
+      "updatePaymentStateSuccess": "Bezahlstatus erfolreich geändert!",
+      "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!"
     }
   },
   "formFields": {

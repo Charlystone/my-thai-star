@@ -51,19 +51,8 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
 
   @Override
   public void setOrderState(long id, OrderEto order) {
-    
     this.ordermanagement.setOrderState(id, order);
   }
-
-//--------------------------------------------------------------------------------------------------------------------------------------
-
-  @Override
-  public void updateOrder(long id, OrderLineCto orderLine) {
-
-    this.ordermanagement.updateOrder(id, orderLine);
-  }
-
-//--------------------------------------------------------------------------------------------------------------------------------------
 
   @Override
   public Page<OrderCto> findOrdersByPost(OrderSearchCriteriaTo searchCriteriaTo) {
