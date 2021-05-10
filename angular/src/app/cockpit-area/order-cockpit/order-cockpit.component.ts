@@ -39,6 +39,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   columns: any[];
   states: any[];
   orderStateUpdateSuccessAlert: string;
+  orderStateUpdateFailAlert: string;
   paymentStateUpdateSuccessAlert: string;
 
   displayedColumns: string[] = [
@@ -102,6 +103,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((alertsWaiterCockpitAlerts) => {
         this.orderStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderStateSuccess;
         this.paymentStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updatePaymentStateSuccess;
+        this.orderStateUpdateFailAlert = alertsWaiterCockpitAlerts.updatePaymentStateFail;
       });
   }
 
@@ -157,14 +159,19 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   } 
   
   updateOrderState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].orderState = option.name;//abd
-    const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
-    const obj = JSON.parse(str);
-    const id = obj.order.id;
-    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
-      this.applyFilters();
-      this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
-    });
+    // TODO not working
+    if(option.name == 'orderCompleted' && selectedOrder.paymentState == 'pending') {
+      this.snackBarService.openSnack(this.orderStateUpdateFailAlert, 5000, "red");
+    } else {
+      this.orders[this.orders.indexOf(selectedOrder)].orderState = option.name;//abd
+      const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
+      const obj = JSON.parse(str);
+      const id = obj.order.id;
+      this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
+        this.applyFilters();
+        this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
+      });
+    }
   }
 
   payBill(selectedOrder: OrderListView):void {
