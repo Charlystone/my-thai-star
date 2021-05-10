@@ -546,4 +546,17 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     }
   }
 
+  @Override
+  public boolean setPaymentState(Long orderId, OrderEto order) {
+    
+    OrderEntity oldOrder = getOrderDao().find(orderId);
+
+    if (order == null) {
+      return false;
+    }
+    oldOrder.setPaymentState(order.getPaymentState());
+    
+    return true;
+  }
+
 }

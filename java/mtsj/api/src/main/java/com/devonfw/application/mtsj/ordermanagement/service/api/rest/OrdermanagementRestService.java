@@ -72,6 +72,15 @@ public interface OrdermanagementRestService {
   public void setOrderState(@PathParam("id") long id, OrderEto order);
 
   /**
+   * 
+   * @param id ID of the {@link OrderEto} thats status needs to be changed
+   * @param order fields of the {@link OrderEto} that need to be changed
+   */
+  @POST
+  @Path("/order/paymentstate/{id}/")
+  public void setPaymentState(@PathParam("id") long id, OrderEto order);
+
+  /**
    * Delegates to {@link Ordermanagement#findOrderCtos}.
    *
    * @param searchCriteriaTo the pagination and search criteria to be used for finding orders.

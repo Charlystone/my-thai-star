@@ -25,8 +25,10 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly filterOrdersRestPath: string =
     'ordermanagement/v1/order/search';
-    private readonly orderUpdateStatus: string =
+  private readonly orderUpdateState: string =
     'ordermanagement/v1/order/orderstatus/';
+  private readonly orderPaymentState: string =
+    'ordermanagement/v1/order/paymentstate/';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -95,7 +97,18 @@ export class WaiterCockpitService {
     }
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdateStatus}` + orderId + `/`, payload),
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderUpdateState}` + orderId + `/`, payload),
+      ),
+    );
+  }
+
+  updatePaymentState(paymentState: string, orderId: number): Observable<OrderResponse[]> {
+    const payload = {
+      paymentState : paymentState
+    }
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderPaymentState}` + orderId + `/`, payload),
       ),
     );
   }
