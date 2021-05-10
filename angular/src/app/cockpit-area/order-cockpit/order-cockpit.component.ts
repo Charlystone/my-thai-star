@@ -112,7 +112,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (!(entry.order.state == "canceled" || entry.order.state == "orderCompleted")) {
+            if (!(entry.order.orderState == "canceled" || entry.order.orderState == "orderCompleted")) {
               this.orders.push(entry);
             }
           }
@@ -155,11 +155,11 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   } 
   
   updateState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
+    this.orders[this.orders.indexOf(selectedOrder)].orderState= option.name;//abd
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
     const id = obj.order.id;
-    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
+    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
       this.applyFilters();
       this.snackBarService.openSnack(this.stateUpdateSuccessAlert, 5000, "green");
     });

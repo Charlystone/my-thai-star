@@ -10,7 +10,9 @@ public class OrderEto extends AbstractEto implements Order {
 
   private static final long serialVersionUID = 1L;
 
-  private String state;
+  private String orderState;
+
+  private String paymentState;
   
   private Long bookingId;
 
@@ -20,13 +22,23 @@ public class OrderEto extends AbstractEto implements Order {
 
 
   @Override
-  public void setState(String statusString) {
-    this.state = statusString;
+  public void setOrderState(String newOrderState) {
+    this.orderState = newOrderState;
   }
 
   @Override
-  public String getState() {
-    return this.state;
+  public String getOrderState() {
+    return this.orderState;
+  }
+
+  @Override
+  public void setPaymentState(String newPaymentState) {
+    this.paymentState = newPaymentState;
+  }
+
+  @Override
+  public String getPaymentState() {
+    return this.paymentState;
   }
 
   /**

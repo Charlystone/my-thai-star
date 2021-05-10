@@ -36,7 +36,6 @@ export class OrderArchiveComponent implements OnInit {
   totalOrders: number;
 
   columns: any[];
-  states: any[];
 
   displayedColumns: string[] = [
     'booking.bookingDate',
@@ -95,7 +94,7 @@ export class OrderArchiveComponent implements OnInit {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (entry.order.state == "canceled" || entry.order.state == "orderCompleted") {
+            if (entry.order.orderState == "canceled" || entry.order.orderState == "orderCompleted") {
               this.orders.push(entry);
             }
           }

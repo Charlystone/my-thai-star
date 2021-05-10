@@ -233,14 +233,14 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
-  public boolean setOrderStatus(Long orderId, OrderEto order) {
+  public boolean setOrderState(Long orderId, OrderEto order) {
     
     OrderEntity oldOrder = getOrderDao().find(orderId);
 
     if (order == null) {
       return false;
     }
-    oldOrder.setState(order.getState());
+    oldOrder.setOrderState(order.getOrderState());
     
     return true;
   }
