@@ -223,10 +223,15 @@
       "orderStateH": "Bestellstatus",
       "paymentStateH": "Bezahlstatus"
     },
-    "states": {
+    "orderStates": {
       "orderTakenH": "aufgenommen",
       "orderDeliveredH": "beim Gast",
       "orderCompletedH": "abgeschlossen",
+      "canceledH": "storniert"
+    },
+    "paymentStates": {
+      "pendingH": "ausstehend",
+      "paidH": "bezahlt",
       "canceledH": "storniert"
     }
   }

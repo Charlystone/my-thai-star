@@ -218,12 +218,16 @@
       "orderStateH": "Order state",
       "paymentStateH": "Payment state"
     },
-    "states": {
+    "orderStates": {
       "orderTakenH": "taken",
       "orderDeliveredH": "delivered",
       "orderCompletedH": "completed",
       "canceledH": "canceled"
-   
+    },
+    "paymentStates": {
+      "pendingH": "pending",
+      "paidH": "paid",
+      "canceledH": "canceled"
     }
   }
 }
