@@ -72,7 +72,7 @@ CREATE TABLE InvitedGuest (
   CONSTRAINT FK_InvitedGuest_idBooking FOREIGN KEY(idBooking) REFERENCES Booking(id) NOCHECK
 );
 
--- *** Orders ***
+-- *** OrderDish ***
 CREATE TABLE Orders (
   id BIGINT NOT NULL AUTO_INCREMENT,
   orderState VARCHAR(255) NOT NULL,
