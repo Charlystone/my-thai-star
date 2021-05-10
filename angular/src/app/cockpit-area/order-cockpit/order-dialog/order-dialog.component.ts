@@ -60,17 +60,6 @@ export class OrderDialogComponent implements OnInit {
       this.setTableHeaders(event);
     });
 
-    const state = this.data.order.state;
-    if (state == "orderDelivered") {
-      this.showBillCreationButton = true;
-    }
-    if (state == "orderPaid") {
-      this.showBillPrintButton = true;
-    }
-    if (state == "orderTaken") {
-      this.showCancelButton = true;
-    }
-
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
@@ -121,22 +110,5 @@ export class OrderDialogComponent implements OnInit {
     let newData: any[] = this.datao;
     newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
     setTimeout(() => (this.filteredData = newData));
-  }
-
-  createBill() {
-    const id = this.data.order.id;
-    // TODO set payment state in backend
-    // TODO create bill
-  }
-
-  printBill() {
-    // TODO print bill
-  }
-
-  cancelOrder() {
-    const id = this.data.order.id;
-    this.waiterCockpitService.postBookingState("canceled", id).subscribe((data: any) => {
-      // TODO refresh order overview
-    });
   }
 }

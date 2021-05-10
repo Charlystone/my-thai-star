@@ -88,7 +88,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         ];
       });
       this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.states', {}, lang)
+      .selectTranslateObject('cockpit.orderStates', {}, lang)
       .subscribe((cockpitStates) => {
         this.states = [
           { name: 'orderTaken', label: cockpitStates.orderTakenH },
