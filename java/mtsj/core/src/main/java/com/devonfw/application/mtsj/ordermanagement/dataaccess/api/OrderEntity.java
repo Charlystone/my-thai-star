@@ -71,7 +71,7 @@ public class OrderEntity extends ApplicationPersistenceEntity implements Order {
   */  
   @Override
   public void setPaymentState(String newPaymentState) {
-    this.orderState = newPaymentState;
+    this.paymentState = newPaymentState;
   }
 
   /**

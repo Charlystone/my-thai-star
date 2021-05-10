@@ -91,7 +91,7 @@ export class WaiterCockpitService {
 
   postBookingState(orderState: string, orderId: number): Observable<OrderResponse[]> {
     const payload = {
-      state : orderState
+      orderState : orderState
     }
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
