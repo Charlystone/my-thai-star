@@ -39,7 +39,9 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   columns: any[];
   states: any[];
-  stateUpdateSuccessAlert: string;
+  orderStateUpdateSuccessAlert: string;
+  orderStateUpdateFailAlert: string;
+  paymentStateUpdateSuccessAlert: string;
 
   displayedColumns: string[] = [
     'booking.bookingDate',
@@ -91,19 +93,20 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         ];
       });
       this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.states', {}, lang)
+      .selectTranslateObject('cockpit.orderStates', {}, lang)
       .subscribe((cockpitStates) => {
         this.states = [
           { name: 'orderTaken', label: cockpitStates.orderTakenH },
-          { name: 'deliveringOrder', label: cockpitStates.deliveringOrderH },
           { name: 'orderDelivered', label: cockpitStates.orderDeliveredH }, //abd
           { name: 'orderCompleted', label: cockpitStates.orderCompletedH }
         ];
       });
       this.translocoSubscription = this.translocoService
-      .selectTranslateObject('alerts.orderStateAlerts', {}, lang)
-      .subscribe((alertsOrderStateAlerts) => {
-        this.stateUpdateSuccessAlert = alertsOrderStateAlerts.updateStateSuccess;
+      .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
+      .subscribe((alertsWaiterCockpitAlerts) => {
+        this.orderStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderStateSuccess;
+        this.paymentStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updatePaymentStateSuccess;
+        this.orderStateUpdateFailAlert = alertsWaiterCockpitAlerts.updatePaymentStateFail;
       });
   }
 
@@ -116,7 +119,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         } else {
           this.orders = [];
           for (let entry of data.content) {
-            if (!(entry.order.state == "canceled" || entry.order.state == "orderCompleted")) {
+            if (!(entry.order.orderState == "canceled" || entry.order.orderState == "orderCompleted")) {
               this.orders.push(entry);
             }
           }
@@ -165,14 +168,30 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateState(option , selectedOrder: OrderListView):void {
-    this.orders[this.orders.indexOf(selectedOrder)].state= option.name;//abd
+  updateOrderState(option , selectedOrder: OrderListView):void {
+    // TODO not working
+    if(option.name == 'orderCompleted' && selectedOrder.paymentState == 'pending') {
+      this.snackBarService.openSnack(this.orderStateUpdateFailAlert, 5000, "red");
+    } else {
+      this.orders[this.orders.indexOf(selectedOrder)].orderState = option.name;//abd
+      const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
+      const obj = JSON.parse(str);
+      const id = obj.order.id;
+      this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
+        this.applyFilters();
+        this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
+      });
+    }
+  }
+
+  payBill(selectedOrder: OrderListView):void {
+    this.orders[this.orders.indexOf(selectedOrder)].paymentState = 'paid';
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
     const id = obj.order.id;
-    this.waiterCockpitService.postBookingState(this.orders[this.orders.indexOf(selectedOrder)].state, id).subscribe((data: any) => {
+    this.waiterCockpitService.updatePaymentState(this.orders[this.orders.indexOf(selectedOrder)].paymentState, id).subscribe((data: any) => {
       this.applyFilters();
-      this.snackBarService.openSnack(this.stateUpdateSuccessAlert, 5000, "green");
+      this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
     });
   }
 

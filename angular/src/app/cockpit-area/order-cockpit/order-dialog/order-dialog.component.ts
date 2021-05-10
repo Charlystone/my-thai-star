@@ -51,7 +51,6 @@ export class OrderDialogComponent implements OnInit {
     private configService: ConfigService,
   ) {
     this.data = dialogData;
-    console.log(this.data);
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 

@@ -69,14 +69,21 @@ public interface OrdermanagementRestService {
    */
   @POST
   @Path("/order/orderstatus/{id}/")
-  public void setOrderStatus(@PathParam("id") long id, OrderEto order);
-  
-//--------------------------------------------------------------------------------------------------------------------------------------------------
+  public void setOrderState(@PathParam("id") long id, OrderEto order);
 
   /**
-   * 
+   *
+   * @param id ID of the {@link OrderEto} thats status needs to be changed
+   * @param order fields of the {@link OrderEto} that need to be changed
+   */
+  @POST
+  @Path("/order/paymentstate/{id}/")
+  public void setPaymentState(@PathParam("id") long id, OrderEto order);
+
+  /**
+   *
    * @param id ID of the {@link OrderLineEto} thats details need to be updated
-   * @param orderLine fields of the {@link OrderLineEto} that need to be updated 
+   * @param orderLine fields of the {@link OrderLineEto} that need to be updated
    */
   @POST
   @Path("/order/updateorder/{id}/")

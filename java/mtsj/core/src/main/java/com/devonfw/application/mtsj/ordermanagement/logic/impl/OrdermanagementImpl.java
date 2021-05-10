@@ -233,12 +233,14 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
-  public boolean setOrderStatus(Long orderId, OrderEto order) {
-    
-    Objects.requireNonNull(order, "order");
+  public boolean setOrderState(Long orderId, OrderEto order) {
     
     OrderEntity oldOrder = getOrderDao().find(orderId);
-    oldOrder.setState(order.getState());
+
+    if (order == null) {
+      return false;
+    }
+    oldOrder.setOrderState(order.getOrderState());
     
     return true;
   }
@@ -261,7 +263,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       ingredientEntities.add(ingredientEntity);
     }
     //mapping data
-    OrderLineEntity newOrderLineEntity = getBeanMapper().map(newOrderLine, OrderLineEntity.class); 
+    OrderLineEntity newOrderLineEntity = getBeanMapper().map(newOrderLine, OrderLineEntity.class);
     newOrderLineEntity.setExtras(ingredientEntities); //test:newOrderLineEntity.setExtras(getBeanMapper().mapList(newOrderLine.getExtras(), IngredientEntity.class));
     newOrderLineEntity.setDishId(newOrderLine.getOrderLine().getDishId());
     newOrderLineEntity.setAmount(newOrderLine.getOrderLine().getAmount());
@@ -269,10 +271,10 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
 
     OrderLineEntity resultOrderLineEntity = getOrderLineDao().save(newOrderLineEntity);
 
-    //do I need this????? 
-    newOrderLineEntity.setOrderId(resultOrderLineEntity.getId()); 
+    //do I need this?????
+    newOrderLineEntity.setOrderId(resultOrderLineEntity.getId());
 
-    //get the order oldOrderLineId belongs to and add newOrderLine 
+    //get the order oldOrderLineId belongs to and add newOrderLine
     getOrderLineDao().find(oldOrderLineId).getOrder().getOrderLines().add(resultOrderLineEntity); //→ problem: getOrderLines() returns List<OrderLineEntity> and I cannot get the entity
     //delete oldOrderLineId
     getOrderLineDao().find(oldOrderLineId).getOrder().getOrderLines().remove(getOrderLineDao().find(oldOrderLineId));
@@ -302,7 +304,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
     // initialize, validate orderEntity here if necessary
     orderEntity = getValidatedOrder(orderEntity.getBooking().getBookingToken(), orderEntity);
     orderEntity.setOrderLines(orderLineEntities);
-    //test:orderEntity.setOrderLines(getBeanMapper().mapList(order.getOrderLines(), OrderLineEntity.class));
     OrderEntity resultOrderEntity = getOrderDao().save(orderEntity);
     LOG.debug("Order with id '{}' has been created.", resultOrderEntity.getId());
 
@@ -582,6 +583,19 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), orderedDishesCtos.size());
       return new PageImpl<>(orderedDishesCtos, pagResultTo, orderedDishes.getTotalElements());
     }
+  }
+
+  @Override
+  public boolean setPaymentState(Long orderId, OrderEto order) {
+
+    OrderEntity oldOrder = getOrderDao().find(orderId);
+
+    if (order == null) {
+      return false;
+    }
+    oldOrder.setPaymentState(order.getPaymentState());
+
+    return true;
   }
 
 }

@@ -50,9 +50,9 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
   }
 
   @Override
-  public void setOrderStatus(long id, OrderEto order) {
+  public void setOrderState(long id, OrderEto order) {
     
-    this.ordermanagement.setOrderStatus(id, order);
+    this.ordermanagement.setOrderState(id, order);
   }
 
 //--------------------------------------------------------------------------------------------------------------------------------------
@@ -99,6 +99,12 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
   public Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo searchCriteriaTo){
 
     return this.ordermanagement.findOrderedDishes(searchCriteriaTo);
+  }
+
+  @Override
+  public void setPaymentState(long id, OrderEto order) {
+
+    this.ordermanagement.setPaymentState(id, order);
   }
 
 }
