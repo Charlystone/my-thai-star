@@ -28,6 +28,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly orderUpdateState: string =
     'ordermanagement/v1/order/orderstatus/';
+  private readonly orderUpdate: string =
+    'ordermanagement/v1/order/updateorder/';
   private readonly orderPaymentState: string =
     'ordermanagement/v1/order/paymentstate/';
   private readonly restServiceRoot$: Observable<
