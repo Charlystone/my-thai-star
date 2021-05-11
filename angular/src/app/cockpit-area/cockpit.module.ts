@@ -7,6 +7,7 @@ import { WaiterCockpitService } from './services/waiter-cockpit.service';
 import { WindowService } from '../core/window/window.service';
 import { PredictionService } from './services/prediction.service';
 import { ClusteringService } from './services/clustering.service';
+import { BillService } from './services/bill.service';
 
 import { ReservationCockpitComponent } from './reservation-cockpit/reservation-cockpit.component';
 import { OrderCockpitComponent } from './order-cockpit/order-cockpit.component';
@@ -34,6 +35,7 @@ import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-
     WindowService,
     PredictionService,
     ClusteringService,
+    BillService,
   ],
   declarations: [
     ReservationCockpitComponent,

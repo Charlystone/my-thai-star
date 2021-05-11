@@ -16,6 +16,7 @@ import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
 import {OrderEditComponent} from "./order-dialog/order-edit/order-edit.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
+import { BillService } from '../services/bill.service';
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -66,7 +67,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     private translocoService: TranslocoService,
     private waiterCockpitService: WaiterCockpitService,
     private configService: ConfigService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private billService: BillService
   ) {
     this.pageSizes = this.configService.getValues().pageSizes;
   }
@@ -192,7 +194,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.waiterCockpitService.updatePaymentState(this.orders[this.orders.indexOf(selectedOrder)].paymentState, id).subscribe((data: any) => {
       this.applyFilters();
       this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
-    });
+      this.billService.createBillAsPDF(selectedOrder);
+    })
   }
 
   ngOnDestroy(): void {

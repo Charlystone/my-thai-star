@@ -62,7 +62,11 @@
         <!-- Edit Column -->
         <ng-container matColumnDef="buttons.edit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[3].label}} </th>
-          <td mat-cell *matCellDef="let element" > <button  mat-button type="button" (click)="$event.stopPropagation(); selectedEdit(element);" *ngIf="element.order.orderState == 'orderTaken'"><mat-icon>edit</mat-icon></button> </td>
+          <td mat-cell *matCellDef="let element" >
+            <button  mat-button type="button" (click)="$event.stopPropagation(); selectedEdit(element);" *ngIf="element.order.orderState == 'orderTaken' && element.order.paymentState != 'paid'">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
         </ng-container>
 
         <!-- Payment State Column -->

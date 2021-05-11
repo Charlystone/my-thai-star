@@ -68,6 +68,7 @@
     "core-js": "^2.5.3",
     "flag-icon-css": "^3.3.0",
     "highlight.js": "^9.15.6",
+    "jspdf": "^2.3.1",
     "leaflet": "^1.5.1",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
