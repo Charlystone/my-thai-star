@@ -72,19 +72,20 @@
         <!-- Payment State Column -->
         <ng-container matColumnDef="booking.paymentState">
           <th mat-header-cell *matHeaderCellDef> {{columns[4].label}} </th>
-          <td mat-cell *matCellDef="let element"><button mat-button color="accent" (click)="$event.stopPropagation(); payBill(element);" [disabled]="element.order.paymentState != 'pending'">{{'cockpit.paymentStates.' + element.order.paymentState + 'H' | transloco}}</button></td>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button color="accent" (click)="$event.stopPropagation(); payBill(element);" [disabled]="element.order.paymentState != 'pending'">{{'cockpit.paymentStates.' + element.order.paymentState + 'H' | transloco}}</button>
+          </td>
         </ng-container>
 
         <!-- Order State Column -->
         <ng-container matColumnDef="booking.orderState">
           <th mat-header-cell *matHeaderCellDef> {{columns[5].label}} </th>
           <td mat-cell *matCellDef="let element">
-            <mat-form-field (click)="$event.stopPropagation();"  appearance="fill">
-              <mat-select [placeholder]="'cockpit.orderStates.' + element.order.orderState + 'H' | transloco">
-                <mat-option></mat-option>
-                <mat-option [value]="option" *ngFor="let option of states" (click)="updateOrderState(option,element)">{{ option.label }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <button (click)="$event.stopPropagation(); updateOrderState(element, button)" class="orderStateButton" #button>
+              <span class="orderStateButtonLabel">{{ 'cockpit.orderStates.' + element.order.orderState + 'H' | transloco }}</span>
+              <span class="orderStateButtonTaken" *ngIf="element.order.orderState == 'orderTaken'"></span>
+              <span class="orderStateButtonDelivered" *ngIf="element.order.orderState == 'orderDelivered'"></span>
+            </button>
           </td>
         </ng-container>
 

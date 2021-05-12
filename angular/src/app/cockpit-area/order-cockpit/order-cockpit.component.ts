@@ -17,6 +17,7 @@ import {FormControl} from '@angular/forms';
 import {OrderEditComponent} from "./order-dialog/order-edit/order-edit.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { BillService } from '../services/bill.service';
+import { ChildActivationEnd } from '@angular/router';
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -39,7 +40,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   totalOrders: number;
 
   columns: any[];
-  states: any[];
   orderStateUpdateSuccessAlert: string;
   orderStateUpdateNotAllowed: string;
   paymentStateUpdateSuccessAlert: string;
@@ -50,7 +50,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     'booking.table',
     'buttons.edit',
     'booking.paymentState',
-    'booking.orderState', //abd
+    'booking.orderState',
   ];
 
   pageSizes: number[];
@@ -91,16 +91,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.table', label: cockpitTable.tableH },
           { name: 'buttons.edit', label: cockpitTable.editH},
           { name: 'booking.paymentState', label: cockpitTable.paymentStateH },
-          { name: 'booking.orderState', label: cockpitTable.orderStateH }, //abd
-        ];
-      });
-      this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.orderStates', {}, lang)
-      .subscribe((cockpitStates) => {
-        this.states = [
-          { name: 'orderTaken', label: cockpitStates.orderTakenH },
-          { name: 'orderDelivered', label: cockpitStates.orderDeliveredH }, //abd
-          { name: 'orderCompleted', label: cockpitStates.orderCompletedH }
+          { name: 'booking.orderState', label: cockpitTable.orderStateH },
         ];
       });
       this.translocoSubscription = this.translocoService
@@ -170,11 +161,35 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateOrderState(option , selectedOrder: any):void {
-    if(option.name == 'orderCompleted' && selectedOrder.order.paymentState == 'pending') {
+  updateOrderState(selectedOrder: any, button):void {
+    const currentOrderState = selectedOrder.order.orderState;
+    const currentPaymentState = selectedOrder.order.paymentState;
+    let orderStateToUpdateTo;
+    let currentColor;
+    let colorToUpdateTo;
+    switch (currentOrderState) {
+      case 'orderTaken':
+        orderStateToUpdateTo = 'orderDelivered';
+        currentColor = 'grey';
+        colorToUpdateTo = '#388e3c';
+        break;
+      case 'orderDelivered':
+        orderStateToUpdateTo = 'orderCompleted';
+        currentColor = '#388e3c';
+        colorToUpdateTo = '#e53935';
+        break;
+    }
+    if(orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
       this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
     } else {
-      this.orders[this.orders.indexOf(selectedOrder)].orderState = option.name;//abd
+      button.lastElementChild.animate([
+        {transform: 'translateX(0)', width: '100%', backgroundColor: currentColor},
+        {transform: 'translateX(-112.5px)', width: '150px', backgroundColor: colorToUpdateTo},
+      ], 300);
+      button.lastElementChild.style.width = '150px';
+      button.lastElementChild.style.transform = 'translateX(-112.5px)';
+      button.lastElementChild.style.backgroundColor = colorToUpdateTo;
+      this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
       const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
       const obj = JSON.parse(str);
       const id = obj.order.id;

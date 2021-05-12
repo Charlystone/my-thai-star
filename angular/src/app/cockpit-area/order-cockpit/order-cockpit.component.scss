@@ -56,6 +56,38 @@ td:not(:nth-child(1)) {
   padding: 16px;
 }
 
+.orderStateButton {
+  border: none;
+  width: 150px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-align: left;
+  line-height: 36px;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.orderStateButtonLabel {
+  padding: 0% 10% 0% 10%;
+}
+
+.orderStateButtonTaken {
+  background-color: grey;
+}
+
+.orderStateButtonDelivered {
+  background-color: green;
+}
+
+.orderStateButton:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 599px) {
   .forDesktop {
     display: none;
