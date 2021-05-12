@@ -41,7 +41,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   columns: any[];
   states: any[];
   orderStateUpdateSuccessAlert: string;
-  orderStateUpdateFailAlert: string;
+  orderStateUpdateNotAllowed: string;
   paymentStateUpdateSuccessAlert: string;
 
   displayedColumns: string[] = [
@@ -108,7 +108,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((alertsWaiterCockpitAlerts) => {
         this.orderStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderStateSuccess;
         this.paymentStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updatePaymentStateSuccess;
-        this.orderStateUpdateFailAlert = alertsWaiterCockpitAlerts.updatePaymentStateFail;
+        this.orderStateUpdateNotAllowed = alertsWaiterCockpitAlerts.updateOrderStateNotAllowed;
       });
   }
 
@@ -156,24 +156,23 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.applyFilters();
   }
 
-  selected(selection: OrderListView): void {
+  selected(selection: any): void {
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,
     })
   }
 
-  selectedEdit(selection: OrderListView): void {
+  selectedEdit(selection: any): void {
     this.dialog.open(OrderEditComponent, {
       width: '80%',
       data: selection,
     });
   }
 
-  updateOrderState(option , selectedOrder: OrderListView):void {
-    // TODO not working
-    if(option.name == 'orderCompleted' && selectedOrder.paymentState == 'pending') {
-      this.snackBarService.openSnack(this.orderStateUpdateFailAlert, 5000, "red");
+  updateOrderState(option , selectedOrder: any):void {
+    if(option.name == 'orderCompleted' && selectedOrder.order.paymentState == 'pending') {
+      this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
     } else {
       this.orders[this.orders.indexOf(selectedOrder)].orderState = option.name;//abd
       const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
@@ -186,7 +185,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     }
   }
 
-  payBill(selectedOrder: OrderListView):void {
+  payBill(selectedOrder: any):void {
     this.orders[this.orders.indexOf(selectedOrder)].paymentState = 'paid';
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
