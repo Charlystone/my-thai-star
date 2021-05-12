@@ -176,7 +176,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       case 'orderDelivered':
         orderStateToUpdateTo = 'orderCompleted';
         currentColor = '#388e3c';
-        colorToUpdateTo = '#e53935';
+        colorToUpdateTo = 'black';
         break;
     }
     if(orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
