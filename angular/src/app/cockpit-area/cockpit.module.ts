@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoRootModule } from '../transloco-root.module';
 import { OrderArchiveComponent } from './order-archive-cockpit/order-archive.component';
 import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-edit.component";
+import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-
     PredictionCockpitComponent,
     ClusteringCockpitComponent,
     OrderArchiveComponent,
+    AdminCockpitComponent,
   ],
   exports: [
     ReservationCockpitComponent,

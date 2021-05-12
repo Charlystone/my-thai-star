@@ -8,6 +8,18 @@
   <span>My Thai Star</span>
 
   <span flex></span>
+  <div *ngIf="(auth.getRole() | async) === 'ADMIN'" class="forDesktop">
+    <nav mat-tab-nav-bar>
+      <a
+        mat-tab-link
+        routerLink="/usermanagement"
+        routerLinkActive="navBottomBorder"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'main.usermanagement' | transloco | uppercase }}
+      </a>
+    </nav>
+  </div>
   <div *ngIf="(auth.getRole() | async) === 'CUSTOMER'" class="forDesktop">
     <nav mat-tab-nav-bar>
       <a

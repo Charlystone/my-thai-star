@@ -107,6 +107,7 @@
     "orders": "Bestellungen",
     "archive": "Archivierte Bestellungen",
     "reservations": "Reservierungen",
+    "usermanagement": "Benutzerverwaltung",
     "userActions": {
       "user": "Benutzer",
       "pairing": "Zwei-Faktor-Authentifizierung einstellen",

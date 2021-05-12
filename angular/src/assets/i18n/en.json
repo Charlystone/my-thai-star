@@ -103,6 +103,7 @@
     "orders": "Orders",
     "archive": "Archived orders",
     "reservations": "Reservations",
+    "usermanagement": "Usermanagement",
     "userActions": {
       "user": "User",
       "pairing": "Set two-factor authentication",

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookTableComponent } from './book-table/container/book-table/book-table.component';
+import { AdminCockpitComponent } from './cockpit-area/admin-cockpit/admin-cockpit.component';
 import { OrderArchiveComponent } from './cockpit-area/order-archive-cockpit/order-archive.component';
 import { OrderCockpitComponent } from './cockpit-area/order-cockpit/order-cockpit.component';
 import { ReservationCockpitComponent } from './cockpit-area/reservation-cockpit/reservation-cockpit.component';
@@ -29,6 +30,11 @@ const appRoutes: Routes = [
   {
     path: 'reservations',
     component: ReservationCockpitComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'usermanagement',
+    component: AdminCockpitComponent,
     canActivate: [AuthGuardService],
   },
   {
