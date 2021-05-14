@@ -13,11 +13,11 @@
 
   <mat-divider></mat-divider>
   <div class="tableContainer">
-    <table mat-table [dataSource]="users" > <!--matSort (matSortChange)="sort($event)"> -->
+    <table mat-table [dataSource]="users" matSort >  <!--(matSortChange)="sort($event)"> -->
 
       <!-- Email Column -->
-      <ng-container matColumnDef="userLine.email" matSort>
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> HHHH</th>
+      <ng-container matColumnDef="userView.email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns[0].label}}</th>
         <td mat-cell *matCellDef="let element" (click)="printElement(element)"> MMMM</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

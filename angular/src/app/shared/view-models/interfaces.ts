@@ -163,6 +163,13 @@ export interface UserLine {
 
 export interface UserListView {
   userLines: UserLine[];
+  userView: UserView;
+}
+
+export interface UserView {
+  bookingDate: string;
+  name: string;
+  email: string;
 }
 
 // Interface for prediction data for a dish

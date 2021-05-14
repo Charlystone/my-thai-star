@@ -3,6 +3,7 @@ import {OrderListView, UserListView} from '../../shared/view-models/interfaces';
 import {Subscription} from 'rxjs';
 import {Pageable} from '../../shared/backend-models/interfaces';
 import {TranslocoService} from '@ngneat/transloco';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -28,7 +29,7 @@ export class AdminCockpitComponent implements OnInit {
 
 
   displayedColumns: string[] = [
-    'userLine.email',
+    'userView.email',
   ];
 
 
@@ -38,6 +39,10 @@ export class AdminCockpitComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.translocoService.langChanges$.subscribe((event: any) => {
+      this.setTableHeaders(event);
+      moment.locale(this.translocoService.getActiveLang());
+    });
   }
 
   setTableHeaders(lang: string): void {
@@ -45,8 +50,7 @@ export class AdminCockpitComponent implements OnInit {
       .selectTranslateObject('cockpit.table', {}, lang)
       .subscribe((cockpitTable) => {
         this.columns = [
-          { name: 'booking.email', label: cockpitTable.emailH },
- 
+          { name: 'userView.email', label: cockpitTable.emailH },
         ];
       });
     this.translocoSubscription = this.translocoService
