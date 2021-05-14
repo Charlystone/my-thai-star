@@ -17,7 +17,8 @@
     "addComment": "Kommentar hinzufügen",
     "createBill": "Rechnung erstellen",
     "printBill": "Rechnung drucken",
-    "cancelOrder": "Stornieren"
+    "cancelOrder": "Stornieren",
+    "saveOrder": "Speichern"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -49,7 +50,9 @@
       "updateOrderStateSuccess": "Bestellstatus erfolreich geändert!",
       "updateOrderStateNotAllowed": "Bestellung unbezahlt. Statusänderung nicht möglich!",
       "updatePaymentStateSuccess": "Bezahlstatus erfolreich geändert!",
-      "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!"
+      "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!",
+      "updateOrderLineFail": "Fehler beim Editieren der Bestellung!",
+      "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!"
     }
   },
   "formFields": {

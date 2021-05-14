@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {BookingView, OrderListView, OrderView} from '../../../../shared/view-models/interfaces';
 import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
 import {TranslocoService} from '@ngneat/transloco';
@@ -8,6 +8,7 @@ import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 import { Router } from '@angular/router';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 @Component({
   selector: 'app-order-edit',
   templateUrl: './order-edit.component.html',
@@ -29,11 +30,13 @@ export class OrderEditComponent implements OnInit {
     'extras',
     'orderLine.amount',
     'dish.price',
+    'orderLine.delete'
   ];
-  updateSuccessAlert: string;
+  cancelSuccessAlert: string;
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
+  editedOrderLines: any[] = [];
 
   constructor(
     private waiterCockpitService: WaiterCockpitService,
@@ -79,7 +82,7 @@ export class OrderEditComponent implements OnInit {
       this.translocoService
       .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
       .subscribe((alertsWaiterCockpitAlerts) => {
-        this.updateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderLineSuccess;
+        this.cancelSuccessAlert = alertsWaiterCockpitAlerts.cancelOrderSuccess;
       });
       
   }
@@ -100,41 +103,52 @@ export class OrderEditComponent implements OnInit {
   cancelOrder() {
     const id = this.data.order.id;
     this.waiterCockpitService.updateOrderState("canceled", id).subscribe((data: any) => {
-      // TODO refresh order overview
-      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-      this.reload();
+      this.snackBarService.openSnack(this.cancelSuccessAlert, 5000, "green");
+      this.waiterCockpitService.emitOrdersChanged();
     });
   }
 
   decreaceOrderLineAmount(element: any): void {
     element.orderLine.amount--;
-    this.waiterCockpitService.updateOrderLine(element.orderLine, element.orderLine.id).subscribe((data: any) => {
-      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-      this.reload();
-    });
+    this.updateOrderLineAmount(element);
   }
 
   increaseOrderLineAmount(element: any): void {
     element.orderLine.amount++;
-    this.waiterCockpitService.updateOrderLine(element.orderLine, element.orderLine.id).subscribe((data: any) => {
-      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-      this.reload();
-    });
+    this.updateOrderLineAmount(element);
+  }
+
+  private updateOrderLineAmount(element) {
+    for(let orderLine of this.data.orderLines) {
+      if(orderLine.orderLine.id == element.orderLine.id) {
+        orderLine.orderLine.amount = element.orderLine.amount;
+      }
+    }
+    element.deleted = false;
+    this.saveUpdatedOrderLine(element);
   }
 
   deleteOrderLine(element: any): void {
-    for (let orderLine of this.data.orderLines) {
+    for(let orderLine of this.data.orderLines) {
       if (orderLine.orderLine.id == element.orderLine.id) {
         this.data.orderLines.splice(this.data.orderLines.indexOf(orderLine), 1);
       }
     }
-    this.waiterCockpitService.deleteOrderLine(element.orderLine.id).subscribe((data: any) => {
-      this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-      this.reload();
-    });
+    element.deleted = true;
+    this.saveUpdatedOrderLine(element);
   }
 
-  reload() {
-    this.router.navigateByUrl("/archive");
+  private saveUpdatedOrderLine(element) {
+    for(let orderLine of this.editedOrderLines) {
+      if (orderLine.orderLine.id == element.orderLine.id) {
+        this.editedOrderLines.splice(this.editedOrderLines.indexOf(orderLine), 1);
+      }
+    }
+    this.editedOrderLines.push(element);
+    this.ngOnInit();
+  }
+
+  saveOrder() {
+    this.waiterCockpitService.updateOrderLines(this.editedOrderLines)
   }
 }
