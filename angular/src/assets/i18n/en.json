@@ -18,7 +18,8 @@
     "addComment": "Add comment",
     "createBill": "Create bill",
     "printBill": "Print bill",
-    "cancelOrder": "Cancel Order"
+    "cancelOrder": "Cancel Order",
+    "saveOrder": "Save"
   },
   "table": {
     "rowsPage": "Rows per page",
@@ -48,7 +49,9 @@
       "updateOrderStateSuccess": "Order state update successful!",
       "updateOrderStateNotAllowed": "Order not paid yet. State update not possible!",
       "updatePaymentStateSuccess": "Payment state update successful!",
-      "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!"
+      "updateOrderLineSuccess": "Order succesfully edited!",
+      "updateOrderLineFail": "Editing of order failed!",
+      "cancelOrderSuccess": "Order succefully canceled!"
     }
   },
   "formFields": {
