@@ -184,7 +184,8 @@
   "cockpit": {
     "filter": "Filter",
     "users": {
-      "title": "Users"
+      "title": "Users",
+      "email": "Email"
     },
     "orders": {
       "title": "Orders",

@@ -43,9 +43,10 @@ export class AdminCockpitComponent implements OnInit {
   setTableHeaders(lang: string): void {
     this.translocoSubscription = this.translocoService
       .selectTranslateObject('cockpit.table', {}, lang)
-      .subscribe((adminCockpitTable) => {
+      .subscribe((cockpitTable) => {
         this.columns = [
-          { name: 'booking.email', label: adminCockpitTable.emailH },
+          { name: 'booking.email', label: cockpitTable.emailH },
+ 
         ];
       });
     this.translocoSubscription = this.translocoService
