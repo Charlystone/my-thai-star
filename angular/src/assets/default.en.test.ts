@@ -200,4 +200,10 @@ export const DefaultENTest = {
       creationDateH: 'Creation date',
     },
   },
+
+  adminCockpit: {
+    user: {
+      emailH: 'Email',
+    },
+  },
 };

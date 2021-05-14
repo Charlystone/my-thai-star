@@ -155,6 +155,16 @@ export interface Role {
   permission: number;
 }
 
+export interface UserLine {
+    name: string;
+    email: string;
+    role: Role;
+}
+
+export interface UserListView {
+  userLines: UserLine[];
+}
+
 // Interface for prediction data for a dish
 export interface OrdersData {
   dates?: Date[];

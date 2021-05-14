@@ -183,6 +183,9 @@
   },
   "cockpit": {
     "filter": "Filter",
+    "users": {
+      "title": "Users"
+    },
     "orders": {
       "title": "Orders",
       "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",

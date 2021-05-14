@@ -1,1 +1,33 @@
-<p>admin-cockpit works!</p>
+
+
+
+<mat-card>
+  <mat-card-title>{{'cockpit.users.title' | transloco}}</mat-card-title>
+  <br>
+  <button mat-button type="button">All</button>
+  <button mat-button type="button">Managers</button>
+  <button mat-button type="button">Waiters</button>
+  <button mat-button type="button">Guests</button>
+
+  <br><br>
+
+
+  <mat-divider></mat-divider>
+  <div class="tableContainer">
+    <table mat-table [dataSource]="users"> <!--matSort (matSortChange)="sort($event)"> -->
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="booking.email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[0].label}} </th>
+        <td mat-cell *matCellDef="let element" (click)="printElement(element)"> {{element.userLine.email}} </td>
+      </ng-container>
+
+    </table>
+  </div>
+
+  <div class="property-text-center noResults" *ngIf="users.length===0">
+    <h3>{{'table.noResults' | transloco}}.</h3>
+  </div>
+  <mat-paginator #pagingBar [length]="totalUsers" [pageSize]="pageSize" [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true"> <!-- (page)="page($event)"> -->
+  </mat-paginator>
+</mat-card>
