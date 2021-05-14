@@ -168,13 +168,13 @@ export class WaiterCockpitService {
     if (orderLines[orderLineIndex].deleted == true && orderLineIndex == orderLines.length - 1) { // last orderLine and delete
       this.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
         this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-        this.ordersChanged.emit(true);
+        this.emitOrdersChanged();
       });;
     }
     if (orderLines[orderLineIndex].deleted == false && orderLineIndex == orderLines.length - 1) { // last orderLine and update
       this.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
         this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-        this.ordersChanged.emit(true);
+        this.emitOrdersChanged();
       });;
     }
   }
