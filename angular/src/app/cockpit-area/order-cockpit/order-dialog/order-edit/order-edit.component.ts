@@ -151,4 +151,8 @@ export class OrderEditComponent implements OnInit {
   saveOrder() {
     this.waiterCockpitService.updateOrderLines(this.editedOrderLines)
   }
+
+  cancelEditing() {
+    this.waiterCockpitService.emitOrdersChanged();
+  }
 }

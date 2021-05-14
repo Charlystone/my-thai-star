@@ -58,5 +58,5 @@
 <div class="align-right actionButtons">
   <button mat-button mat-dialog-close color="accent" (click)="saveOrder()">{{'buttons.saveOrder' | transloco | uppercase}}</button>
   <button mat-button mat-dialog-close color="warn" (click)="cancelOrder()">{{'buttons.cancelOrder' | transloco | uppercase}}</button>
-  <button mat-button mat-dialog-close color="base">{{'buttons.cancel' | transloco | uppercase}}</button>
+  <button mat-button mat-dialog-close color="base" (click)="cancelEditing()">{{'buttons.cancel' | transloco | uppercase}}</button>
 </div>
