@@ -44,6 +44,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   orderStateUpdateNotAllowed: string;
   paymentStateUpdateSuccessAlert: string;
 
+  orderChangedSubscription;
+
   displayedColumns: string[] = [
     'booking.bookingDate',
     'booking.email',
@@ -78,6 +80,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());
+    });
+
+    this.orderChangedSubscription = this.waiterCockpitService.ordersChanged.subscribe(() => {
+      this.applyFilters();
     });
   }
 
@@ -214,5 +220,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.translocoSubscription.unsubscribe();
+    this.orderChangedSubscription.unsubscribe();
   }
 }
