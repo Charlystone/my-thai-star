@@ -1,68 +1,43 @@
-<div class="bookTableTabRow">
 
-        <div class="bookTableFormContainer">
-          <form [formGroup]="bookForm">
-
-              <div>
-                <span class="title-card">{{'userManagement.createAUser' | transloco}}</span>
-              </div>
-
-            <div>
-
-              <div>
-                <mat-form-field color="accent" class="full-width-field">
-                  <input matInput [placeholder]="'formFields.name' | transloco" formControlName="name">
-                  <mat-error *ngIf="userName.invalid && (userName.dirty || userName.touched)">
-                    <div *ngIf="userName.errors.required">
-                      {{'bookTable.formErrors.nameRequired' | transloco}}
-                    </div>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div>
-                <mat-form-field color="accent" class="full-width-field">
-                  <input matInput [placeholder]="'formFields.email' | transloco" formControlName="email">
-                  <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
-                    <div *ngIf="email.errors.required">
-                      {{'bookTable.formErrors.emailRequired' | transloco}}
-                    </div>
-                    <div *ngIf="email.errors.pattern">
-                      {{'bookTable.formErrors.emailPattern' | transloco}}
-                    </div>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div>
-                <mat-form-field color="accent" class="full-width-field">
-                  <input matInput [placeholder]="'formFields.password' | transloco" formControlName="name">
-                  <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
-                    <div *ngIf="password.errors.required">
-                      {{'bookTable.formErrors.nameRequired' | transloco}}
-                    </div>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div>
-                <mat-form-field color="accent" class="full-width-field">
-                  <input matInput [placeholder]="'formFields.role' | transloco" formControlName="name">
-                  <mat-error *ngIf="role.invalid && (role.dirty || role.touched)">
-                    <div *ngIf="role.errors.required">
-                      {{'bookTable.formErrors.nameRequired' | transloco}}
-                    </div>
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-            </div>
-
-            <div class="align-right">
-<!--              <button name="bookTableSubmit" mat-button type="button" [disabled]="!(bookForm.valid && termsd.checked)" color="accent"-->
-              <button name="bookTableSubmit" mat-button type="button" color="accent"
-                      class="bookTableSubmit">{{'buttons.create' | transloco}}</button>
-            </div>
-          </form>
+      <form (ngSubmit)="signInSubmit(signForm.form.value)" #signForm="ngForm" [formGroup]="createForm">
+        <div class="formFields">
+          <div>
+            <mat-form-field color="accent">
+              <input formControlName="email"  matInput [placeholder]="'formFields.email' | transloco" ngModel name="email"  required validateEmail>
+              <mat-error>{{'userArea.emailError' | transloco}}</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field color="accent">
+              <input matInput type="password" name="password" [placeholder]="'formFields.password' | transloco" [ngModelOptions]="{standalone: true}"  ngModel required validateEqual="confirmPassword" reverse="true" #password="ngModel">
+            </mat-form-field>
+          </div>
+  
+          <div>
+            <mat-form-field color="accent">
+              <input matInput type="password" name="confirmPassword" [placeholder]="'formFields.confirmPassword' | transloco" [ngModelOptions]="{standalone: true}" ngModel required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+              <mat-error>{{'alerts.passwordError' | transloco}}</mat-error>
+            </mat-form-field>
+          </div>
         </div>
-      </div>
+
+        <div>
+          <mat-form-field appearance="fill" >
+            <mat-label>Role</mat-label>
+            <mat-select [(value)]="selected" required >
+              <mat-option>None</mat-option>
+              <mat-option value="waiter">waiter</mat-option>
+              <mat-option value="manager">manager</mat-option>
+              <mat-option value="admin">admin</mat-option>
+              <mat-option value="guest">user</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+    
+        <div class="align-right">
+          <button name="cancelSignUp" mat-button (click)="closeLoginDialog()">{{'buttons.cancel' | transloco | uppercase}}</button>
+          <button name="registerSubmit" mat-button type="submit" [disabled]="!(signForm.form.valid && selected )" color="accent">{{'buttons.register' | transloco | uppercase}}</button>
+        </div>
+      </form>

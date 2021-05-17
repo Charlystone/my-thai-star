@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import {BookingInfo, UserInfo} from '../../../shared/backend-models/interfaces';
 import { last } from 'lodash';
 import * as moment from 'moment';
@@ -22,12 +22,13 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './create-user-dialog.component.html',
   styleUrls: ['./create-user-dialog.component.scss']
 })
+
 export class CreateUserDialogComponent implements OnInit {
   CreateModel: string[] = [];
   minDate: Date = new Date();
   bookForm: FormGroup;
   createForm: FormGroup;
-
+  selected: string;
   REGEXP_EMAIL = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   userInfo: UserInfo = {
@@ -41,7 +42,7 @@ export class CreateUserDialogComponent implements OnInit {
     private window: WindowService,
     private translocoService: TranslocoService,
     private snackBarService: SnackBarService,
-    private dialog: MatDialog,
+    private dialog: MatDialogRef<CreateUserDialogComponent>,
     title: Title
   ) {
     title.setTitle('Create a user');
@@ -74,7 +75,9 @@ export class CreateUserDialogComponent implements OnInit {
   get role(): AbstractControl {
     return this.createForm.get('role');
   }
-
+  save():void{
+    console.log(this.createForm);
+  }
   validateEmail(event: MatChipInputEvent): void {
     this.CreateModel.push(event.value);
     event.input.value = '';
@@ -86,6 +89,18 @@ export class CreateUserDialogComponent implements OnInit {
         'red',
       );
     }
+  }
+  logInSubmit(formValue: FormGroup): void {
+    this.dialog.close(formValue);
+  }
+
+  signInSubmit(formValue: FormGroup): void {
+
+    console.log(this.createForm);
+  }
+
+  closeLoginDialog(): void {
+    console.log(this.createForm);
   }
 
 }
