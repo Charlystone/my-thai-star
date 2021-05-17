@@ -37,6 +37,11 @@
 
     </table>
   </div>
+  <div class="property-text-center noResults" *ngIf="users.length===0">
+    <h3>{{'table.noResults' | transloco}}.</h3>
+  </div>
+  <mat-paginator #pagingBar [length]="totalUsers" [pageSize]="pageSize" [pageSizeOptions]="pageSizes" [showFirstLastButtons]="true" (page)="page($event)">
+  </mat-paginator>
 
 </mat-card>
 

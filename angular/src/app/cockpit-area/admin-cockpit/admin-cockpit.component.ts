@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {OrderListView, UserListView} from '../../shared/view-models/interfaces';
 import {Subscription} from 'rxjs';
 import {FilterCockpit, Pageable} from '../../shared/backend-models/interfaces';
 import {TranslocoService} from '@ngneat/transloco';
 import * as moment from "moment";
 import {AdminCockpitService} from "../services/admin-cockpit.service";
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ConfigService } from 'app/core/config/config.service';
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -19,7 +21,8 @@ export class AdminCockpitComponent implements OnInit {
     pageNumber: 0,
     // total: 1,
   };
-
+ @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
+ 
   users: UserListView[] = [];
   columns: any[];
 
@@ -47,8 +50,11 @@ export class AdminCockpitComponent implements OnInit {
   constructor(
     private translocoService: TranslocoService,
     private adminCockpitService: AdminCockpitService,
+    private configService: ConfigService
 
-  ) { }
+  ) {
+    this.pageSizes = this.configService.getValues().pageSizes;
+   }
 
   ngOnInit(): void {
     this.applyFilters();
@@ -88,6 +94,14 @@ export class AdminCockpitComponent implements OnInit {
         }
         this.totalUsers = this.users.length;
       });
+  }
+  page(pagingEvent: PageEvent): void {
+    this.pageable = {
+      pageSize: pagingEvent.pageSize,
+      pageNumber: pagingEvent.pageIndex,
+      sort: this.pageable.sort,
+    };
+    this.applyFilters();
   }
 
 }
