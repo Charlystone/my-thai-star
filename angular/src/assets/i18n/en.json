@@ -19,7 +19,12 @@
     "createBill": "Create bill",
     "printBill": "Print bill",
     "cancelOrder": "Cancel Order",
-    "saveOrder": "Save"
+    "saveOrder": "Save",
+    "all": "All",
+    "managers": "Managers",
+    "guests": "Guests",
+    "waiters": "Waiters",
+    "admins": "Admins"
   },
   "table": {
     "rowsPage": "Rows per page",

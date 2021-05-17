@@ -22,7 +22,7 @@ export class AdminCockpitComponent implements OnInit {
     // total: 1,
   };
  @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
- 
+
   users: UserListView[] = [];
   columns: any[];
 
@@ -57,7 +57,7 @@ export class AdminCockpitComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.applyFilters();
+    this.loadUsers();
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());
@@ -83,7 +83,7 @@ export class AdminCockpitComponent implements OnInit {
     console.log(element);
   }
 
-  applyFilters(): void {
+  loadUsers(): void {
     this.adminCockpitService
       .getUsers(this.pageable, this.sorting, this.filters)
       .subscribe((data: any) => {
@@ -101,7 +101,25 @@ export class AdminCockpitComponent implements OnInit {
       pageNumber: pagingEvent.pageIndex,
       sort: this.pageable.sort,
     };
-    this.applyFilters();
+    this.loadUsers();
+  }
+
+  loadUsersByRole(roleId: number): void{
+    this.adminCockpitService
+      .getUsers(this.pageable, this.sorting, this.filters)
+      .subscribe((data: any) => {
+        if (!data) {
+          this.users = [];
+        } else {
+          this.users = [];
+          for (let user of data.content) {
+            if (user.userRoleId === roleId) {
+              this.users.push(user);
+            }
+          }
+        }
+        this.totalUsers = this.users.length;
+      });
   }
 
 }

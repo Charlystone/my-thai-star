@@ -18,7 +18,12 @@
     "createBill": "Rechnung erstellen",
     "printBill": "Rechnung drucken",
     "cancelOrder": "Stornieren",
-    "saveOrder": "Speichern"
+    "saveOrder": "Speichern",
+    "all": "Alle",
+    "managers": "Manager",
+    "guests": "Gäste",
+    "waiters": "Waiter",
+    "admins": "Admins"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -201,6 +206,12 @@
         "priceH": "Preis"
       }
     },
+      "users": {
+        "title": "Benutzer",
+        "emailH": "Email",
+        "nameH": "Name",
+        "roleH": "Rolle"
+      },
     "archive": {
       "title": "Archivierte Bestellungen",
       "dialogTitle": "BESTELLDETAILS - REFERENZNUMMER",

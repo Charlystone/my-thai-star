@@ -14,6 +14,7 @@ export const DefaultENTest = {
     applyFilters: 'Apply Filters',
     removeComment: 'Remove Comment',
     addComment: 'Add comment',
+
   },
   table: {
     rowsPage: 'Rows per page',
