@@ -45,6 +45,13 @@ export class ExtraInfo {
     selected: boolean;
 }
 
+export class UserInfo {
+  userName: string;
+  email: string;
+  password: string;
+  role: string;
+}
+
 // BOOKING
 export class BookingInfo {
     booking: ReservationInfo;

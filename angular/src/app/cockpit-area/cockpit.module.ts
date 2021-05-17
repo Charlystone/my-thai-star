@@ -22,6 +22,7 @@ import { TranslocoRootModule } from '../transloco-root.module';
 import { OrderArchiveComponent } from './order-archive-cockpit/order-archive.component';
 import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-edit.component";
 import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
+import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/create-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
     ClusteringCockpitComponent,
     OrderArchiveComponent,
     AdminCockpitComponent,
+    CreateUserDialogComponent,
   ],
   exports: [
     ReservationCockpitComponent,

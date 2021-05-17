@@ -24,8 +24,14 @@
     "managers": "Managers",
     "guests": "Guests",
     "waiters": "Waiters",
-    "admins": "Admins"
+    "admins": "Admins",
+    "create": "Create"
   },
+
+  "userManagement": {
+    "createAUser": "Create a user"
+  },
+
   "table": {
     "rowsPage": "Rows per page",
     "of": "of",
@@ -75,7 +81,8 @@
     "guestsPH": "Enter invitation email",
     "comment": "Comment",
     "total": "Total",
-    "referenceNumber": "Reference number"
+    "referenceNumber": "Reference number",
+    "role": "Role"
   },
   "bookTable": {
     "title": "You can invite your friends to lunch or book a table",

@@ -1707,7 +1707,7 @@ var BookTableComponent = (function () {
         this.window = window;
         this.snackBarservice = snackBarservice;
         this.dialog = dialog;
-        this.invitationModel = [];
+        this.CreateModel = [];
         this.minDate = new Date();
     }
     BookTableComponent.prototype.showBookTableDialog = function (form) {

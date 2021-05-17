@@ -9,7 +9,7 @@
   <button class="loadManagers" name="loadManagers" mat-button type="button" (click)="loadUsersByRole(2)">{{'buttons.managers' | transloco }}</button>
   <button class="loadWaiters" name="loadWaiters" mat-button type="button" (click)="loadUsersByRole(1)">{{'buttons.waiters' | transloco }}</button>
   <button class="loadGuests" name="loadGuests" mat-button type="button" (click)="loadUsersByRole(0)">{{'buttons.guests' | transloco }}</button>
-
+  <button mat-icon-button type="button" (click)="createUserDialog()" ><mat-icon>add_circle_outline</mat-icon></button>
   <br><br>
 
   <mat-divider></mat-divider>

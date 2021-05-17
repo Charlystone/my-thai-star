@@ -7,6 +7,9 @@ import * as moment from "moment";
 import {AdminCockpitService} from "../services/admin-cockpit.service";
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfigService } from 'app/core/config/config.service';
+import {OrderEditComponent} from "../order-cockpit/order-dialog/order-edit/order-edit.component";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog.component";
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -48,6 +51,7 @@ export class AdminCockpitComponent implements OnInit {
 
 
   constructor(
+    private dialog: MatDialog,
     private translocoService: TranslocoService,
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService
@@ -120,6 +124,12 @@ export class AdminCockpitComponent implements OnInit {
         }
         this.totalUsers = this.users.length;
       });
+  }
+
+  createUserDialog(): void {
+    this.dialog.open(CreateUserDialogComponent, {
+      width: '80%'
+    });
   }
 
 }
