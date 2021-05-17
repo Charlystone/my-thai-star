@@ -30,12 +30,16 @@ export class AdminCockpitComponent implements OnInit {
 
   displayedColumns: string[] = [
     'userView.email',
+    'userView.name',
+    'userView.role',
   ];
 
 
 
   constructor(
     private translocoService: TranslocoService,
+    private AdminCockpitService: TranslocoService,
+
   ) { }
 
   ngOnInit(): void {
@@ -47,10 +51,12 @@ export class AdminCockpitComponent implements OnInit {
 
   setTableHeaders(lang: string): void {
     this.translocoSubscription = this.translocoService
-      .selectTranslateObject('cockpit.table', {}, lang)
+      .selectTranslateObject('cockpit.users', {}, lang)
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'userView.email', label: cockpitTable.emailH },
+          { name: 'userView.name', label: cockpitTable.nameH },
+          { name: 'userView.role', label: cockpitTable.roleH },
         ];
       });
     this.translocoSubscription = this.translocoService
@@ -60,6 +66,19 @@ export class AdminCockpitComponent implements OnInit {
 
   printElement(element: any): void{
     console.log(element);
+  }
+
+  applyFilters(): void {
+    this.AdminCockpitService
+      .getUsers(this.pageable)
+      .subscribe((data: any) => {
+        if (!data) {
+          this.users = [];
+        } else {
+          this.users = data.content;
+        }
+       
+      });
   }
 
 }

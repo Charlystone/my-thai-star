@@ -188,7 +188,9 @@
     "filter": "Filter",
     "users": {
       "title": "Users",
-      "email": "Email"
+      "emailH": "Email",
+      "nameH": "Name",
+      "roleH": "Role"
     },
     "orders": {
       "title": "Orders",

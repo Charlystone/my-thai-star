@@ -109,6 +109,11 @@ export interface OrderResponse {
   content: OrderListView;
 }
 
+export interface UserResponse {
+  pageable: Pageable;
+  content: UserListView;
+}
+
 // Interface to recieve responeses from the server using httpclient for get OrderDishResponse
 export interface OrderDishResponse {
   pageable: Pageable;

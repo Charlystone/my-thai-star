@@ -8,6 +8,7 @@ import { WindowService } from '../core/window/window.service';
 import { PredictionService } from './services/prediction.service';
 import { ClusteringService } from './services/clustering.service';
 import { BillService } from './services/bill.service';
+import { AdminCockpitService } from './services/admin-cockpit.service';
 
 import { ReservationCockpitComponent } from './reservation-cockpit/reservation-cockpit.component';
 import { OrderCockpitComponent } from './order-cockpit/order-cockpit.component';
@@ -37,6 +38,7 @@ import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
     PredictionService,
     ClusteringService,
     BillService,
+    AdminCockpitService,
   ],
   declarations: [
     ReservationCockpitComponent,
