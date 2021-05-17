@@ -22,8 +22,8 @@ import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable()
 export class AdminCockpitService {
-  private readonly getReservationsRestPath: string =
-    'usermanagement/v1/userrole/search';
+  private readonly getUserRestPath: string =
+    'usermanagement/v1/user/search';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -35,23 +35,27 @@ export class AdminCockpitService {
     private translocoService: TranslocoService,
   ) {
     this.translocoService.langChanges$.subscribe((event: any) => {
-   
+
     });
   }
     sorting: Sort[];
     filters: FilterCockpit;
+
+
   getUsers(
     pageable: Pageable,
-,
-  ): Observable<UserResponse[]> {
-    this.filters.pageable = pageable;
-   this. filters.pageable.sort = this.sorting;
+    sorting: Sort[],
+    filters: FilterCockpit,
+  ): Observable<OrderResponse[]> {
+    let path: string;
+    filters.pageable = pageable;
+    filters.pageable.sort = sorting;
+    if (true) {
+      path = this.getUserRestPath;
+    }
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<UserResponse[]>(
-          `${restServiceRoot}${this.getReservationsRestPath}`,
-          this.filters,
-        ),
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${path}`, filters),
       ),
     );
   }
@@ -59,6 +63,4 @@ export class AdminCockpitService {
 
 
 
-  
- 
 }

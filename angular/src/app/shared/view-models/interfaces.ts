@@ -172,9 +172,9 @@ export interface UserListView {
 }
 
 export interface UserView {
-  bookingDate: string;
   name: string;
   email: string;
+  role: string;
 }
 
 // Interface for prediction data for a dish

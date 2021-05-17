@@ -157,7 +157,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.dialog.open(OrderDialogComponent, {
       width: '80%',
       data: selection,
-    })
+    });
   }
 
   selectedEdit(selection: any): void {
@@ -185,7 +185,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         colorToUpdateTo = 'black';
         break;
     }
-    if(orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
+    if (orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
       this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
     } else {
       button.lastElementChild.animate([

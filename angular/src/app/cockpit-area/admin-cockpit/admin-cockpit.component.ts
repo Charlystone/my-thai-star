@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderListView, UserListView} from '../../shared/view-models/interfaces';
 import {Subscription} from 'rxjs';
-import {Pageable} from '../../shared/backend-models/interfaces';
+import {FilterCockpit, Pageable} from '../../shared/backend-models/interfaces';
 import {TranslocoService} from '@ngneat/transloco';
 import * as moment from "moment";
+import {AdminCockpitService} from "../services/admin-cockpit.service";
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -27,6 +28,13 @@ export class AdminCockpitComponent implements OnInit {
 
   pageSizes: number[];
 
+  private sorting: any[] = [];
+
+  filters: FilterCockpit = {
+    bookingDate: undefined,
+    email: undefined,
+    bookingToken: undefined,
+  };
 
   displayedColumns: string[] = [
     'userView.email',
@@ -38,11 +46,12 @@ export class AdminCockpitComponent implements OnInit {
 
   constructor(
     private translocoService: TranslocoService,
-    private AdminCockpitService: TranslocoService,
+    private adminCockpitService: AdminCockpitService,
 
   ) { }
 
   ngOnInit(): void {
+    this.applyFilters();
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());
@@ -69,15 +78,15 @@ export class AdminCockpitComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.AdminCockpitService
-      .getUsers(this.pageable)
+    this.adminCockpitService
+      .getUsers(this.pageable, this.sorting, this.filters)
       .subscribe((data: any) => {
         if (!data) {
           this.users = [];
         } else {
           this.users = data.content;
         }
-       
+        this.totalUsers = this.users.length;
       });
   }
 

@@ -202,8 +202,10 @@ export const DefaultENTest = {
   },
 
   adminCockpit: {
-    user: {
+    table: {
+      nameH: 'Name',
       emailH: 'Email',
+      roleH: 'Role'
     },
   },
 };
