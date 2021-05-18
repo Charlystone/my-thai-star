@@ -16,6 +16,7 @@ import { WindowService } from '../../../core/window/window.service';
 import { emailValidator } from '../../../shared/directives/email-validator.directive';
 import { TranslocoService } from '@ngneat/transloco';
 import { Title } from '@angular/platform-browser';
+import { AdminCockpitService } from 'app/cockpit-area/services/admin-cockpit.service';
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -44,6 +45,7 @@ export class CreateUserDialogComponent implements OnInit {
     private translocoService: TranslocoService,
     private snackBarService: SnackBarService,
     private dialog: MatDialogRef<CreateUserDialogComponent>,
+    private adminCockpitService: AdminCockpitService,
     title: Title
   ) {
     title.setTitle('Create a user');
@@ -110,7 +112,13 @@ export class CreateUserDialogComponent implements OnInit {
     this.dialog.close();
   }
   submitCreationData() : void {
-    console.log(this.createForm);
+    const userData ={username : this.createForm.value.username ,
+       email : this.createForm.value.email,
+        twoFactorStatus : false,
+         userRoleId : this.createForm.value.role  
+        };
+    this.adminCockpitService.sendUserData(userData).subscribe((data: any) => {});
+    this.dialog.close();
   }
   passwordIdentical() :boolean{
     if(this.createForm.value.password === this.createForm.value.confirmPassword && this.createForm.value.confirmPassword != ''){

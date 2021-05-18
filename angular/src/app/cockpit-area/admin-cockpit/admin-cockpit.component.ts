@@ -131,5 +131,13 @@ export class AdminCockpitComponent implements OnInit {
       width: '80%'
     });
   }
+  getUsernameByRoleId(id: number): string{    
+    switch (id) {
+      case 0: return "guest"; 
+      case 1: return "waiter"; 
+      case 2: return "manager"; 
+      case 3: return "admin"; 
+    }
+  }
 
 }

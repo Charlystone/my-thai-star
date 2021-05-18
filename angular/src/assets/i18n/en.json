@@ -29,7 +29,11 @@
   },
 
   "userManagement": {
-    "createAUser": "Create a user"
+    "createAUser": "Create a user",
+    "roleNameForId0": "Guest",
+    "roleNameForId1": "Waiter",
+    "roleNameForId2": "Manager",
+    "roleNameForId3": "Admin"
   },
 
   "table": {

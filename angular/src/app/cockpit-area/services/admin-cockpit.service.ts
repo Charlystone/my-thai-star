@@ -24,6 +24,10 @@ import { TranslocoService } from '@ngneat/transloco';
 export class AdminCockpitService {
   private readonly getUserRestPath: string =
     'usermanagement/v1/user/search';
+    private readonly postUserData: string =
+    'usermanagement/v1/user';
+    
+
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -61,6 +65,13 @@ export class AdminCockpitService {
   }
 
 
-
+  sendUserData(newUser: any): Observable<OrderResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.postUserData}`, newUser),
+      ),
+    );
+    
+  }
 
 }
