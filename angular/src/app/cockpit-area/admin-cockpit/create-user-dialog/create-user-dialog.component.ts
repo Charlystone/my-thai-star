@@ -36,6 +36,7 @@ export class CreateUserDialogComponent implements OnInit {
     email: '',
     password: '',
     role: '',
+    confirmPassword: ''
   };
 
   constructor(
@@ -51,13 +52,14 @@ export class CreateUserDialogComponent implements OnInit {
   ngOnInit(): void {
 
     this.createForm = new FormGroup({
-      userName: new FormControl(this.userInfo.userName, Validators.required),
+      username: new FormControl(this.userInfo.userName, Validators.required),
       email: new FormControl(this.userInfo.email, [
         Validators.required,
         Validators.pattern(this.REGEXP_EMAIL),
       ]),
       password: new FormControl(this.userInfo.password, Validators.required),
       role: new FormControl(this.userInfo.role, Validators.required),
+      confirmPassword: new FormControl(this.userInfo.confirmPassword, Validators.required),
     });
   }
 
@@ -72,9 +74,14 @@ export class CreateUserDialogComponent implements OnInit {
     return this.createForm.get('password');
   }
 
+  get confirmPassword(): AbstractControl {
+    return this.createForm.get('confirmPassword');
+  }
+
   get role(): AbstractControl {
     return this.createForm.get('role');
   }
+
   save():void{
     console.log(this.createForm);
   }
@@ -91,16 +98,26 @@ export class CreateUserDialogComponent implements OnInit {
     }
   }
   logInSubmit(formValue: FormGroup): void {
-    this.dialog.close(formValue);
+   
   }
 
   signInSubmit(formValue: FormGroup): void {
 
-    console.log(this.createForm);
+   
   }
 
   closeLoginDialog(): void {
+    this.dialog.close();
+  }
+  submitCreationData() : void {
     console.log(this.createForm);
+  }
+  passwordIdentical() :boolean{
+    if(this.createForm.value.password === this.createForm.value.confirmPassword && this.createForm.value.confirmPassword != ''){
+    return true;
+  }
+  else 
+  return false;
   }
 
 }

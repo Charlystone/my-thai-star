@@ -50,6 +50,7 @@ export class UserInfo {
   email: string;
   password: string;
   role: string;
+  confirmPassword: string;
 }
 
 // BOOKING
