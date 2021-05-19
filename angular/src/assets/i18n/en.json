@@ -256,7 +256,7 @@
       "canceledH": "Canceled"
     },
     "paymentStates": {
-      "pendingH": "Pay bill",
+      "pendingH": "Pending",
       "paidH": "Paid",
       "canceledH": "Canceled"
     }
