@@ -61,7 +61,7 @@
 
     </table>
 
-    <button mat-button color="accent" (click)="createUserDialog()" ><mat-icon>add_circle_outline</mat-icon> {{'cockpit.users.newUserH' | transloco}}</button>
+    <button mat-button color="accent" id="newUserButton" (click)="createUserDialog()" ><mat-icon>add_circle_outline</mat-icon> {{'cockpit.users.newUserH' | transloco}}</button>
   </div>
   <div class="property-text-center noResults" *ngIf="users.length===0">
     <h3>{{'table.noResults' | transloco}}.</h3>
