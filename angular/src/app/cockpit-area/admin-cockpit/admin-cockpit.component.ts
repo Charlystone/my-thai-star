@@ -48,8 +48,6 @@ export class AdminCockpitComponent implements OnInit {
     'userView.role',
   ];
 
-
-
   constructor(
     private dialog: MatDialog,
     private translocoService: TranslocoService,
@@ -83,10 +81,6 @@ export class AdminCockpitComponent implements OnInit {
       .subscribe((alertsWaiterCockpitAlerts) => { });
   }
 
-  printElement(element: any): void{
-    console.log(element);
-  }
-
   loadUsers(): void {
     this.adminCockpitService
       .getUsers(this.pageable, this.sorting, this.filters)
@@ -99,6 +93,7 @@ export class AdminCockpitComponent implements OnInit {
         this.totalUsers = this.users.length;
       });
   }
+
   page(pagingEvent: PageEvent): void {
     this.pageable = {
       pageSize: pagingEvent.pageSize,

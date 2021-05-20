@@ -202,12 +202,6 @@
   },
   "cockpit": {
     "filter": "Filter",
-    "users": {
-      "title": "Users",
-      "emailH": "Email",
-      "nameH": "Name",
-      "roleH": "Role"
-    },
     "orders": {
       "title": "Orders",
       "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",
@@ -217,6 +211,18 @@
         "extrasH": "Extra",
         "quantityH": "Quantity",
         "priceH": "Price"
+      }
+    },
+    "users": {
+      "title": "User",
+      "emailH": "Email",
+      "nameH": "Username",
+      "roleH": "Role",
+      "rolesH": {
+        "0": "Guest",
+        "1": "Waiter",
+        "2": "Manager",
+        "3": "Admin"
       }
     },
     "archive": {

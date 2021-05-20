@@ -19,19 +19,18 @@
       <!-- Email Column -->
       <ng-container matColumnDef="userView.email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns[0].label}}</th>
-        <td mat-cell *matCellDef="let element" (click)="printElement(element)"> {{ element.email }}</td>
+        <td mat-cell *matCellDef="let element"> {{ element.email }}</td>
       </ng-container>
           <!-- Name Column -->
       <ng-container matColumnDef="userView.name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns[1].label}}</th>
-        <td mat-cell *matCellDef="let element" (click)="printElement(element)"> {{ element.username }} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.username }} </td>
       </ng-container>
             <!-- Role Column -->
       <ng-container matColumnDef="userView.role">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns[2].label}}</th>
-        <td mat-cell *matCellDef="let element" (click)="printElement(element)"> {{getUsernameByRoleId(element.userRoleId)}}</td>
+        <td mat-cell *matCellDef="let element">{{'cockpit.users.rolesH.' + element.userRoleId | transloco}}</td>
       </ng-container>
-
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

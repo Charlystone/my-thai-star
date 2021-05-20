@@ -22,7 +22,7 @@
     "all": "Alle",
     "managers": "Manager",
     "guests": "Gäste",
-    "waiters": "Waiter",
+    "waiters": "Kellner",
     "admins": "Admins"
   },
   "table": {
@@ -209,8 +209,14 @@
       "users": {
         "title": "Benutzer",
         "emailH": "Email",
-        "nameH": "Name",
-        "roleH": "Rolle"
+        "nameH": "Benutzername",
+        "roleH": "Rolle",
+        "rolesH": {
+          "0": "Gast",
+          "1": "Kellner",
+          "2": "Manager",
+          "3": "Admin"
+        }
       },
     "archive": {
       "title": "Archivierte Bestellungen",
