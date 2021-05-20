@@ -156,7 +156,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
-  resetNewPassword(element: any): void {
+  setNewPassword(element: any): void {
     console.log(element);
   }
 

@@ -31,7 +31,7 @@
       <ng-container matColumnDef="userView.setNewPassword">
         <th mat-header-cell *matHeaderCellDef>{{columns[3].label}}</th>
         <td mat-cell *matCellDef="let element" > 
-          <button  mat-button  color="default" (click)="$event.stopPropagation(); resetNewPassword(element)">
+          <button  mat-button  color="default" (click)="$event.stopPropagation(); setNewPassword(element)">
             <mat-icon>lock</mat-icon>
           </button>
         </td>
