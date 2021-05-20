@@ -25,15 +25,7 @@
     "guests": "Guests",
     "waiters": "Waiters",
     "admins": "Admins",
-    "create": "Create"
-  },
-
-  "userManagement": {
-    "createAUser": "Create a user",
-    "roleNameForId0": "Guest",
-    "roleNameForId1": "Waiter",
-    "roleNameForId2": "Manager",
-    "roleNameForId3": "Admin"
+    "createUser": "Create User"
   },
 
   "table": {
@@ -214,10 +206,11 @@
       }
     },
     "users": {
-      "title": "User",
+      "title": "Usermanagement",
       "emailH": "Email",
       "nameH": "Username",
       "roleH": "Role",
+      "newUserH": "Create user",
       "rolesH": {
         "0": "Guest",
         "1": "Waiter",
