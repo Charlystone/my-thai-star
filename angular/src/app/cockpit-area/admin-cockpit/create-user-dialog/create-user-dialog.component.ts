@@ -49,10 +49,8 @@ export class CreateUserDialogComponent implements OnInit {
     private translocoService: TranslocoService,
     private snackBarService: SnackBarService,
     private dialog: MatDialogRef<CreateUserDialogComponent>,
-    private adminCockpitService: AdminCockpitService,
-    title: Title
+    private adminCockpitService: AdminCockpitService
   ) {
-    title.setTitle('Create a user');
   }
 
   ngOnInit(): void {
