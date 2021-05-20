@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.jboss.aerogear.security.otp.api.Base32;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -17,6 +18,7 @@ import com.devonfw.application.mtsj.general.common.api.datatype.Role;
 import com.devonfw.application.mtsj.general.common.api.to.UserDetailsClientTo;
 import com.devonfw.application.mtsj.general.common.base.QrCodeService;
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
+import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -42,6 +44,12 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Inject
   private UserRoleRepository userRoleDao;
+
+  @Value("${client.port}")
+  private int clientPort;
+
+  @Inject
+  private Mail mailService;
 
   /**
    * The constructor.
@@ -114,6 +122,25 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     UserEntity resultEntity = getUserDao().save(userEntity);
     LOG.debug("User with id '{}' has been created.", resultEntity.getId());
     return getBeanMapper().map(resultEntity, UserEto.class);
+  }
+
+  @Override
+  public void sendPasswordResetLink(UserEto user) {
+    
+    Objects.requireNonNull(user, "user");
+    try {
+      String emailTo = user.getEmail();
+      StringBuilder mailContent = new StringBuilder();
+
+      mailContent.append("MY THAI STAR").append("\n");
+      mailContent.append("Hi ").append(emailTo).append("\n");
+      mailContent.append("Here is your link to reset your password with:").append("\n");
+      String link = "http://localhost:" + this.clientPort;
+      mailContent.append(link);
+      this.mailService.sendMail(emailTo, "MyThaiStar - Password reset link", mailContent.toString());
+    } catch (Exception e) {
+      LOG.error("Email not sent. {}", e.getMessage());
+    }
   }
 
   @Override

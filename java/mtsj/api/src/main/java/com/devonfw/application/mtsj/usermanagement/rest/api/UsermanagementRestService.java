@@ -57,6 +57,15 @@ public interface UsermanagementRestService {
   public UserEto saveUser(UserEto user);
 
   /**
+   * Delegates to {@link Usermanagement#sendPasswordResetLink}.
+   *
+   * @param user the {@link UserEto} to send the link to
+   */
+  @POST
+  @Path("/user/resetlink")
+  public void sendPasswordResetLink(UserEto user);
+
+  /**
    * Delegates to {@link Usermanagement#getUserStatus}.
    *
    * @param username the {@link UserEto} to be saved

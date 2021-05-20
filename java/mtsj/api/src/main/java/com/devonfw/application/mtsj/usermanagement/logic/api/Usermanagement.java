@@ -55,6 +55,14 @@ public interface Usermanagement {
   UserEto saveUser(UserEto user);
 
   /**
+   * Sends a reset link to the users mail
+   *
+   * @param user the {@link UserEto} to send the link to
+   * @return 
+   */
+  void sendPasswordResetLink(UserEto user);
+
+  /**
    * Pick the boolean and persist it for the user.
    *
    * @param user the {@link UserEto} to create.

@@ -41,6 +41,12 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
   }
 
   @Override
+  public void sendPasswordResetLink(UserEto user) {
+
+    this.usermanagement.sendPasswordResetLink(user);
+  }
+
+  @Override
   public UserEto getUserStatus(String username) {
 
     return this.usermanagement.getUserStatus(username);
