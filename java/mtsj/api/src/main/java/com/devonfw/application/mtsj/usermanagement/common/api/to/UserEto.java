@@ -18,6 +18,8 @@ public class UserEto extends AbstractEto implements User {
 
   private Long userRoleId;
 
+  private String password;
+
   @Override
   public String getUsername() {
 
@@ -28,6 +30,18 @@ public class UserEto extends AbstractEto implements User {
   public void setUsername(String username) {
 
     this.username = username;
+  }
+
+  @Override
+  public String getPassword() {
+
+    return this.password;
+  }
+
+  @Override
+  public void setPassword(String password) {
+
+    this.password = password;
   }
 
   @Override

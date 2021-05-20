@@ -68,10 +68,10 @@ export class AdminCockpitService {
     );
   }
 
-  sendUserData(newUser: any): Observable<OrderResponse[]> {
+  createUser(newUser: any): Observable<UserResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.postUserData}`, newUser),
+        this.http.post<UserResponse[]>(`${restServiceRoot}${this.postUserData}`, newUser),
       ),
     );
   }
