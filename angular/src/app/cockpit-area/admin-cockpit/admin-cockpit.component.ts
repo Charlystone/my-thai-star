@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {OrderListView, UserListView} from '../../shared/view-models/interfaces';
 import {Subscription} from 'rxjs';
 import {FilterCockpit, Pageable} from '../../shared/backend-models/interfaces';
@@ -17,7 +17,7 @@ import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
   templateUrl: './admin-cockpit.component.html',
   styleUrls: ['./admin-cockpit.component.scss']
 })
-export class AdminCockpitComponent implements OnInit {
+export class AdminCockpitComponent implements OnInit, OnDestroy {
 
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
@@ -52,6 +52,8 @@ export class AdminCockpitComponent implements OnInit {
     'userView.deleteUser'
   ];
 
+  usersChangedSubscription;
+
   constructor(
     private dialog: MatDialog,
     private translocoService: TranslocoService,
@@ -63,11 +65,19 @@ export class AdminCockpitComponent implements OnInit {
     this.pageSizes = this.configService.getValues().pageSizes;
    }
 
+  ngOnDestroy(): void {
+    this.usersChangedSubscription.unsubscribe();
+  }
+
   ngOnInit(): void {
     this.loadUsers();
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());
+    });
+
+    this.usersChangedSubscription = this.adminCockpitService.usersChanged.subscribe(() => {
+      this.loadUsers();
     });
   }
 
@@ -87,9 +97,7 @@ export class AdminCockpitComponent implements OnInit {
       this.translocoSubscription = this.translocoService
       .selectTranslateObject('alerts.adminCockpitAlerts', {}, lang)
       .subscribe((alertsAdminCockpitAlerts) => {
-      
-        this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserStateSuccess;
-   
+        this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserSuccess;
       });
   }
 
@@ -141,7 +149,7 @@ export class AdminCockpitComponent implements OnInit {
 
   deleteUser(element: any): void {
     this.adminCockpitService.deleteUser(element.id).subscribe((data: any) => {
-      this.loadUsers();
+      this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.deleteUserSuccessAlert, 5000, "green");
     });
   }

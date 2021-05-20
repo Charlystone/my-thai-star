@@ -17,6 +17,7 @@ import { emailValidator } from '../../../shared/directives/email-validator.direc
 import { TranslocoService } from '@ngneat/transloco';
 import { Title } from '@angular/platform-browser';
 import { AdminCockpitService } from 'app/cockpit-area/services/admin-cockpit.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-user-dialog',
@@ -25,6 +26,7 @@ import { AdminCockpitService } from 'app/cockpit-area/services/admin-cockpit.ser
 })
 
 export class CreateUserDialogComponent implements OnInit {
+  private translocoSubscription = Subscription.EMPTY;
   CreateModel: string[] = [];
   minDate: Date = new Date();
   bookForm: FormGroup;
@@ -40,6 +42,8 @@ export class CreateUserDialogComponent implements OnInit {
     confirmPassword: ''
   };
 
+  userCreationSuccessAltert: string;
+
   constructor(
     private window: WindowService,
     private translocoService: TranslocoService,
@@ -52,7 +56,6 @@ export class CreateUserDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.createForm = new FormGroup({
       username: new FormControl(this.userInfo.userName, Validators.required),
       email: new FormControl(this.userInfo.email, [
@@ -62,6 +65,14 @@ export class CreateUserDialogComponent implements OnInit {
       password: new FormControl(this.userInfo.password, Validators.required),
       role: new FormControl(this.userInfo.role, Validators.required),
       confirmPassword: new FormControl(this.userInfo.confirmPassword, Validators.required),
+    });
+    this.translocoService.langChanges$.subscribe((event: any) => {
+      this.translocoSubscription = this.translocoService
+      .selectTranslateObject('alerts.adminCockpitAlerts', {}, event)
+      .subscribe((alertsAdminCockpitAlerts) => {
+        this.userCreationSuccessAltert = alertsAdminCockpitAlerts.createUserSuccess;
+      });
+      moment.locale(this.translocoService.getActiveLang());
     });
   }
 
@@ -84,7 +95,6 @@ export class CreateUserDialogComponent implements OnInit {
     return this.createForm.get('role');
   }
 
- 
   validateEmail(event: MatChipInputEvent): void {
     this.CreateModel.push(event.value);
     event.input.value = '';
@@ -97,29 +107,27 @@ export class CreateUserDialogComponent implements OnInit {
       );
     }
   }
- 
-  signInSubmit(formValue: FormGroup): void {
-   
+
+  submitCreationData() : void {
+    const userData = {
+      username : this.createForm.value.username ,
+      email : this.createForm.value.email,
+      twoFactorStatus : false,
+      userRoleId : this.createForm.value.role
+    };
+    this.adminCockpitService.sendUserData(userData).subscribe((data: any) => {
+      this.adminCockpitService.emitUsersChanged();
+      this.snackBarService.openSnack(this.userCreationSuccessAltert, 5000, "green");
+    });
+    this.dialog.close();
   }
 
-  closeLoginDialog(): void {
-    this.dialog.close();
-  }
-  submitCreationData() : void {
-    const userData ={username : this.createForm.value.username ,
-       email : this.createForm.value.email,
-        twoFactorStatus : false,
-         userRoleId : this.createForm.value.role  
-        };
-    this.adminCockpitService.sendUserData(userData).subscribe((data: any) => {});
-    this.dialog.close();
-  }
   passwordIdentical() :boolean{
     if(this.createForm.value.password === this.createForm.value.confirmPassword && this.createForm.value.confirmPassword != ''){
-    return true;
-  }
-  else 
-  return false;
+      return true;
+    } else {
+      return false;
+    } 
   }
 
 }

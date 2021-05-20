@@ -61,7 +61,8 @@
       "cancelOrderSuccess": "Order succefully canceled!"
     },
     "adminCockpitAlerts": {
-      "deleteUserStateSuccess": "User successfully deleted!"
+      "deleteUserSuccess": "User successfully deleted!",
+      "createUserSuccess": "User successfully registered!"
     }
   },
   "formFields": {

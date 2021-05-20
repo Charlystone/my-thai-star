@@ -62,7 +62,8 @@
       "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!"
     },
     "adminCockpitAlerts": {
-      "deleteUserStateSuccess": "Benutzer wurde erfolgreich gelöscht!"
+      "deleteUserSuccess": "Benutzer wurde erfolgreich gelöscht!",
+      "createUserSuccess": "Benutzer wurde erfolreich angelegt!"
     }
   },
   "formFields": {

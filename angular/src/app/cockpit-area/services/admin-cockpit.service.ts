@@ -34,6 +34,8 @@ export class AdminCockpitService {
     string
   > = this.config.getRestServiceRoot();
 
+  usersChanged = new EventEmitter<boolean>();
+
 
   constructor(
     private http: HttpClient,
@@ -80,5 +82,9 @@ export class AdminCockpitService {
         this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.deleteUserDataPath}`+'/'+userId),
       ),
     );
+  }
+
+  emitUsersChanged() {
+    this.usersChanged.emit(true);
   }
 }
