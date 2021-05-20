@@ -23,6 +23,7 @@ import { OrderArchiveComponent } from './order-archive-cockpit/order-archive.com
 import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-edit.component";
 import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
 import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/create-user-dialog.component';
+import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/new-password-dialog.component';
 
 @NgModule({
   imports: [
@@ -53,6 +54,7 @@ import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/cr
     OrderArchiveComponent,
     AdminCockpitComponent,
     CreateUserDialogComponent,
+    NewPasswordDialogComponent,
   ],
   exports: [
     ReservationCockpitComponent,

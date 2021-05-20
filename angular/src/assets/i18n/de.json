@@ -76,7 +76,8 @@
     "guestsPH": "Gib die Einladungs-Email ein",
     "comment": "Kommentar",
     "total": "Gesamt",
-    "referenceNumber": "Referenznummer"
+    "referenceNumber": "Referenznummer",
+    "newPassword": "neues Passwort"
   },
   "bookTable": {
     "title":

@@ -89,7 +89,8 @@
     "comment": "Comment",
     "total": "Total",
     "referenceNumber": "Reference number",
-    "role": "Role"
+    "role": "Role",
+    "newPassword": "new Password"
   },
   "bookTable": {
     "title": "You can invite your friends to lunch or book a table",

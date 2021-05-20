@@ -11,6 +11,7 @@ import {OrderEditComponent} from "../order-cockpit/order-dialog/order-edit/order
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
+import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -143,6 +144,7 @@ export class AdminCockpitComponent implements OnInit {
       width: '80%'
     });
   }
+ 
   getUsernameByRoleId(id: number): string{    
     switch (id) {
       case 0: return "guest"; 
@@ -162,7 +164,10 @@ export class AdminCockpitComponent implements OnInit {
 
 
   resetNewPassword(element: any): void {
-    console.log(element);
+    this.dialog.open(NewPasswordDialogComponent, {
+      width: '80%',
+      data : element
+    });
   }
   sendEmailForPasswordReset(element: any): void {
     console.log(element);
