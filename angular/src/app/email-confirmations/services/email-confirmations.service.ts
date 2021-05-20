@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { exhaustMap } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
-import { InvitationResponse } from '../../shared/view-models/interfaces';
+import {InvitationResponse, UserResponse} from '../../shared/view-models/interfaces';
 
 @Injectable()
 export class EmailConfirmationsService {
@@ -18,6 +18,8 @@ export class EmailConfirmationsService {
     'bookingmanagement/v1/booking/cancel/';
   private readonly cancelOrderRestPath: string =
     'ordermanagement/v1/order/cancelorder/';
+  private readonly ResetPasswordReserveRestPath: string =
+    'user/resetlink';
 
   constructor(private http: HttpClient, private config: ConfigService) {}
 
@@ -57,6 +59,14 @@ export class EmailConfirmationsService {
         this.http.get<boolean>(
           `${restServiceRoot}${this.cancelOrderRestPath}` + token,
         ),
+      ),
+    );
+  }
+
+  sendRestPasswordEmail(user: any): Observable<UserResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<UserResponse[]>(`${restServiceRoot}${this.ResetPasswordReserveRestPath}`, user),
       ),
     );
   }
