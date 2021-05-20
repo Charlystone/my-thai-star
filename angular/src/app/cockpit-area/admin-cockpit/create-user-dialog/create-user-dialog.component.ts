@@ -45,7 +45,6 @@ export class CreateUserDialogComponent implements OnInit {
   userCreationSuccessAltert: string;
 
   constructor(
-    private window: WindowService,
     private translocoService: TranslocoService,
     private snackBarService: SnackBarService,
     private dialog: MatDialogRef<CreateUserDialogComponent>,
@@ -106,7 +105,7 @@ export class CreateUserDialogComponent implements OnInit {
     }
   }
 
-  submitCreationData() : void {
+  submit() : void {
     const userData = {
       username : this.createForm.value.username ,
       email : this.createForm.value.email,

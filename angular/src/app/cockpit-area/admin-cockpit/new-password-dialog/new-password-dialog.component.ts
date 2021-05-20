@@ -74,6 +74,7 @@ export class NewPasswordDialogComponent implements OnInit {
       moment.locale(this.translocoService.getActiveLang());
     });
   }
+
   signInSubmit(formValue: FormGroup): void {
   }
 
@@ -85,15 +86,9 @@ export class NewPasswordDialogComponent implements OnInit {
     return this.createForm.get('confirmPassword');
   }
 
-  submitCreationData() : void {
-    const userData = {
-      username : this.data.username,
-      email : this.data.email,
-      twoFactorStatus : false,
-      userRoleId : this.data.userRoleId, 
-      password : this.createForm.value.password
-    };
-    this.adminCockpitService.createUser(userData).subscribe((data: any) => {
+  submit() : void {
+    this.data.password = this.createForm.value.password;
+    this.adminCockpitService.createUser(this.data).subscribe((data: any) => {
       this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.updatePasswordSuccessAlert, 5000, "green");
     });
