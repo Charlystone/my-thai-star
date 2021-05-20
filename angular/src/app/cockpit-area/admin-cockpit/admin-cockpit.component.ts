@@ -13,6 +13,7 @@ import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
 import { Title } from '@angular/platform-browser';
+import {EmailConfirmationsService} from "../../email-confirmations/services/email-confirmations.service";
 
 
 @Component({
@@ -63,6 +64,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
+    private emailConfirmationsService: EmailConfirmationsService,
     title: Title
   ) {
     title.setTitle('Benutzerverwaltung');
@@ -166,6 +168,6 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendEmailForPasswordReset(element: any): void {
-
+    this.emailConfirmationsService.sendRestPasswordEmail(element);
   }
 }
