@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {OrderListView, UserListView} from '../../shared/view-models/interfaces';
 import {Subscription} from 'rxjs';
 import {FilterCockpit, Pageable} from '../../shared/backend-models/interfaces';
@@ -12,13 +12,15 @@ import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-admin-cockpit',
   templateUrl: './admin-cockpit.component.html',
   styleUrls: ['./admin-cockpit.component.scss']
 })
-export class AdminCockpitComponent implements OnInit {
+export class AdminCockpitComponent implements OnInit, OnDestroy {
 
   private translocoSubscription = Subscription.EMPTY;
   private pageable: Pageable = {
@@ -48,12 +50,12 @@ export class AdminCockpitComponent implements OnInit {
     'userView.email',
     'userView.name',
     'userView.role',
-    'userView.resetNewPassword',
-    'userView.emailForPasswordReset',
+    'userView.setNewPassword',
+    'userView.sendResetMail',
     'userView.deleteUser'
   ];
 
-
+  usersChangedSubscription;
 
   constructor(
     private dialog: MatDialog,
@@ -61,16 +63,25 @@ export class AdminCockpitComponent implements OnInit {
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
-
+    title: Title
   ) {
+    title.setTitle('Benutzerverwaltung');
     this.pageSizes = this.configService.getValues().pageSizes;
    }
+
+  ngOnDestroy(): void {
+    this.usersChangedSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.loadUsers();
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());
+    });
+
+    this.usersChangedSubscription = this.adminCockpitService.usersChanged.subscribe(() => {
+      this.loadUsers();
     });
   }
 
@@ -82,22 +93,16 @@ export class AdminCockpitComponent implements OnInit {
           { name: 'userView.email', label: cockpitTable.emailH },
           { name: 'userView.name', label: cockpitTable.nameH },
           { name: 'userView.role', label: cockpitTable.roleH },
-          { name: 'userView.resetNewPassword', label: cockpitTable.resetH },
-          { name: 'userView.emailForPasswordReset', label: cockpitTable.emailForPasswordResetH },
+          { name: 'userView.setNewPassword', label: cockpitTable.newPasswordH },
+          { name: 'userView.sendResetMail', label: cockpitTable.passwordResetMailH },
           { name: 'userView.deleteUser', label: cockpitTable.deleteUserH },
         ];
       });
       this.translocoSubscription = this.translocoService
       .selectTranslateObject('alerts.adminCockpitAlerts', {}, lang)
       .subscribe((alertsAdminCockpitAlerts) => {
-      
-        this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserStateSuccess;
-   
+        this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserSuccess;
       });
-  }
-
-  printElement(element: any): void{
-    console.log(element);
   }
 
   loadUsers(): void {
@@ -112,6 +117,7 @@ export class AdminCockpitComponent implements OnInit {
         this.totalUsers = this.users.length;
       });
   }
+
   page(pagingEvent: PageEvent): void {
     this.pageable = {
       pageSize: pagingEvent.pageSize,
@@ -141,36 +147,25 @@ export class AdminCockpitComponent implements OnInit {
 
   createUserDialog(): void {
     this.dialog.open(CreateUserDialogComponent, {
-      width: '80%'
+      width: '25%'
     });
-  }
- 
-  getUsernameByRoleId(id: number): string{    
-    switch (id) {
-      case 0: return "guest"; 
-      case 1: return "waiter"; 
-      case 2: return "manager"; 
-      case 3: return "admin"; 
-    }
   }
 
   deleteUser(element: any): void {
-    console.log(element);
     this.adminCockpitService.deleteUser(element.id).subscribe((data: any) => {
-      this.loadUsers();
+      this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.deleteUserSuccessAlert, 5000, "green");
     });
   }
 
-
-  resetNewPassword(element: any): void {
+  setNewPassword(element: any): void {
     this.dialog.open(NewPasswordDialogComponent, {
-      width: '80%',
+      width: '25%',
       data : element
     });
   }
-  sendEmailForPasswordReset(element: any): void {
-    console.log(element);
-  }
 
+  sendEmailForPasswordReset(element: any): void {
+
+  }
 }

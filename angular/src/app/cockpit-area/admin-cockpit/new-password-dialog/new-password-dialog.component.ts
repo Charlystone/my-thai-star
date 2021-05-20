@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -12,6 +12,7 @@ import { WindowService } from '../../../core/window/window.service';
 import { TranslocoService } from '@ngneat/transloco';
 import { Title } from '@angular/platform-browser';
 import { AdminCockpitService } from 'app/cockpit-area/services/admin-cockpit.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-password-dialog',
@@ -37,17 +38,19 @@ export class NewPasswordDialogComponent implements OnInit {
     role: '',
     confirmPassword: ''
   };
+
+  updatePasswordSuccessAlert;
+  translocoSubscription;
+
   constructor(
     private window: WindowService,
     private translocoService: TranslocoService,
     private snackBarService: SnackBarService,
     private dialog: MatDialogRef<NewPasswordDialogComponent>,
     private adminCockpitService: AdminCockpitService,
-    @Inject(MAT_DIALOG_DATA) dialogData: any,
-    title: Title
+    @Inject(MAT_DIALOG_DATA) dialogData: any
   ) {
     this.data = dialogData;
-    title.setTitle('Create a user');
   }
 
   ngOnInit(): void {
@@ -61,9 +64,17 @@ export class NewPasswordDialogComponent implements OnInit {
       role: new FormControl(this.userInfo.role, Validators.required),
       confirmPassword: new FormControl(this.userInfo.confirmPassword, Validators.required),
     });
+
+    this.translocoService.langChanges$.subscribe((event: any) => {
+      this.translocoSubscription = this.translocoService
+      .selectTranslateObject('alerts.adminCockpitAlerts', {}, event)
+      .subscribe((alertsAdminCockpitAlerts) => {
+        this.updatePasswordSuccessAlert = alertsAdminCockpitAlerts.updatePasswordSuccess;
+      });
+      moment.locale(this.translocoService.getActiveLang());
+    });
   }
   signInSubmit(formValue: FormGroup): void {
-   
   }
 
   get password(): AbstractControl {
@@ -74,34 +85,30 @@ export class NewPasswordDialogComponent implements OnInit {
     return this.createForm.get('confirmPassword');
   }
 
-  closeLoginDialog(): void {
-    console.log(this.data);
-    this.dialog.close();
-  }
   submitCreationData() : void {
-    console.log(this.data);
-    const userData ={username : this.data.username ,
-       email : this.data.email,
-        twoFactorStatus : false,
-         userRoleId : this.data.userRoleId, 
-         password : this.createForm.value.password
-        };
-    this.adminCockpitService.sendUserData(userData).subscribe((data: any) => {});
+    const userData = {
+      username : this.data.username,
+      email : this.data.email,
+      twoFactorStatus : false,
+      userRoleId : this.data.userRoleId, 
+      password : this.createForm.value.password
+    };
+    this.adminCockpitService.createUser(userData).subscribe((data: any) => {
+      this.adminCockpitService.emitUsersChanged();
+      this.snackBarService.openSnack(this.updatePasswordSuccessAlert, 5000, "green");
+    });
     this.dialog.close();
   }
+
   passwordIdentical() :boolean{
     if(this.createForm.value.password === this.createForm.value.confirmPassword && this.createForm.value.confirmPassword != ''){
-    return true;
-  }
-  else 
-  return false;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   togglemyPassword(): void{
-    console.log(this.isPasswordVisible)
-  
     this.isPasswordVisible = !this.isPasswordVisible;
-
   }
-  
 }

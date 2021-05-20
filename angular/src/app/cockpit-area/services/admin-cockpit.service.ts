@@ -34,6 +34,8 @@ export class AdminCockpitService {
     string
   > = this.config.getRestServiceRoot();
 
+  usersChanged = new EventEmitter<boolean>();
+
 
   constructor(
     private http: HttpClient,
@@ -66,23 +68,23 @@ export class AdminCockpitService {
     );
   }
 
-
-  sendUserData(newUser: any): Observable<OrderResponse[]> {
+  createUser(newUser: any): Observable<UserResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<OrderResponse[]>(`${restServiceRoot}${this.postUserData}`, newUser),
+        this.http.post<UserResponse[]>(`${restServiceRoot}${this.postUserData}`, newUser),
       ),
     );
-
-    
-    
   }
+
   deleteUser(userId: number): Observable<OrderResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.deleteUserDataPath}`+'/'+userId),
       ),
     );
+  }
 
-}
+  emitUsersChanged() {
+    this.usersChanged.emit(true);
+  }
 }

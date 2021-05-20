@@ -19,11 +19,13 @@
     "printBill": "Rechnung drucken",
     "cancelOrder": "Stornieren",
     "saveOrder": "Speichern",
+    "save": "Speichern",
     "all": "Alle",
     "managers": "Manager",
     "guests": "Gäste",
-    "waiters": "Waiter",
-    "admins": "Admins"
+    "waiters": "Kellner",
+    "admins": "Admins",
+    "createUser": "Benutzer anlegen"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",
@@ -58,6 +60,12 @@
       "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!",
       "updateOrderLineFail": "Fehler beim Editieren der Bestellung!",
       "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!"
+    },
+    "adminCockpitAlerts": {
+      "deleteUserSuccess": "Benutzer wurde erfolgreich gelöscht!",
+      "createUserSuccess": "Benutzer wurde erfolreich angelegt!",
+      "identicalUsernameError": "Benutzername ungültig oder existiert bereits.",
+      "updatePasswordSuccess": "Passwort erfolgreich geändert!"
     }
   },
   "formFields": {
@@ -208,10 +216,20 @@
       }
     },
       "users": {
-        "title": "Benutzer",
+        "title": "Benutzerverwaltung",
         "emailH": "Email",
-        "nameH": "Name",
-        "roleH": "Rolle"
+        "nameH": "Benutzername",
+        "roleH": "Rolle",
+        "newUserH": "Benutzer anlegen",
+        "newPasswordH": "Passwort neu setzen",
+        "passwordResetMailH": "Passwort Rücksetzlink versenden",
+        "deleteUserH": "Benutzer löschen",
+        "rolesH": {
+          "0": "Gast",
+          "1": "Kellner",
+          "2": "Manager",
+          "3": "Admin"
+        }
       },
     "archive": {
       "title": "Archivierte Bestellungen",

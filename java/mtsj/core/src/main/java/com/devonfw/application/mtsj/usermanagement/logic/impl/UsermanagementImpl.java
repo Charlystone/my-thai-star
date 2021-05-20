@@ -10,6 +10,7 @@ import org.jboss.aerogear.security.otp.api.Base32;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.devonfw.application.mtsj.general.common.api.UserProfile;
 import com.devonfw.application.mtsj.general.common.api.datatype.Role;
@@ -102,9 +103,12 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Override
   public UserEto saveUser(UserEto user) {
+    BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
 
     Objects.requireNonNull(user, "user");
     UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);
+
+    userEntity.setPassword("{bcrypt}" + bCryptEncoder.encode(userEntity.getPassword()));
 
     // initialize, validate userEntity here if necessary
     UserEntity resultEntity = getUserDao().save(userEntity);

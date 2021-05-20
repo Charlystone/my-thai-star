@@ -25,15 +25,7 @@
     "guests": "Guests",
     "waiters": "Waiters",
     "admins": "Admins",
-    "create": "Create"
-  },
-
-  "userManagement": {
-    "createAUser": "Create a user",
-    "roleNameForId0": "Guest",
-    "roleNameForId1": "Waiter",
-    "roleNameForId2": "Manager",
-    "roleNameForId3": "Admin"
+    "createUser": "Create User"
   },
 
   "table": {
@@ -69,7 +61,10 @@
       "cancelOrderSuccess": "Order succefully canceled!"
     },
     "adminCockpitAlerts": {
-      "deleteUserStateSuccess": "User successfully deleted!"
+      "deleteUserSuccess": "User successfully deleted!",
+      "createUserSuccess": "User successfully registered!",
+      "identicalUsernameError": "Username not valid or does already exist.",
+      "updatePasswordSuccess": "Password successfully updated!"
     }
   },
   "formFields": {
@@ -206,15 +201,6 @@
   },
   "cockpit": {
     "filter": "Filter",
-    "users": {
-      "title": "Users",
-      "emailH": "Email",
-      "nameH": "Name",
-      "roleH": "Role",
-      "resetH" :"Set new Password",
-      "emailForPasswordResetH" : "Email for Password Reset",
-      "deleteUserH": "Delete User"
-    },
     "orders": {
       "title": "Orders",
       "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",
@@ -224,6 +210,22 @@
         "extrasH": "Extra",
         "quantityH": "Quantity",
         "priceH": "Price"
+      }
+    },
+    "users": {
+      "title": "Usermanagement",
+      "emailH": "Email",
+      "nameH": "Username",
+      "roleH": "Role",
+      "newUserH": "Create user",
+      "newPasswordH": "Set new password",
+      "passwordResetMailH": "Send password reset link",
+      "deleteUserH": "Delete user",
+      "rolesH": {
+        "0": "Guest",
+        "1": "Waiter",
+        "2": "Manager",
+        "3": "Admin"
       }
     },
     "archive": {

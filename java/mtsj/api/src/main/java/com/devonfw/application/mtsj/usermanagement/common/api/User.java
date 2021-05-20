@@ -10,6 +10,10 @@ public interface User extends ApplicationEntity {
 
   public String getEmail();
 
+  public String getPassword();
+
+  public void setPassword(String password);
+
   public void setEmail(String email);
 
   public Long getUserRoleId();

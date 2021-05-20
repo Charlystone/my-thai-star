@@ -1,46 +1,47 @@
+<h3 mat-dialog-title>{{'cockpit.users.newUserH' | transloco}}</h3>
+<mat-divider></mat-divider>
 
-      <form (ngSubmit)="signInSubmit(signForm.form.value)" #signForm="ngForm" [formGroup]="createForm">
-        <div class="formFields">
-          <div>
-            <mat-form-field color="accent">
-              <input formControlName="username"  matInput [placeholder]="'formFields.username' | transloco" ngModel name="username"  required >
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field color="accent">
-              <input formControlName="email"  matInput [placeholder]="'formFields.email' | transloco" ngModel name="email"  required validateEmail>
-              <mat-error>{{'userArea.emailError' | transloco}}</mat-error>
-            </mat-form-field>
-          </div>
-  
-          <div>
-            <mat-form-field color="accent">
-              <input matInput formControlName="password" type="password" name="password" [placeholder]="'formFields.password' | transloco"  required  ngModel>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field color="accent">
-              <input matInput formControlName="confirmPassword" type="password" name="confirmPassword"  [placeholder]="'formFields.confirmPassword' | transloco" ngModel required >
-              <mat-error>{{'alerts.passwordError' | transloco}}</mat-error>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="fill" >
-              <mat-label>Role</mat-label>
-              <mat-select [(value)]="selected" formControlName="role" required >
-                <mat-option>None</mat-option>
-                <mat-option value=1>waiter</mat-option>
-                <mat-option value=2>manager</mat-option>
-                <mat-option value=3>admin</mat-option>
-                <mat-option value=0>user</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-         
-        </div>
+<form #signForm="ngForm" [formGroup]="createForm">
+  <div class="formFields">
+    <div>
+      <mat-form-field color="accent">
+        <input formControlName="username"  matInput [placeholder]="'formFields.username' | transloco" ngModel name="username"  required >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field color="accent">
+        <input formControlName="email"  matInput [placeholder]="'formFields.email' | transloco" ngModel name="email"  required validateEmail>
+        <mat-error>{{'userArea.emailError' | transloco}}</mat-error>
+      </mat-form-field>
+    </div>
 
-        <div class="align-right">
-          <button name="cancelSignUp" mat-button (click)="closeLoginDialog()">{{'buttons.cancel' | transloco | uppercase}}</button>
-          <button name="registerSubmit" mat-button type="submit" [disabled]="!(signForm.form.valid && selected && passwordIdentical())" (click)="submitCreationData()" color="accent">{{'buttons.create' | transloco | uppercase}}</button>
-        </div>
-      </form>
+    <div>
+      <mat-form-field color="accent">
+        <input matInput formControlName="password" type="password" name="password" [placeholder]="'formFields.password' | transloco"  required  ngModel>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field color="accent">
+        <input matInput formControlName="confirmPassword" type="password" name="confirmPassword"  [placeholder]="'formFields.confirmPassword' | transloco" ngModel required >
+        <mat-error>{{'alerts.passwordError' | transloco}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill" >
+        <mat-label>{{'cockpit.users.roleH' | transloco}}</mat-label>
+        <mat-select [(value)]="selected" formControlName="role" required >
+          <mat-option value=0>{{'cockpit.users.rolesH.0' | transloco}}</mat-option>
+          <mat-option value=1>{{'cockpit.users.rolesH.1' | transloco}}</mat-option>
+          <mat-option value=2>{{'cockpit.users.rolesH.2' | transloco}}</mat-option>
+          <mat-option value=3>{{'cockpit.users.rolesH.3' | transloco}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+  </div>
+
+  <div class="align-right">
+    <button mat-button mat-dialog-close color="default">{{'buttons.cancel' | transloco | uppercase}}</button>
+    <button name="registerSubmit" mat-button type="submit" [disabled]="!(signForm.form.valid && selected && passwordIdentical())" (click)="submitCreationData()" color="accent">{{'buttons.save' | transloco | uppercase}}</button>
+  </div>
+</form>
