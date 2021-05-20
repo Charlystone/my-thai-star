@@ -11,6 +11,7 @@ import {OrderEditComponent} from "../order-cockpit/order-dialog/order-edit/order
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -60,8 +61,9 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
-
+    title: Title
   ) {
+    title.setTitle('Benutzerverwaltung');
     this.pageSizes = this.configService.getValues().pageSizes;
    }
 
@@ -161,4 +163,5 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
   sendEmailForPasswordReset(element: any): void {
     console.log(element);
   }
+
 }

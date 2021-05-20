@@ -62,7 +62,8 @@
     },
     "adminCockpitAlerts": {
       "deleteUserSuccess": "User successfully deleted!",
-      "createUserSuccess": "User successfully registered!"
+      "createUserSuccess": "User successfully registered!",
+      "identicalUsernameError": "Username not valid or does already exist."
     }
   },
   "formFields": {

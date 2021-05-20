@@ -43,8 +43,6 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   @Inject
   private UserRoleRepository userRoleDao;
 
-  private BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
-
   /**
    * The constructor.
    */
@@ -105,6 +103,7 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Override
   public UserEto saveUser(UserEto user) {
+    BCryptPasswordEncoder bCryptEncoder = new BCryptPasswordEncoder();
 
     Objects.requireNonNull(user, "user");
     UserEntity userEntity = getBeanMapper().map(user, UserEntity.class);

@@ -63,7 +63,8 @@
     },
     "adminCockpitAlerts": {
       "deleteUserSuccess": "Benutzer wurde erfolgreich gelöscht!",
-      "createUserSuccess": "Benutzer wurde erfolreich angelegt!"
+      "createUserSuccess": "Benutzer wurde erfolreich angelegt!",
+      "identicalUsernameError": "Benutzername ungültig oder existiert bereits."
     }
   },
   "formFields": {
