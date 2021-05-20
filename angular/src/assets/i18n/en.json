@@ -67,6 +67,9 @@
       "updateOrderLineSuccess": "Order succesfully edited!",
       "updateOrderLineFail": "Editing of order failed!",
       "cancelOrderSuccess": "Order succefully canceled!"
+    },
+    "adminCockpitAlerts": {
+      "deleteUserStateSuccess": "User successfully deleted!"
     }
   },
   "formFields": {
@@ -206,7 +209,10 @@
       "title": "Users",
       "emailH": "Email",
       "nameH": "Name",
-      "roleH": "Role"
+      "roleH": "Role",
+      "resetH" :"Set new Password",
+      "emailForPasswordResetH" : "Email for Password Reset",
+      "deleteUserH": "Delete User"
     },
     "orders": {
       "title": "Orders",
