@@ -26,6 +26,8 @@ export class AdminCockpitService {
     'usermanagement/v1/user/search';
     private readonly postUserData: string =
     'usermanagement/v1/user';
+    private readonly deleteUserDataPath: string =
+    'usermanagement/v1/user';
     
 
   private readonly restServiceRoot$: Observable<
@@ -64,14 +66,19 @@ export class AdminCockpitService {
     );
   }
 
-
   sendUserData(newUser: any): Observable<OrderResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${this.postUserData}`, newUser),
       ),
     );
-    
   }
 
+  deleteUser(userId: number): Observable<OrderResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.deleteUserDataPath}`+'/'+userId),
+      ),
+    );
+  }
 }

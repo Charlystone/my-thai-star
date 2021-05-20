@@ -60,6 +60,9 @@
       "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!",
       "updateOrderLineFail": "Fehler beim Editieren der Bestellung!",
       "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!"
+    },
+    "adminCockpitAlerts": {
+      "deleteUserStateSuccess": "Benutzer wurde erfolgreich gelöscht!"
     }
   },
   "formFields": {
@@ -214,6 +217,9 @@
         "nameH": "Benutzername",
         "roleH": "Rolle",
         "newUserH": "Benutzer anlegen",
+        "newPasswordH": "Passwort neu setzen",
+        "passwordResetMailH": "Passwort Rücksetzlink versenden",
+        "deleteUserH": "Benutzer löschen",
         "rolesH": {
           "0": "Gast",
           "1": "Kellner",

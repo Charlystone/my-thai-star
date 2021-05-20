@@ -10,6 +10,7 @@ import { ConfigService } from 'app/core/config/config.service';
 import {OrderEditComponent} from "../order-cockpit/order-dialog/order-edit/order-edit.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog.component";
+import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-admin-cockpit',
@@ -35,24 +36,28 @@ export class AdminCockpitComponent implements OnInit {
   pageSizes: number[];
 
   private sorting: any[] = [];
-
+  data: any;
   filters: FilterCockpit = {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
   };
-
+  deleteUserSuccessAlert: string;
   displayedColumns: string[] = [
     'userView.email',
     'userView.name',
     'userView.role',
+    'userView.setNewPassword',
+    'userView.sendResetMail',
+    'userView.deleteUser'
   ];
 
   constructor(
     private dialog: MatDialog,
     private translocoService: TranslocoService,
     private adminCockpitService: AdminCockpitService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private snackBarService: SnackBarService,
 
   ) {
     this.pageSizes = this.configService.getValues().pageSizes;
@@ -74,11 +79,18 @@ export class AdminCockpitComponent implements OnInit {
           { name: 'userView.email', label: cockpitTable.emailH },
           { name: 'userView.name', label: cockpitTable.nameH },
           { name: 'userView.role', label: cockpitTable.roleH },
+          { name: 'userView.setNewPassword', label: cockpitTable.newPasswordH },
+          { name: 'userView.sendResetMail', label: cockpitTable.passwordResetMailH },
+          { name: 'userView.deleteUser', label: cockpitTable.deleteUserH },
         ];
       });
-    this.translocoSubscription = this.translocoService
-      .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
-      .subscribe((alertsWaiterCockpitAlerts) => { });
+      this.translocoSubscription = this.translocoService
+      .selectTranslateObject('alerts.adminCockpitAlerts', {}, lang)
+      .subscribe((alertsAdminCockpitAlerts) => {
+      
+        this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserStateSuccess;
+   
+      });
   }
 
   loadUsers(): void {
@@ -125,5 +137,20 @@ export class AdminCockpitComponent implements OnInit {
     this.dialog.open(CreateUserDialogComponent, {
       width: '25%'
     });
+  }
+
+  deleteUser(element: any): void {
+    this.adminCockpitService.deleteUser(element.id).subscribe((data: any) => {
+      this.loadUsers();
+      this.snackBarService.openSnack(this.deleteUserSuccessAlert, 5000, "green");
+    });
+  }
+
+  resetNewPassword(element: any): void {
+    console.log(element);
+  }
+
+  sendEmailForPasswordReset(element: any): void {
+    console.log(element);
   }
 }
