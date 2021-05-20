@@ -24,6 +24,7 @@ import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-
 import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
 import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/create-user-dialog.component';
 import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/new-password-dialog.component';
+import { EmailConfirmationsService } from 'app/email-confirmations/services/email-confirmations.service';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/
     ClusteringService,
     BillService,
     AdminCockpitService,
+    EmailConfirmationsService
   ],
   declarations: [
     ReservationCockpitComponent,

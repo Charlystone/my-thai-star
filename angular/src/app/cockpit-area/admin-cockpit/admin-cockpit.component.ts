@@ -168,6 +168,8 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendEmailForPasswordReset(element: any): void {
-    this.emailConfirmationsService.sendRestPasswordEmail(element);
+    this.emailConfirmationsService.sendResetPasswordEmail(element).subscribe((data: any) => {
+      
+    });
   }
 }

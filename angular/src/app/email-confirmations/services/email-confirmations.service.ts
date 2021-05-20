@@ -19,7 +19,7 @@ export class EmailConfirmationsService {
   private readonly cancelOrderRestPath: string =
     'ordermanagement/v1/order/cancelorder/';
   private readonly ResetPasswordReserveRestPath: string =
-    'user/resetlink';
+    'usermanagement/v1/user/resetlink';
 
   constructor(private http: HttpClient, private config: ConfigService) {}
 
@@ -63,7 +63,7 @@ export class EmailConfirmationsService {
     );
   }
 
-  sendRestPasswordEmail(user: any): Observable<UserResponse[]> {
+  sendResetPasswordEmail(user: any): Observable<UserResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post<UserResponse[]>(`${restServiceRoot}${this.ResetPasswordReserveRestPath}`, user),

@@ -130,10 +130,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     Objects.requireNonNull(user, "user");
     try {
       String emailTo = user.getEmail();
+      String username = user.getUsername();
       StringBuilder mailContent = new StringBuilder();
 
       mailContent.append("MY THAI STAR").append("\n");
-      mailContent.append("Hi ").append(emailTo).append("\n");
+      mailContent.append("Hi ").append(username).append("\n");
       mailContent.append("Here is your link to reset your password with:").append("\n");
       String link = "http://localhost:" + this.clientPort;
       mailContent.append(link);
