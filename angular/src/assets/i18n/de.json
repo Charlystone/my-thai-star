@@ -250,7 +250,7 @@
       "canceledH": "Storniert"
     },
     "paymentStates": {
-      "pendingH": "Bezahlen",
+      "pendingH": "Offen",
       "paidH": "Bezahlt",
       "canceledH": "Storniert"
     }
