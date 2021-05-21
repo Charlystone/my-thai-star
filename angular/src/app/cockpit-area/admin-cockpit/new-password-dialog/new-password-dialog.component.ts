@@ -88,7 +88,7 @@ export class NewPasswordDialogComponent implements OnInit {
 
   submit() : void {
     this.data.password = this.createForm.value.password;
-    this.adminCockpitService.createUser(this.data).subscribe((data: any) => {
+    this.adminCockpitService.updateUser(this.data).subscribe((data: any) => {
       this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.updatePasswordSuccessAlert, 5000, "green");
     });

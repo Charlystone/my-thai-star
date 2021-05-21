@@ -113,7 +113,7 @@ export class CreateUserDialogComponent implements OnInit {
       userRoleId : this.createForm.value.role,
       password: this.createForm.value.password
     };
-    this.adminCockpitService.createUser(userData).subscribe((data: any) => {
+    this.adminCockpitService.updateUser(userData).subscribe((data: any) => {
       this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.userCreationSuccessAltert, 5000, "green");
     });
