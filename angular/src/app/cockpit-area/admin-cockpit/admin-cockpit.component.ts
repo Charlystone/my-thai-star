@@ -14,6 +14,7 @@ import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
 import { Title } from '@angular/platform-browser';
 import {EmailConfirmationsService} from "../../email-confirmations/services/email-confirmations.service";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -66,6 +67,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
+    public router: Router,
     title: Title
   ) {
     title.setTitle('Benutzerverwaltung');

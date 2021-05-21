@@ -222,6 +222,13 @@
       "newPasswordH": "Set new password",
       "passwordResetMailH": "Send password reset link",
       "deleteUserH": "Delete user",
+      "navigationH": {
+        "allH": "All",
+        "customersH": "Customers",
+        "waitersH": "Waiters",
+        "managersH": "Managers",
+        "adminsH": "Admins"
+      },
       "rolesH": {
         "0": "Guest",
         "1": "Waiter",

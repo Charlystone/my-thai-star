@@ -1,14 +1,47 @@
 <mat-card>
   <mat-card-title>{{'cockpit.users.title' | transloco}}</mat-card-title>
   <br>
-  <button class="loadUsers" name="loadUsers" mat-button type="button" (click)="loadUsers()">{{'buttons.all' | transloco }}</button>
-  <button class="loadAdmins" name="loadAdmins" mat-button type="button" (click)="loadUsersByRole(3)">{{'buttons.admins' | transloco }}</button>
-  <button class="loadManagers" name="loadManagers" mat-button type="button" (click)="loadUsersByRole(2)">{{'buttons.managers' | transloco }}</button>
-  <button class="loadWaiters" name="loadWaiters" mat-button type="button" (click)="loadUsersByRole(1)">{{'buttons.waiters' | transloco }}</button>
-  <button class="loadGuests" name="loadGuests" mat-button type="button" (click)="loadUsersByRole(0)">{{'buttons.guests' | transloco }}</button>
-  <br><br>
+
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      routerLink="/all"
+      routerLinkActive="navBottomBorder"
+    >
+      {{ 'cockpit.users.navigationH.allH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      routerLink="/customers"
+      routerLinkActive="navBottomBorder"
+    >
+      {{ 'cockpit.users.navigationH.customersH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      routerLink="/waiters"
+      routerLinkActive="navBottomBorder"
+    >
+      {{ 'cockpit.users.navigationH.waitersH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      routerLink="/managers"
+      routerLinkActive="navBottomBorder"
+    >
+      {{ 'cockpit.users.navigationH.managersH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      routerLink="/admins"
+      routerLinkActive="navBottomBorder"
+    >
+      {{ 'cockpit.users.navigationH.adminsH' | transloco }}
+    </a>
+  </nav>
 
   <mat-divider></mat-divider>
+
   <div class="tableContainer">
     <table mat-table [dataSource]="users" matSort >  <!--(matSortChange)="sort($event)"> -->
 

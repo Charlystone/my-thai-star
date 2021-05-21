@@ -225,6 +225,13 @@
         "newPasswordH": "Passwort neu setzen",
         "passwordResetMailH": "Passwort Rücksetzlink versenden",
         "deleteUserH": "Benutzer löschen",
+        "navigationH": {
+          "allH": "Alle",
+          "customersH": "Gäste",
+          "waitersH": "Kellner",
+          "managersH": "Manager",
+          "adminsH": "Admins"
+        },
         "rolesH": {
           "0": "Gast",
           "1": "Kellner",

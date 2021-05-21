@@ -25,6 +25,7 @@ import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
 import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/create-user-dialog.component';
 import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/new-password-dialog.component';
 import { EmailConfirmationsService } from 'app/email-confirmations/services/email-confirmations.service';
+import { UserListComponent } from './admin-cockpit/user-list/user-list.component';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { EmailConfirmationsService } from 'app/email-confirmations/services/emai
     AdminCockpitComponent,
     CreateUserDialogComponent,
     NewPasswordDialogComponent,
+    UserListComponent,
   ],
   exports: [
     ReservationCockpitComponent,
