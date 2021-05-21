@@ -36,7 +36,8 @@ export class AuthGuardService implements CanActivate, OnDestroy {
     ]).pipe(
       map(([role, logged]) => {
         if (
-          (state.url === '/prediction' || state.url === '/clustering') &&
+          (state.url === '/prediction' || 
+          state.url === '/clustering') &&
           role === 'MANAGER' &&
           logged
         ) {
@@ -44,7 +45,9 @@ export class AuthGuardService implements CanActivate, OnDestroy {
         }
 
         if (
-          (state.url === '/archive' ||state.url === '/orders' || state.url === '/reservations') &&
+          (state.url === '/archive' ||
+          state.url === '/orders' || 
+          state.url === '/reservations') &&
           role === 'WAITER' &&
           logged
         ) {
@@ -52,7 +55,13 @@ export class AuthGuardService implements CanActivate, OnDestroy {
         }
 
         if (
-          (state.url === '/archive' || state.url === '/usermanagement' || state.url === '/usermanagement/all' || state.url === '/usermanagement/customers' || state.url === '/usermanagement/waiters' || state.url === '/usermanagement/managers' || state.url === '/usermanagement/admins') &&
+          (state.url === '/archive' || 
+          state.url === '/usermanagement' || 
+          state.url === '/usermanagement/all' || 
+          state.url === '/usermanagement/customers' || 
+          state.url === '/usermanagement/waiters' || 
+          state.url === '/usermanagement/managers' || 
+          state.url === '/usermanagement/admins') &&
           role === 'ADMIN' &&
           logged
         ) {
