@@ -5,19 +5,12 @@ import {
   Pageable,
   Sort,
 } from 'app/shared/backend-models/interfaces';
-import { cloneDeep, map } from 'lodash';
 import { Observable } from 'rxjs';
 import { exhaustMap } from 'rxjs/operators';
 import { ConfigService } from '../../core/config/config.service';
 import {
-  BookingResponse,
-  OrderResponse,
-  OrderView,
-  OrderViewResult,
   UserResponse,
 } from '../../shared/view-models/interfaces';
-import { PriceCalculatorService } from '../../sidenav/services/price-calculator.service';
-import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable()
@@ -77,10 +70,10 @@ export class AdminCockpitService {
     );
   }
 
-  deleteUser(userId: number): Observable<OrderResponse[]> {
+  deleteUser(userId: number): Observable<UserResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.deleteUserDataPath}`+'/'+userId),
+        this.http.delete<UserResponse[]>(`${restServiceRoot}${this.deleteUserDataPath}`+'/'+userId),
       ),
     );
   }

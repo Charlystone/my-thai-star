@@ -1,21 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import {BookingInfo, UserInfo} from '../../../shared/backend-models/interfaces';
+import { MatDialogRef } from '@angular/material/dialog';
+import { UserInfo} from '../../../shared/backend-models/interfaces';
 import { last } from 'lodash';
 import * as moment from 'moment';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
-import { WindowService } from '../../../core/window/window.service';
 import { emailValidator } from '../../../shared/directives/email-validator.directive';
 import { TranslocoService } from '@ngneat/transloco';
-import { Title } from '@angular/platform-browser';
 import { AdminCockpitService } from 'app/cockpit-area/services/admin-cockpit.service';
 import { Subscription } from 'rxjs';
 
@@ -25,7 +22,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./create-user-dialog.component.scss']
 })
 
-export class CreateUserDialogComponent implements OnInit {
+export class CreateUserDialogComponent implements OnInit, OnDestroy {
   private translocoSubscription = Subscription.EMPTY;
   CreateModel: string[] = [];
   minDate: Date = new Date();
@@ -51,6 +48,10 @@ export class CreateUserDialogComponent implements OnInit {
     private dialog: MatDialogRef<CreateUserDialogComponent>,
     private adminCockpitService: AdminCockpitService
   ) {
+  }
+
+  ngOnDestroy(): void {
+    this.translocoSubscription.unsubscribe();
   }
 
   ngOnInit(): void {

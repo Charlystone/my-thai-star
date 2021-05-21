@@ -12,7 +12,7 @@ import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'app/core/authentication/auth.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store';
