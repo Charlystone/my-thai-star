@@ -59,6 +59,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
   ];
 
   deleteUserSuccessAlert: string;
+  deleteUserFailAlert: string;
   resetLinkSuccessAlert: string;
   usersChangedSubscription;
   userCategoryId: number;
@@ -139,6 +140,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
       .subscribe((alertsAdminCockpitAlerts) => {
         this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserSuccess;
         this.resetLinkSuccessAlert = alertsAdminCockpitAlerts.resetLinkSuccess;
+        this.deleteUserFailAlert = alertsAdminCockpitAlerts.deleteUserFail;
       });
   }
 
@@ -183,6 +185,9 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     this.adminCockpitService.deleteUser(element.id).subscribe((data: any) => {
       this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.deleteUserSuccessAlert, 5000, "green");
+    },
+    (error: any) => {
+      this.snackBarService.openSnack(this.deleteUserFailAlert, 5000, "red");
     });
   }
 

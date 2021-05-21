@@ -62,6 +62,7 @@
     },
     "adminCockpitAlerts": {
       "deleteUserSuccess": "User successfully deleted!",
+      "deleteUserFail": "This user can´t be deleted!",
       "createUserSuccess": "User successfully registered!",
       "identicalUsernameError": "Username not valid or does already exist.",
       "updatePasswordSuccess": "Password successfully updated!",
