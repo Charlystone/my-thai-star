@@ -71,7 +71,7 @@
       <ng-container matColumnDef="userView.setNewPassword">
         <th mat-header-cell *matHeaderCellDef>{{columns[3].label}}</th>
         <td mat-cell *matCellDef="let element" > 
-          <button  mat-button  color="default" (click)="$event.stopPropagation(); setNewPassword(element)">
+          <button  mat-button  color="default" (click)="$event.stopPropagation(); setNewPassword(element)" [disabled]="(auth.getUser() | async) == element.username">
             <mat-icon>lock</mat-icon>
           </button>
         </td>
@@ -89,7 +89,7 @@
       <ng-container matColumnDef="userView.deleteUser">
         <th mat-header-cell *matHeaderCellDef>{{columns[5].label}}</th>
         <td mat-cell *matCellDef="let element" >
-          <button  mat-button color="warn" (click)="$event.stopPropagation(); deleteUser(element)" [disabled]="element.userRoleId == 3" >
+          <button  mat-button color="warn" (click)="$event.stopPropagation(); deleteUser(element)" [disabled]="(auth.getUser() | async) == element.username" >
             <mat-icon>delete_forever</mat-icon>
           </button>
         </td>

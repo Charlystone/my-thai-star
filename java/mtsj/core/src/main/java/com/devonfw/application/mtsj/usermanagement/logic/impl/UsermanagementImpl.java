@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.jboss.aerogear.security.otp.api.Base32;
@@ -12,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.devonfw.application.mtsj.general.common.api.UserProfile;
 import com.devonfw.application.mtsj.general.common.api.datatype.Role;
@@ -133,11 +136,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
       String username = user.getUsername();
       StringBuilder mailContent = new StringBuilder();
 
-      mailContent.append("Hi ").append(username).append("\n");
-      mailContent.append("Here is your link to reset your password with:").append("\n");
-      String link = "http://localhost:" + this.clientPort;
+      mailContent.append("Hi ").append(username).append("\n\n");
+      mailContent.append("Here is your link to reset your password with:").append("\n\n");
+      String link = getClientUrl() + "/passwordReset/" + user.getId() + "/" + user.getPassword().replace("{bcrypt}", "");
       mailContent.append(link);
-      this.mailService.sendMail(emailTo, "MyThaiStar - Password reset link", mailContent.toString());
+      this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
     } catch (Exception e) {
       LOG.error("Email not sent. {}", e.getMessage());
     }
@@ -234,6 +237,16 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     profile.setId(userEto.getId());
     profile.setRole(Role.getRoleById(userEto.getUserRoleId()));
     return profile;
+  }
+
+  private String getClientUrl() {
+
+    HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    String clientUrl = request.getHeader("origin");
+    if (clientUrl == null) {
+      return "http://localhost:" + this.clientPort;
+    }
+    return clientUrl;
   }
 
 }
