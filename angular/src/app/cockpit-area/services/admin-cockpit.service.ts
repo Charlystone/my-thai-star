@@ -24,18 +24,17 @@ import { TranslocoService } from '@ngneat/transloco';
 export class AdminCockpitService {
   private readonly getUserRestPath: string =
     'usermanagement/v1/user/search';
-    private readonly postUserData: string =
+  private readonly postUserData: string =
     'usermanagement/v1/user';
-    private readonly deleteUserDataPath: string =
+  private readonly deleteUserDataPath: string =
     'usermanagement/v1/user';
-    
-
+  private readonly passwordResetLinkPath: string =
+    'usermanagement/v1/user/resetlink';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
 
   usersChanged = new EventEmitter<boolean>();
-
 
   constructor(
     private http: HttpClient,
@@ -80,6 +79,14 @@ export class AdminCockpitService {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.deleteUserDataPath}`+'/'+userId),
+      ),
+    );
+  }
+
+  sendPasswordResetEmail(user: any): Observable<UserResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<UserResponse[]>(`${restServiceRoot}${this.passwordResetLinkPath}`, user),
       ),
     );
   }

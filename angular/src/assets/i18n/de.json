@@ -65,7 +65,8 @@
       "deleteUserSuccess": "Benutzer wurde erfolgreich gelöscht!",
       "createUserSuccess": "Benutzer wurde erfolreich angelegt!",
       "identicalUsernameError": "Benutzername ungültig oder existiert bereits.",
-      "updatePasswordSuccess": "Passwort erfolgreich geändert!"
+      "updatePasswordSuccess": "Passwort erfolgreich geändert!",
+      "resetLinkSuccess": "Rücksetzlink wurde erfolgreich versendet!"
     }
   },
   "formFields": {

@@ -64,7 +64,8 @@
       "deleteUserSuccess": "User successfully deleted!",
       "createUserSuccess": "User successfully registered!",
       "identicalUsernameError": "Username not valid or does already exist.",
-      "updatePasswordSuccess": "Password successfully updated!"
+      "updatePasswordSuccess": "Password successfully updated!",
+      "resetLinkSuccess": "Reset link was sent successfully!"
     }
   },
   "formFields": {

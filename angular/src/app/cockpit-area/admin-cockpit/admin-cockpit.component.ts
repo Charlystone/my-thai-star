@@ -46,7 +46,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     email: undefined,
     bookingToken: undefined,
   };
-  deleteUserSuccessAlert: string;
+
   displayedColumns: string[] = [
     'userView.email',
     'userView.name',
@@ -56,6 +56,8 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     'userView.deleteUser'
   ];
 
+  deleteUserSuccessAlert: string;
+  resetLinkSuccessAlert: string;
   usersChangedSubscription;
 
   constructor(
@@ -64,7 +66,6 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
-    private emailConfirmationsService: EmailConfirmationsService,
     title: Title
   ) {
     title.setTitle('Benutzerverwaltung');
@@ -104,6 +105,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
       .selectTranslateObject('alerts.adminCockpitAlerts', {}, lang)
       .subscribe((alertsAdminCockpitAlerts) => {
         this.deleteUserSuccessAlert = alertsAdminCockpitAlerts.deleteUserSuccess;
+        this.resetLinkSuccessAlert = alertsAdminCockpitAlerts.resetLinkSuccess;
       });
   }
 
@@ -168,8 +170,8 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
   }
 
   sendEmailForPasswordReset(element: any): void {
-    this.emailConfirmationsService.sendResetPasswordEmail(element).subscribe((data: any) => {
-      
+    this.adminCockpitService.sendPasswordResetEmail(element).subscribe((data: any) => {
+      this.snackBarService.openSnack(this.resetLinkSuccessAlert, 5000, "green");
     });
   }
 }
