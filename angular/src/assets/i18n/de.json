@@ -65,6 +65,7 @@
       "deleteUserSuccess": "Benutzer wurde erfolgreich gelöscht!",
       "deleteUserFail": "Löschen dieses Benutzers nicht möglicht!",
       "createUserSuccess": "Benutzer wurde erfolreich angelegt!",
+      "usernameNotAvailable": "Benutzername bereits vergeben!",
       "identicalUsernameError": "Benutzername ungültig oder existiert bereits.",
       "updatePasswordSuccess": "Passwort erfolgreich geändert!",
       "resetLinkSuccess": "Rücksetzlink wurde erfolgreich versendet!"

@@ -105,6 +105,16 @@ public interface UsermanagementRestService {
   public Page<UserEto> findUsersByPost(UserSearchCriteriaTo searchCriteriaTo);
 
   /**
+   * Delegates to {@link Usermanagement#findUserbyName}.
+   *
+   * @param username to search for
+   * @return the matching {@link UserEto}.
+   */
+  @Path("/user/search/{username}")
+  @GET
+  public UserEto findUserByName(@PathParam("username") String username);
+
+  /**
    * Delegates to {@link Usermanagement#findUserRole}.
    *
    * @param id the ID of the {@link UserRoleEto}

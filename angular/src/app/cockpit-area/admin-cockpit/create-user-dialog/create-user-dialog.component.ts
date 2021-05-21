@@ -43,6 +43,7 @@ export class CreateUserDialogComponent implements OnInit {
   };
 
   userCreationSuccessAltert: string;
+  usernameNotAvailableAlert: string;
 
   constructor(
     private translocoService: TranslocoService,
@@ -68,6 +69,7 @@ export class CreateUserDialogComponent implements OnInit {
       .selectTranslateObject('alerts.adminCockpitAlerts', {}, event)
       .subscribe((alertsAdminCockpitAlerts) => {
         this.userCreationSuccessAltert = alertsAdminCockpitAlerts.createUserSuccess;
+        this.usernameNotAvailableAlert = alertsAdminCockpitAlerts.usernameNotAvailable;
       });
       moment.locale(this.translocoService.getActiveLang());
     });
@@ -106,18 +108,25 @@ export class CreateUserDialogComponent implements OnInit {
   }
 
   submit() : void {
-    const userData = {
-      username : this.createForm.value.username ,
-      email : this.createForm.value.email,
-      twoFactorStatus : false,
-      userRoleId : this.createForm.value.role,
-      password: this.createForm.value.password
-    };
-    this.adminCockpitService.updateUser(userData).subscribe((data: any) => {
-      this.adminCockpitService.emitUsersChanged();
-      this.snackBarService.openSnack(this.userCreationSuccessAltert, 5000, "green");
+    this.adminCockpitService.getUserByName(this.createForm.value.username).subscribe((data: any) => {
+      if (data) {
+        this.snackBarService.openSnack(this.usernameNotAvailableAlert, 5000, "red");
+        this.createForm.controls.username.reset();
+      } else {
+        const userData = {
+          username : this.createForm.value.username ,
+          email : this.createForm.value.email,
+          twoFactorStatus : false,
+          userRoleId : this.createForm.value.role,
+          password: this.createForm.value.password
+        };
+        this.adminCockpitService.updateUser(userData).subscribe((data: any) => {
+          this.adminCockpitService.emitUsersChanged();
+          this.snackBarService.openSnack(this.userCreationSuccessAltert, 5000, "green");
+        });
+        this.dialog.close();
+      }
     });
-    this.dialog.close();
   }
 
   passwordIdentical() :boolean{

@@ -30,6 +30,8 @@ export class AdminCockpitService {
     'usermanagement/v1/user';
   private readonly passwordResetLinkPath: string =
     'usermanagement/v1/user/resetlink';
+  private readonly searchUserByUsernameRestPath: string = 
+    'usermanagement/v1/user/search';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -53,7 +55,7 @@ export class AdminCockpitService {
     pageable: Pageable,
     sorting: Sort[],
     filters: FilterCockpit,
-  ): Observable<OrderResponse[]> {
+  ): Observable<UserResponse[]> {
     let path: string;
     filters.pageable = pageable;
     filters.pageable.sort = sorting;
@@ -62,7 +64,7 @@ export class AdminCockpitService {
     }
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<OrderResponse[]>(`${restServiceRoot}${path}`, filters),
+        this.http.post<UserResponse[]>(`${restServiceRoot}${path}`, filters),
       ),
     );
   }
@@ -87,6 +89,14 @@ export class AdminCockpitService {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post<UserResponse[]>(`${restServiceRoot}${this.passwordResetLinkPath}`, user),
+      ),
+    );
+  }
+
+  getUserByName(username: string): Observable<UserResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.get<UserResponse[]>(`${restServiceRoot}${this.searchUserByUsernameRestPath}` + "/" + username),
       ),
     );
   }
