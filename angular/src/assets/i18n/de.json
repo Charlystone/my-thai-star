@@ -226,7 +226,7 @@
         "passwordResetMailH": "Passwort Rücksetzlink versenden",
         "deleteUserH": "Benutzer löschen",
         "navigationH": {
-          "allH": "Alle",
+          "allH": "Alle Benutzer",
           "customersH": "Gäste",
           "waitersH": "Kellner",
           "managersH": "Manager",

@@ -52,7 +52,7 @@ export class AuthGuardService implements CanActivate, OnDestroy {
         }
 
         if (
-          (state.url === '/usermanagement') &&
+          (state.url === '/archive' || state.url === '/usermanagement' || state.url === '/usermanagement/all' || state.url === '/usermanagement/customers' || state.url === '/usermanagement/waiters' || state.url === '/usermanagement/managers' || state.url === '/usermanagement/admins') &&
           role === 'ADMIN' &&
           logged
         ) {

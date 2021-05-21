@@ -14,9 +14,17 @@
         mat-tab-link
         routerLink="/usermanagement"
         routerLinkActive="navBottomBorder"
-        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLinkActiveOptions]="{ exact: false }"
       >
         {{ 'main.usermanagement' | transloco | uppercase }}
+      </a>
+      <a
+        mat-tab-link
+        routerLink="/archive"
+        routerLinkActive="navBottomBorder"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'main.archive' | transloco | uppercase }}
       </a>
     </nav>
   </div>

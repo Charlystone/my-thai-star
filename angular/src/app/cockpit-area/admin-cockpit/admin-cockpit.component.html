@@ -2,45 +2,52 @@
   <mat-card-title>{{'cockpit.users.title' | transloco}}</mat-card-title>
   <br>
 
-  <nav mat-tab-nav-bar>
-    <a
-      mat-tab-link
-      routerLink="/all"
-      routerLinkActive="navBottomBorder"
-    >
-      {{ 'cockpit.users.navigationH.allH' | transloco }}
-    </a>
-    <a
-      mat-tab-link
-      routerLink="/customers"
-      routerLinkActive="navBottomBorder"
-    >
-      {{ 'cockpit.users.navigationH.customersH' | transloco }}
-    </a>
-    <a
-      mat-tab-link
-      routerLink="/waiters"
-      routerLinkActive="navBottomBorder"
-    >
-      {{ 'cockpit.users.navigationH.waitersH' | transloco }}
-    </a>
-    <a
-      mat-tab-link
-      routerLink="/managers"
-      routerLinkActive="navBottomBorder"
-    >
-      {{ 'cockpit.users.navigationH.managersH' | transloco }}
-    </a>
-    <a
-      mat-tab-link
-      routerLink="/admins"
-      routerLinkActive="navBottomBorder"
-    >
-      {{ 'cockpit.users.navigationH.adminsH' | transloco }}
-    </a>
-  </nav>
+  <div *ngIf="(auth.getRole() | async) === 'ADMIN'" class="forDesktop">
+    <nav mat-tab-nav-bar>
+      <a
+        mat-tab-link
+        routerLink="/usermanagement/all"
+        routerLinkActive="activeLink"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'cockpit.users.navigationH.allH' | transloco }}
+      </a>
+      <a
+        mat-tab-link
+        routerLink="/usermanagement/customers"
+        routerLinkActive="activeLink"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'cockpit.users.navigationH.customersH' | transloco }}
+      </a>
+      <a
+        mat-tab-link
+        routerLink="/usermanagement/waiters"
+        routerLinkActive="activeLink"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'cockpit.users.navigationH.waitersH' | transloco }}
+      </a>
+      <a
+        mat-tab-link
+        routerLink="/usermanagement/managers"
+        routerLinkActive="activeLink"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'cockpit.users.navigationH.managersH' | transloco }}
+      </a>
+      <a
+        mat-tab-link
+        routerLink="/usermanagement/admins"
+        routerLinkActive="activeLink"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'cockpit.users.navigationH.adminsH' | transloco }}
+      </a>
+    </nav>
+  </div>
 
-  <mat-divider></mat-divider>
+  <br>
 
   <div class="tableContainer">
     <table mat-table [dataSource]="users" matSort >  <!--(matSortChange)="sort($event)"> -->

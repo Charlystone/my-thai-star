@@ -223,7 +223,7 @@
       "passwordResetMailH": "Send password reset link",
       "deleteUserH": "Delete user",
       "navigationH": {
-        "allH": "All",
+        "allH": "All users",
         "customersH": "Customers",
         "waitersH": "Waiters",
         "managersH": "Managers",

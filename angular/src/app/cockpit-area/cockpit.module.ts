@@ -25,7 +25,7 @@ import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
 import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/create-user-dialog.component';
 import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/new-password-dialog.component';
 import { EmailConfirmationsService } from 'app/email-confirmations/services/email-confirmations.service';
-import { UserListComponent } from './admin-cockpit/user-list/user-list.component';
+import { AppRoutingModule } from 'app/app-routing.module';
 
 @NgModule({
   imports: [
@@ -35,6 +35,7 @@ import { UserListComponent } from './admin-cockpit/user-list/user-list.component
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   providers: [
     WaiterCockpitService,
@@ -58,7 +59,6 @@ import { UserListComponent } from './admin-cockpit/user-list/user-list.component
     AdminCockpitComponent,
     CreateUserDialogComponent,
     NewPasswordDialogComponent,
-    UserListComponent,
   ],
   exports: [
     ReservationCockpitComponent,

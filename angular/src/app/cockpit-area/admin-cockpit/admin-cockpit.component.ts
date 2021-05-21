@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import {OrderListView, UserListView} from '../../shared/view-models/interfaces';
+import {UserListView} from '../../shared/view-models/interfaces';
 import {Subscription} from 'rxjs';
 import {FilterCockpit, Pageable} from '../../shared/backend-models/interfaces';
 import {TranslocoService} from '@ngneat/transloco';
@@ -7,14 +7,15 @@ import * as moment from "moment";
 import {AdminCockpitService} from "../services/admin-cockpit.service";
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ConfigService } from 'app/core/config/config.service';
-import {OrderEditComponent} from "../order-cockpit/order-dialog/order-edit/order-edit.component";
 import {MatDialog} from "@angular/material/dialog";
 import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
 import { Title } from '@angular/platform-browser';
-import {EmailConfirmationsService} from "../../email-confirmations/services/email-confirmations.service";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { AuthService } from 'app/core/authentication/auth.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../store';
 
 
 @Component({
@@ -60,6 +61,8 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
   deleteUserSuccessAlert: string;
   resetLinkSuccessAlert: string;
   usersChangedSubscription;
+  userCategoryId: number;
+  activatedRouteSubscription;
 
   constructor(
     private dialog: MatDialog,
@@ -68,6 +71,9 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     private configService: ConfigService,
     private snackBarService: SnackBarService,
     public router: Router,
+    public auth: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private store: Store<fromRoot.State>,
     title: Title
   ) {
     title.setTitle('Benutzerverwaltung');
@@ -76,10 +82,31 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.usersChangedSubscription.unsubscribe();
+    this.activatedRouteSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.activatedRouteSubscription = this.activatedRoute.params.subscribe(
+      params => {
+        switch (params.category) {
+          case 'all':
+            this.userCategoryId = -1;
+            break;
+          case 'customers':
+            this.userCategoryId = 0;
+            break;
+          case 'waiters':
+          this.userCategoryId = 1;
+          break;
+          case 'managers':
+          this.userCategoryId = 2;
+          break;
+          case 'admins':
+          this.userCategoryId = 3;
+          break;
+        }
+        this.loadUsers();
+      });
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());
@@ -88,6 +115,10 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     this.usersChangedSubscription = this.adminCockpitService.usersChanged.subscribe(() => {
       this.loadUsers();
     });
+  }
+
+  navigateTo(route: string): void {
+    this.store.dispatch(fromRoot.go({ path: [route] }));
   }
 
   setTableHeaders(lang: string): void {
@@ -118,7 +149,16 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
         if (!data) {
           this.users = [];
         } else {
-          this.users = data.content;
+          if (this.userCategoryId == -1) {
+            this.users = data.content;
+          } else {
+            this.users = [];
+            for (let user of data.content) {
+              if (user.userRoleId === this.userCategoryId) {
+                this.users.push(user);
+              }
+            }
+          }
         }
         this.totalUsers = this.users.length;
       });
@@ -131,24 +171,6 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
       sort: this.pageable.sort,
     };
     this.loadUsers();
-  }
-
-  loadUsersByRole(roleId: number): void{
-    this.adminCockpitService
-      .getUsers(this.pageable, this.sorting, this.filters)
-      .subscribe((data: any) => {
-        if (!data) {
-          this.users = [];
-        } else {
-          this.users = [];
-          for (let user of data.content) {
-            if (user.userRoleId === roleId) {
-              this.users.push(user);
-            }
-          }
-        }
-        this.totalUsers = this.users.length;
-      });
   }
 
   createUserDialog(): void {
