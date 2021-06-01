@@ -15,6 +15,7 @@ import { TwoFactorDialogComponent } from './components/two-factor-dialog/two-fac
 import { UserAreaService } from './services/user-area.service';
 import { effects, reducers } from './store';
 import { TranslocoModule } from '@ngneat/transloco';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { TranslocoModule } from '@ngneat/transloco';
     TwitterDialogComponent,
     TwoFactorDialogComponent,
     QrCodeDialogComponent,
+    PasswordResetComponent,
   ],
   exports: [
     LoginDialogComponent,
