@@ -49,6 +49,11 @@ export class SidenavService {
         const orderList: OrderListInfo = {
           booking: { bookingToken: token },
           orderLines: this.composeOrders(orderData),
+          order: {
+            orderState: "orderTaken",
+            paymentState: "pending",
+          },
+          
         };
         return orderList;
       }),

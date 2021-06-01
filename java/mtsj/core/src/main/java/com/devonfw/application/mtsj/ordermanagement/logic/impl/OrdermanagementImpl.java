@@ -252,6 +252,7 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   public OrderEto saveOrder(OrderCto order) {
 
     Objects.requireNonNull(order, "order");
+
     List<OrderLineCto> linesCto = order.getOrderLines();
     List<OrderLineEntity> orderLineEntities = new ArrayList<>();
     for (OrderLineCto lineCto : linesCto) {
@@ -263,7 +264,10 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       orderLineEntities.add(orderLineEntity);
     }
 
+    order.getBooking().setCanceled(false);
     OrderEntity orderEntity = getBeanMapper().map(order, OrderEntity.class);
+    orderEntity.setOrderState(order.getOrder().getOrderState());
+    orderEntity.setPaymentState(order.getOrder().getPaymentState());
     String token = orderEntity.getBooking().getBookingToken();
     // initialize, validate orderEntity here if necessary
     orderEntity = getValidatedOrder(orderEntity.getBooking().getBookingToken(), orderEntity);
@@ -365,10 +369,6 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
       BookingCto booking = getBookingbyToken(token);
       if (booking == null) {
         throw new NoBookingException();
-      }
-      List<OrderCto> currentOrders = getBookingOrders(booking.getBooking().getId());
-      if (!currentOrders.isEmpty()) {
-        throw new OrderAlreadyExistException();
       }
       orderEntity.setBookingId(booking.getBooking().getId());
 

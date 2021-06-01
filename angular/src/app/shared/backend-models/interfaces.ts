@@ -88,6 +88,10 @@ export class OrderLineInfo {
 export class OrderListInfo {
     booking: { bookingToken: string };
     orderLines: OrderInfo[];
+    order: {
+        orderState: string;
+        paymentState: string;
+    };
 }
 
 export class PredictionCriteria {
