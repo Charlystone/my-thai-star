@@ -42,7 +42,7 @@ export class SendOrderEffects {
         ofType(sendOrderActions.sendOrdersFail),
         map((errorData) => errorData.error),
         tap((error) => {
-          this.snackBar.openSnack(error, 4000, 'red');
+          this.snackBar.openSnack('Order couldn`t be noted', 4000, 'red');
         }),
       ),
     { dispatch: false },

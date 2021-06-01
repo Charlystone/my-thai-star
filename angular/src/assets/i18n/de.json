@@ -54,7 +54,7 @@
       "logoutSuccess": "Abmeldung erfolgreich, komme bald wieder!"
     },
     "waiterCockpitAlerts": {
-      "updateOrderStateSuccess": "Bestellstatus erfolreich geändert!",
+      "updateOrderStateSuccess": "Bestellstatus erfolgreich geändert!",
       "updateOrderStateNotAllowed": "Bestellung unbezahlt. Statusänderung nicht möglich!",
       "updatePaymentStateSuccess": "Bezahlstatus erfolreich geändert!",
       "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!",
