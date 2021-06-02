@@ -1,17 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateUserDialogComponent } from './create-user-dialog.component';
-import {TRANSLOCO_TRANSPILER, TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@ngneat/transloco';
 import {SnackBarService} from '../../../core/snack-bar/snack-bar.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Overlay} from '@angular/cdk/overlay';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import {AdminCockpitService} from '../../services/admin-cockpit.service';
-import {HttpClient, HttpHandler} from '@angular/common/http';
 import { State } from '../../../store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import {DebugElement, InjectionToken} from '@angular/core';
-import {state} from '@angular/animations';
+import {  provideMockStore } from '@ngrx/store/testing';
+import {DebugElement} from '@angular/core';
 import {ConfigService} from '../../../core/config/config.service';
 import { config } from '../../../core/config/config';
 import { CoreModule } from 'app/core/core.module';
@@ -53,7 +49,7 @@ describe('CreateUserDialogComponent', () => {
   let configService: ConfigService;
   let el: DebugElement;
 
-  beforeEach(async() => {
+  beforeEach(async(() => {
     initialState = { config };
     TestBedSetUp.loadAdminCockpitServiceStud()
       .compileComponents()
@@ -67,7 +63,7 @@ describe('CreateUserDialogComponent', () => {
         dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
       });
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
