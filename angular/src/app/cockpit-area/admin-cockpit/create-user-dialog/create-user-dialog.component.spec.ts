@@ -13,6 +13,11 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import {DebugElement, InjectionToken} from '@angular/core';
 import {state} from '@angular/animations';
 import {ConfigService} from '../../../core/config/config.service';
+import { config } from '../../../core/config/config';
+import { CoreModule } from 'app/core/core.module';
+import { getTranslocoModule } from 'app/transloco-testing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 describe('CreateUserDialogComponent', () => {
@@ -26,37 +31,41 @@ describe('CreateUserDialogComponent', () => {
   let configService: ConfigService;
   let el: DebugElement;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CreateUserDialogComponent ],
-      /* provide löst folgenden Fehler:
-       Error: Invalid provider for the NgModule 'DynamicTestModule' - only instances of Provider and Type are allowed,
-       got: [..., ..., ?InjectionToken TRANSLOCO_TRANSPILER?]
-       */
-      providers: [
-        { provide: TranslocoService, useValue: TRANSLOCO_TRANSPILER },
-        SnackBarService,
-        MatSnackBar,
-        Overlay,
-        { provide: MatDialogRef, useValue: [] },
-        AdminCockpitService,
-        HttpClient,
-        HttpHandler,
-        Store,
-        StateObservable,
-        ActionsSubject,
-        ReducerManager,
-        ReducerManagerDispatcher,
-        MockStore,
-        provideMockStore({ initialState: state }),
-        { provide: InjectionToken, useValue: [] },
-      ]
-    })
-    .compileComponents();
-  }));
+  class TestBedSetUp {
+    static loadAdminCockpitServiceStud(adminCockpitStub: any): any {
+      const initialState = { config };
+      return TestBed.configureTestingModule({
+        declarations: [ CreateUserDialogComponent ],
+        providers: [
+          { provide: TranslocoService, useValue: TRANSLOCO_TRANSPILER },
+          SnackBarService,
+          MatSnackBar,
+          Overlay,
+          { provide: MatDialogRef, useValue: [] },
+          AdminCockpitService,
+          HttpClient,
+          HttpHandler,
+          Store,
+          StateObservable,
+          ActionsSubject,
+          ReducerManager,
+          ReducerManagerDispatcher,
+          MockStore,
+          provideMockStore({ initialState: state }),
+          { provide: InjectionToken, useValue: [] },
+        ],
+        imports: [
+          BrowserAnimationsModule,
+          ReactiveFormsModule,
+          getTranslocoModule(),
+          CoreModule,
+        ],
+      });
+    }
+  }
 
   beforeEach(() => {
-    TestBed.configureTestingModule(null)
+    TestBedSetUp.loadAdminCockpitServiceStud(null)
       .compileComponents()
       .then( () => {
         fixture = TestBed.createComponent(CreateUserDialogComponent);
