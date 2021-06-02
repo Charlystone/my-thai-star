@@ -18,7 +18,28 @@ import { CoreModule } from 'app/core/core.module';
 import { getTranslocoModule } from 'app/transloco-testing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+class TestBedSetUp {
+  static loadAdminCockpitServiceStud(): any {
+    const initialState = { config };
+    return TestBed.configureTestingModule({
+      declarations: [ CreateUserDialogComponent ],
+      providers: [
+        { provide: TranslocoService, useValue: TRANSLOCO_TRANSPILER },
+        SnackBarService,
+        { provide: MatDialogRef, useValue: [] },
+        AdminCockpitService,
+        provideMockStore({ initialState: state }),
+        { provide: InjectionToken, useValue: [] },
+      ],
+      imports: [
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        getTranslocoModule(),
+        CoreModule,
+      ],
+    });
+  }
+}
 
 describe('CreateUserDialogComponent', () => {
   let component: CreateUserDialogComponent;
@@ -31,41 +52,8 @@ describe('CreateUserDialogComponent', () => {
   let configService: ConfigService;
   let el: DebugElement;
 
-  class TestBedSetUp {
-    static loadAdminCockpitServiceStud(adminCockpitStub: any): any {
-      const initialState = { config };
-      return TestBed.configureTestingModule({
-        declarations: [ CreateUserDialogComponent ],
-        providers: [
-          { provide: TranslocoService, useValue: TRANSLOCO_TRANSPILER },
-          SnackBarService,
-          MatSnackBar,
-          Overlay,
-          { provide: MatDialogRef, useValue: [] },
-          AdminCockpitService,
-          HttpClient,
-          HttpHandler,
-          Store,
-          StateObservable,
-          ActionsSubject,
-          ReducerManager,
-          ReducerManagerDispatcher,
-          MockStore,
-          provideMockStore({ initialState: state }),
-          { provide: InjectionToken, useValue: [] },
-        ],
-        imports: [
-          BrowserAnimationsModule,
-          ReactiveFormsModule,
-          getTranslocoModule(),
-          CoreModule,
-        ],
-      });
-    }
-  }
-
-  beforeEach(() => {
-    TestBedSetUp.loadAdminCockpitServiceStud(null)
+  beforeEach(async() => {
+    TestBedSetUp.loadAdminCockpitServiceStud()
       .compileComponents()
       .then( () => {
         fixture = TestBed.createComponent(CreateUserDialogComponent);
