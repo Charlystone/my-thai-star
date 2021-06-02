@@ -98,7 +98,6 @@ describe('OrderCockpitComponent', () => {
       .then(() => {
         fixture = TestBed.createComponent(OrderCockpitComponent);
         component = fixture.componentInstance;
-        //component.orders = orderData.content;
         el = fixture.debugElement;
         store = TestBed.inject(Store);
         configService = new ConfigService(store);
