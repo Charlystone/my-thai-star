@@ -219,7 +219,11 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.translocoSubscription.unsubscribe();
-    this.orderChangedSubscription.unsubscribe();
+    if (this.translocoSubscription){
+      this.translocoSubscription.unsubscribe();
+    }
+    if (this.orderChangedSubscription){
+      this.translocoSubscription.unsubscribe();
+    }
   }
 }

@@ -25,6 +25,8 @@ import { By } from '@angular/platform-browser';
 import { click } from '../../shared/common/test-utils';
 import { ascSortOrder } from '../../../in-memory-test-data/db-order-asc-sort';
 import { orderData } from '../../../in-memory-test-data/db-order';
+import {BillService} from '../services/bill.service';
+import {SnackBarService} from "../../core/snack-bar/snack-bar.service";
 
 const mockDialog = {
   open: jasmine.createSpy('open').and.returnValue({
@@ -40,7 +42,9 @@ const translocoServiceStub = {
     ownerH: 'Owner',
     tableH: 'Table',
     creationDateH: 'Creation date',
-    statusH: 'State',//abd
+    editH: 'Edit',
+    paymentStateH: 'Payment state',
+    orderStateH: 'Order state',
   } as any),
 };
 
@@ -58,8 +62,10 @@ class TestBedSetUp {
     return TestBed.configureTestingModule({
       declarations: [OrderCockpitComponent],
       providers: [
-        { provide: MatDialog, useValue: mockDialog },
-        { provide: WaiterCockpitService, useValue: waiterCockpitStub },
+        MatDialog,
+        WaiterCockpitService,
+        BillService,
+        SnackBarService,
         TranslocoService,
         ConfigService,
         provideMockStore({ initialState }),
@@ -92,6 +98,7 @@ describe('OrderCockpitComponent', () => {
       .then(() => {
         fixture = TestBed.createComponent(OrderCockpitComponent);
         component = fixture.componentInstance;
+        //component.orders = orderData.content;
         el = fixture.debugElement;
         store = TestBed.inject(Store);
         configService = new ConfigService(store);
@@ -184,4 +191,41 @@ describe('TestingOrderCockpitComponentWithSortOrderData', () => {
     expect(component.orders).toEqual(ascSortOrder.content);
     expect(component.totalOrders).toBe(8);
   });
+
+/*  it('should clear form and reset', fakeAsync(() => {
+    const clearFilter = el.query(By.css('.orderClearFilters'));
+    click(clearFilter);
+    fixture.detectChanges();
+    tick();
+    expect(component.orders).toEqual(orderData.content);
+    expect(component.totalOrders).toBe(8);
+  }));*/
+
+  // test  single methods (modul tests)
+
+/*// Test for function of Payment Button
+  it('should set payment state from pending to paid on click of pending', fakeAsync(() => {
+    fixture.detectChanges();
+    const payButton = el.query(By.css('.payOrderButton'));
+    click(payButton);
+    tick();
+  }));
+
+// Test for function of edit Button
+  it('should open OrderEditComponent on click of Button', fakeAsync(() => {
+    fixture.detectChanges();
+    const editButton = el.query(By.css('.orderEditButton'));
+    click(editButton);
+    tick();
+    expect(dialog.open).toHaveBeenCalled();
+  }));
+
+// Test for function of order state Button
+  it('should set order state from to the next state', fakeAsync(() => {
+    fixture.detectChanges();
+    const payButton = el.query(By.css('.payOrderButton'));
+    click(payButton);
+    tick();
+  }));*/
+
 });

@@ -6,6 +6,11 @@ import { WaiterCockpitService } from './waiter-cockpit.service';
 import { ConfigService } from '../../core/config/config.service';
 import { config } from '../../core/config/config';
 import { provideMockStore } from '@ngrx/store/testing';
+import {SnackBarService} from "../../core/snack-bar/snack-bar.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Overlay} from "@angular/cdk/overlay";
+import {InjectionToken} from "@angular/core";
+import {TRANSLOCO_TRANSPILER} from "@ngneat/transloco";
 
 describe('WaiterCockpitService', () => {
   let initialState;
@@ -17,6 +22,10 @@ describe('WaiterCockpitService', () => {
         WaiterCockpitService,
         PriceCalculatorService,
         ConfigService,
+        SnackBarService,
+        MatSnackBar,
+        Overlay,
+        TRANSLOCO_TRANSPILER,
       ],
       imports: [HttpClientTestingModule],
     });

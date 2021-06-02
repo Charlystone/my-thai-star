@@ -58,10 +58,10 @@ module.exports = function (config) {
         included: false,
         watched: false
       },
-      
+
     ],
     preprocessors: {
-      
+
     },
     mime: {
       'text/x-typescript': ['ts', 'tsx']
@@ -82,11 +82,11 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     browsers: [
       'Chrome',
-      'ChromeHeadless',
+/*      'ChromeHeadless',
       'Firefox',
       'FirefoxDeveloper',
       'FirefoxHeadless',
-      'FirefoxDeveloperHeadless'
+      'FirefoxDeveloperHeadless'*/
     ]
     /*    autoWatch: true,
     singleRun: false

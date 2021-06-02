@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminCockpitComponent } from './admin-cockpit.component';
+import {MatDialog} from "@angular/material/dialog";
+import {Overlay} from "@angular/cdk/overlay";
 
 describe('AdminCockpitComponent', () => {
   let component: AdminCockpitComponent;
@@ -8,7 +10,11 @@ describe('AdminCockpitComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminCockpitComponent ]
+      declarations: [ AdminCockpitComponent ],
+      providers: [
+        MatDialog,
+        Overlay,
+      ],
     })
     .compileComponents();
   }));

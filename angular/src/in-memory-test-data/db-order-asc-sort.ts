@@ -1,6 +1,8 @@
 export const ascSortOrder: any = {
   content: [
     {
+      orderState: 'orderTaken',
+      paymentState: 'pending',
       order: {
         modificationCounter: 1,
         id: 5,
