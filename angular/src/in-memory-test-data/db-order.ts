@@ -1,8 +1,6 @@
 export const orderData: any = {
   content: [
     {
-      orderState: 'orderTaken',
-      paymentState: 'pending',
       order: {
         modificationCounter: 1,
         id: 0,
@@ -10,6 +8,8 @@ export const orderData: any = {
         invitedGuestId: null,
         bookingToken: null,
         hostId: 0,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,

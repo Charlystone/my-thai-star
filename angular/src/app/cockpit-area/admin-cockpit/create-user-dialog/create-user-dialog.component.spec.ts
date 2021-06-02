@@ -5,17 +5,26 @@ import {TRANSLOCO_TRANSPILER, TranslocoService} from '@ngneat/transloco';
 import {SnackBarService} from '../../../core/snack-bar/snack-bar.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Overlay} from '@angular/cdk/overlay';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AdminCockpitService} from '../../services/admin-cockpit.service';
 import {HttpClient, HttpHandler} from '@angular/common/http';
-import {ActionsSubject, ReducerManager, ReducerManagerDispatcher, StateObservable, Store} from "@ngrx/store";
+import {ActionsSubject, ReducerManager, ReducerManagerDispatcher, StateObservable, Store} from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import {InjectionToken} from "@angular/core";
+import {DebugElement, InjectionToken} from '@angular/core';
+import {state} from '@angular/animations';
+import {ConfigService} from '../../../core/config/config.service';
 
 
 describe('CreateUserDialogComponent', () => {
   let component: CreateUserDialogComponent;
   let fixture: ComponentFixture<CreateUserDialogComponent>;
+  let store: MockStore;
+  let initialState;
+  let adminCockpitService: AdminCockpitService;
+  let dialog: MatDialog;
+  let translocoService: TranslocoService;
+  let configService: ConfigService;
+  let el: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -39,17 +48,25 @@ describe('CreateUserDialogComponent', () => {
         ReducerManager,
         ReducerManagerDispatcher,
         MockStore,
-        provideMockStore,
-        InjectionToken,
+        provideMockStore({ initialState: state }),
+        { provide: InjectionToken, useValue: [] },
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateUserDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule(null)
+      .compileComponents()
+      .then( () => {
+        fixture = TestBed.createComponent(CreateUserDialogComponent);
+        component = fixture.componentInstance;
+        el = fixture.debugElement;
+        store = TestBed.inject(MockStore);
+        adminCockpitService = TestBed.inject(AdminCockpitService);
+        dialog = TestBed.inject(MatDialog);
+        translocoService = TestBed.inject(TranslocoService);
+      });
   });
 
   it('should create', () => {
