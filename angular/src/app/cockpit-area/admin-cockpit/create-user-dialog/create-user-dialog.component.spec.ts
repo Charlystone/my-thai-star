@@ -25,12 +25,12 @@ class TestBedSetUp {
     return TestBed.configureTestingModule({
       declarations: [ CreateUserDialogComponent ],
       providers: [
-        { provide: TranslocoService, useValue: TRANSLOCO_TRANSPILER },
+        TranslocoService,
         SnackBarService,
-        { provide: MatDialogRef, useValue: [] },
+        MatDialog,
         AdminCockpitService,
-        provideMockStore({ initialState: state }),
-        { provide: InjectionToken, useValue: [] },
+        ConfigService,
+        provideMockStore({ initialState }),
       ],
       imports: [
         BrowserAnimationsModule,
