@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateUserDialogComponent } from './create-user-dialog.component';
 import {TranslocoService} from '@ngneat/transloco';
 import {SnackBarService} from '../../../core/snack-bar/snack-bar.service';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AdminCockpitService} from '../../services/admin-cockpit.service';
 import { State } from '../../../store';
 import {  provideMockStore } from '@ngrx/store/testing';
@@ -27,6 +27,7 @@ class TestBedSetUp {
         AdminCockpitService,
         ConfigService,
         provideMockStore({ initialState }),
+        { provide: MatDialogRef, useValue: [] },
       ],
       imports: [
         BrowserAnimationsModule,
