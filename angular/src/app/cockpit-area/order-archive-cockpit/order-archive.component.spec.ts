@@ -26,8 +26,6 @@ const mockDialog = {
 const waiterCockpitServiceStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
 };
-
-
 class TestBedSetUp {
   static loadWaiterCockpitServiceStud(waiterCockpitStub: any): any {
     const initialState = { config };
@@ -50,19 +48,19 @@ class TestBedSetUp {
   }
 }
 
-describe('OrderArchiveComponent', () => {
+fdescribe('OrderArchiveComponent', () => {
   let component: OrderArchiveComponent;
   let fixture: ComponentFixture<OrderArchiveComponent>;
   let store: Store<State>;
   let initialState;
   let waiterCockpitService: WaiterCockpitService;
-  let dialog: MatDialog;
   let translocoService: TranslocoService;
   let configService: ConfigService;
   let el: DebugElement;
+  let dialog: MatDialog;
 
   beforeEach(async(() => {
-    let initialState = {config};
+    initialState = {config};
     TestBedSetUp.loadWaiterCockpitServiceStud(waiterCockpitServiceStub)
       .compileComponents()
       .then(() => {
@@ -72,16 +70,11 @@ describe('OrderArchiveComponent', () => {
         store = TestBed.inject(Store);
         configService = new ConfigService(store);
         waiterCockpitService = TestBed.inject(WaiterCockpitService);
-        const dialog = TestBed.inject(MatDialog);
+        dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
+        fixture.detectChanges();
       });
   }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(OrderArchiveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

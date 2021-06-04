@@ -6,9 +6,6 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ConfigService} from '../../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { Router } from '@angular/router';
-import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 @Component({
   selector: 'app-order-edit',
   templateUrl: './order-edit.component.html',
@@ -44,7 +41,6 @@ export class OrderEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
-    private router: Router,
   ) {
     this.data = dialogData;
     this.pageSizes = this.configService.getValues().pageSizesDialog;

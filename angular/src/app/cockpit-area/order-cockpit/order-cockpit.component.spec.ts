@@ -15,11 +15,10 @@ import {
 import { provideMockStore } from '@ngrx/store/testing';
 import { TranslocoService } from '@ngneat/transloco';
 import { of } from 'rxjs/internal/observable/of';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { getTranslocoModule } from '../../transloco-testing.module';
 import { CoreModule } from '../../core/core.module';
-import { PageEvent } from '@angular/material/paginator';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../../shared/common/test-utils';
@@ -191,40 +190,69 @@ describe('TestingOrderCockpitComponentWithSortOrderData', () => {
     expect(component.totalOrders).toBe(8);
   });
 
-/*  it('should clear form and reset', fakeAsync(() => {
+  it('should clear form and reset', fakeAsync(() => {
     const clearFilter = el.query(By.css('.orderClearFilters'));
     click(clearFilter);
     fixture.detectChanges();
     tick();
     expect(component.orders).toEqual(orderData.content);
     expect(component.totalOrders).toBe(8);
-  }));*/
+  }));
 
   // test  single methods (modul tests)
+});
 
-/*// Test for function of Payment Button
+fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
+  let component: OrderCockpitComponent;
+  let fixture: ComponentFixture<OrderCockpitComponent>;
+  let store: Store<State>;
+  let initialState;
+  let waiterCockpitService: WaiterCockpitService;
+  let dialog: MatDialog;
+  let translocoService: TranslocoService;
+  let configService: ConfigService;
+  let el: DebugElement;
+
+  beforeEach(async(() => {
+    initialState = { config };
+    TestBedSetUp.loadWaiterCockpitServiceStud(waiterCockpitServiceSortStub)
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(OrderCockpitComponent);
+        component = fixture.componentInstance;
+        el = fixture.debugElement;
+        store = TestBed.inject(Store);
+        configService = new ConfigService(store);
+        waiterCockpitService = TestBed.inject(WaiterCockpitService);
+        dialog = TestBed.inject(MatDialog);
+        translocoService = TestBed.inject(TranslocoService);
+        fixture.detectChanges();
+      });
+  }));
+
+  it('should create', fakeAsync(() => {
+    expect(component).toBeTruthy();
+  }));
+
+  // Test for function of Payment Button
   it('should set payment state from pending to paid on click of pending', fakeAsync(() => {
-    fixture.detectChanges();
     const payButton = el.query(By.css('.payOrderButton'));
     click(payButton);
     tick();
   }));
 
-// Test for function of edit Button
+  // Test for function of edit Button
   it('should open OrderEditComponent on click of Button', fakeAsync(() => {
-    fixture.detectChanges();
     const editButton = el.query(By.css('.orderEditButton'));
     click(editButton);
     tick();
     expect(dialog.open).toHaveBeenCalled();
   }));
 
-// Test for function of order state Button
+  // Test for function of order state Button
   it('should set order state from to the next state', fakeAsync(() => {
-    fixture.detectChanges();
     const payButton = el.query(By.css('.payOrderButton'));
     click(payButton);
     tick();
-  }));*/
-
+  }));
 });
