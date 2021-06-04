@@ -204,7 +204,7 @@ fdescribe('TestingOrderCockpitComponentWithSortOrderData', () => {
     click(clearFilter);
     fixture.detectChanges();
     tick();
-    expect(component.orders).toEqual(orderData.content);
+    expect(component.orders).toEqual(ascSortOrder.content);
     expect(component.totalOrders).toBe(8);
   }));
 });
