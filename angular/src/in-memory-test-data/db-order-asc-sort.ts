@@ -1,8 +1,6 @@
 export const ascSortOrder: any = {
   content: [
     {
-      orderState: 'orderTaken',
-      paymentState: 'pending',
       order: {
         modificationCounter: 1,
         id: 5,
@@ -10,6 +8,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 4,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -71,6 +71,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 3,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -131,6 +133,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 8,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -191,6 +195,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 9,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -251,6 +257,8 @@ export const ascSortOrder: any = {
         bookingId: 0,
         invitedGuestId: null,
         bookingToken: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
         hostId: 0,
       },
       booking: {
@@ -399,6 +407,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 0,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -520,6 +530,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 2,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -580,6 +592,8 @@ export const ascSortOrder: any = {
         invitedGuestId: 1,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,

@@ -56,7 +56,8 @@ const translocoServiceStub = {
 const waiterCockpitServiceStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
   ordersChanged: new EventEmitter<boolean>(),
-  updateOrderState: jasmine.createSpy('updateOrderState').and.returnValue(of(true)),
+  updateOrderState: jasmine.createSpy('updateOrderState').and.returnValue(of(orderData)),
+  updatePaymentState: jasmine.createSpy('updatePaymentState').and.returnValue(of(orderData)),
 };
 
 const waiterCockpitServiceSortStub = {
@@ -246,17 +247,7 @@ fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
     expect(component.totalOrders).toBe(8);
   }));
 
-  // Test for function of Payment Button
-  it('should set payment state from pending to paid on click of pending', fakeAsync(() => {
-    fixture.detectChanges();
-    const orderRows = el.queryAll(By.css('.mat-row'));
-    const payButton = orderRows[0].query(By.css('.payOrderButton'));
-    click(payButton);
-    tick();
-  }));
-
-  // Test for function of edit Button
-  it('should open OrderEditComponent on click of Button', fakeAsync(() => {
+  it('should open OrderEditComponent on click', fakeAsync(() => {
     fixture.detectChanges();
     const orderRows = el.queryAll(By.css('.mat-row'));
     const editButton = orderRows[0].query(By.css('.orderEditButton'));
@@ -265,12 +256,21 @@ fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
     expect(dialog.open).toHaveBeenCalled();
   }));
 
-  // Test for function of order state Button
-  it('should set order state from to the next state', fakeAsync(() => {
+  it('should call updatePaymentState of waiterCockpitService', fakeAsync(() => {
     fixture.detectChanges();
     const orderRows = el.queryAll(By.css('.mat-row'));
-    const payButton = orderRows[0].query(By.css('.orderStateButton'));
+    const payButton = orderRows[0].query(By.css('.payOrderButton'));
     click(payButton);
     tick();
+    expect(waiterCockpitService.updatePaymentState).toHaveBeenCalled();
+  }));
+
+  it('should call updateOrderState of waiterCockpitService', fakeAsync(() => {
+    fixture.detectChanges();
+    const orderRows = el.queryAll(By.css('.mat-row'));
+    const stateButton = orderRows[0].query(By.css('.orderStateButton'));
+    click(stateButton);
+    tick();
+    expect(waiterCockpitService.updateOrderState).toHaveBeenCalled();
   }));
 });

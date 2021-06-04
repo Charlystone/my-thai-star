@@ -1,4 +1,4 @@
-export const orderData: any = {
+export const orderArchiveData: any = {
   content: [
     {
       order: {
@@ -8,8 +8,8 @@ export const orderData: any = {
         invitedGuestId: null,
         bookingToken: null,
         hostId: 0,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -157,8 +157,8 @@ export const orderData: any = {
         invitedGuestId: 0,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -280,8 +280,8 @@ export const orderData: any = {
         invitedGuestId: 1,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -342,8 +342,8 @@ export const orderData: any = {
         invitedGuestId: 2,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -404,8 +404,8 @@ export const orderData: any = {
         invitedGuestId: 3,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -466,8 +466,8 @@ export const orderData: any = {
         invitedGuestId: 4,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -529,8 +529,8 @@ export const orderData: any = {
         invitedGuestId: 8,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
@@ -591,8 +591,8 @@ export const orderData: any = {
         invitedGuestId: 9,
         bookingToken: null,
         hostId: null,
-        orderState: 'orderTaken',
-        paymentState: 'pending',
+        orderState: 'orderCompleted',
+        paymentState: 'paid',
       },
       booking: {
         modificationCounter: 1,
