@@ -89,7 +89,7 @@ class TestBedSetUp {
   }
 }
 
-fdescribe('OrderCockpitComponent', () => {
+describe('OrderCockpitComponent', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -164,7 +164,7 @@ fdescribe('OrderCockpitComponent', () => {
   }));
 });
 
-fdescribe('TestingOrderCockpitComponentWithSortOrderData', () => {
+describe('TestingOrderCockpitComponentWithSortOrderData', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -210,7 +210,7 @@ fdescribe('TestingOrderCockpitComponentWithSortOrderData', () => {
   }));
 });
 
-fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
+describe('TestingOrderCockpitComponentImplementationsCTro', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;

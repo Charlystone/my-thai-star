@@ -44,7 +44,7 @@ class TestBedSetUp {
   }
 }
 
-fdescribe('OrderEditComponent', () => {
+describe('OrderEditComponent', () => {
   let component: OrderEditComponent;
   let fixture: ComponentFixture<OrderEditComponent>;
   let initialState;

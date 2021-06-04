@@ -12,7 +12,6 @@ export class PasswordResetComponent implements OnInit {
   hashCode: string;
 
   constructor(
-    private snackBarService: SnackBarService,
     private route: ActivatedRoute,
     ) { }
 

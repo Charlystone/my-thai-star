@@ -69,7 +69,7 @@ class TestBedSetUp {
   }
 }
 
-fdescribe('OrderArchiveComponent', () => {
+describe('OrderArchiveComponent', () => {
   let component: OrderArchiveComponent;
   let fixture: ComponentFixture<OrderArchiveComponent>;
   let store: Store<State>;
@@ -143,7 +143,7 @@ fdescribe('OrderArchiveComponent', () => {
   }));
 });
 
-fdescribe('TestingOrderArchiveCockpitComponentWithSortOrderData', () => {
+describe('TestingOrderArchiveCockpitComponentWithSortOrderData', () => {
   let component: OrderArchiveComponent;
   let fixture: ComponentFixture<OrderArchiveComponent>;
   let store: Store<State>;
