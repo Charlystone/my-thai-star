@@ -33,6 +33,12 @@ const mockDialog = {
   }),
 };
 
+const mockSnackBarService = {
+  open: jasmine.createSpy('openSnack').and.returnValue({
+    afterClosed: () => of(true),
+  }),
+};
+
 const translocoServiceStub = {
   selectTranslateObject: of({
     reservationDateH: 'Reservation Date',
@@ -49,7 +55,8 @@ const translocoServiceStub = {
 
 const waiterCockpitServiceStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
-  ordersChanged: new EventEmitter<boolean>()
+  ordersChanged: new EventEmitter<boolean>(),
+  updateOrderState: jasmine.createSpy('updateOrderState').and.returnValue(of(true)),
 };
 
 const waiterCockpitServiceSortStub = {
@@ -63,10 +70,10 @@ class TestBedSetUp {
     return TestBed.configureTestingModule({
       declarations: [OrderCockpitComponent],
       providers: [
-        MatDialog,
+        { provide: MatDialog, useValue: mockDialog },
         { provide: WaiterCockpitService, useValue: waiterCockpitStub },
         BillService,
-        SnackBarService,
+        { provide: SnackBarService, useValue: mockSnackBarService },
         TranslocoService,
         ConfigService,
         provideMockStore({ initialState }),
@@ -81,7 +88,7 @@ class TestBedSetUp {
   }
 }
 
-describe('OrderCockpitComponent', () => {
+fdescribe('OrderCockpitComponent', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -156,7 +163,7 @@ describe('OrderCockpitComponent', () => {
   }));
 });
 
-describe('TestingOrderCockpitComponentWithSortOrderData', () => {
+fdescribe('TestingOrderCockpitComponentWithSortOrderData', () => {
   let component: OrderCockpitComponent;
   let fixture: ComponentFixture<OrderCockpitComponent>;
   let store: Store<State>;
@@ -241,29 +248,29 @@ fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
 
   // Test for function of Payment Button
   it('should set payment state from pending to paid on click of pending', fakeAsync(() => {
+    fixture.detectChanges();
     const orderRows = el.queryAll(By.css('.mat-row'));
     const payButton = orderRows[0].query(By.css('.payOrderButton'));
     click(payButton);
-    fixture.detectChanges();
     tick();
   }));
 
   // Test for function of edit Button
   it('should open OrderEditComponent on click of Button', fakeAsync(() => {
+    fixture.detectChanges();
     const orderRows = el.queryAll(By.css('.mat-row'));
     const editButton = orderRows[0].query(By.css('.orderEditButton'));
     click(editButton);
-    fixture.detectChanges();
     tick();
     expect(dialog.open).toHaveBeenCalled();
   }));
 
   // Test for function of order state Button
   it('should set order state from to the next state', fakeAsync(() => {
+    fixture.detectChanges();
     const orderRows = el.queryAll(By.css('.mat-row'));
     const payButton = orderRows[0].query(By.css('.orderStateButton'));
     click(payButton);
-    fixture.detectChanges();
     tick();
   }));
 });
