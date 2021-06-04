@@ -68,7 +68,6 @@ fdescribe('OrderEditComponent', () => {
         snackBarService = TestBed.inject(SnackBarService);
         store = TestBed.inject(Store);
         configService = new ConfigService(store);
-        fixture.detectChanges();
       });
   }));
 

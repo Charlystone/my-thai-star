@@ -19,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { getTranslocoModule } from '../../transloco-testing.module';
 import { CoreModule } from '../../core/core.module';
-import { DebugElement } from '@angular/core';
+import { DebugElement, EventEmitter } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { click } from '../../shared/common/test-utils';
 import { ascSortOrder } from '../../../in-memory-test-data/db-order-asc-sort';
@@ -49,10 +49,12 @@ const translocoServiceStub = {
 
 const waiterCockpitServiceStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
+  ordersChanged: new EventEmitter<boolean>()
 };
 
 const waiterCockpitServiceSortStub = {
   getOrders: jasmine.createSpy('getOrders').and.returnValue(of(ascSortOrder)),
+  ordersChanged: new EventEmitter<boolean>()
 };
 
 class TestBedSetUp {
@@ -62,7 +64,7 @@ class TestBedSetUp {
       declarations: [OrderCockpitComponent],
       providers: [
         MatDialog,
-        WaiterCockpitService,
+        { provide: WaiterCockpitService, useValue: waiterCockpitStub },
         BillService,
         SnackBarService,
         TranslocoService,
@@ -198,8 +200,6 @@ describe('TestingOrderCockpitComponentWithSortOrderData', () => {
     expect(component.orders).toEqual(orderData.content);
     expect(component.totalOrders).toBe(8);
   }));
-
-  // test  single methods (modul tests)
 });
 
 fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
@@ -215,7 +215,7 @@ fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
 
   beforeEach(async(() => {
     initialState = { config };
-    TestBedSetUp.loadWaiterCockpitServiceStud(waiterCockpitServiceSortStub)
+    TestBedSetUp.loadWaiterCockpitServiceStud(waiterCockpitServiceStub)
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(OrderCockpitComponent);
@@ -226,33 +226,44 @@ fdescribe('TestingOrderCockpitComponentImplementationsCTro', () => {
         waiterCockpitService = TestBed.inject(WaiterCockpitService);
         dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
-        fixture.detectChanges();
       });
   }));
 
   it('should create', fakeAsync(() => {
+    spyOn(translocoService, 'selectTranslateObject').and.returnValue(
+      translocoServiceStub.selectTranslateObject,
+    );
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+    expect(component.orders).toEqual(orderData.content);
+    expect(component.totalOrders).toBe(8);
   }));
 
   // Test for function of Payment Button
   it('should set payment state from pending to paid on click of pending', fakeAsync(() => {
-    const payButton = el.query(By.css('.payOrderButton'));
+    const orderRows = el.queryAll(By.css('.mat-row'));
+    const payButton = orderRows[0].query(By.css('.payOrderButton'));
     click(payButton);
+    fixture.detectChanges();
     tick();
   }));
 
   // Test for function of edit Button
   it('should open OrderEditComponent on click of Button', fakeAsync(() => {
-    const editButton = el.query(By.css('.orderEditButton'));
+    const orderRows = el.queryAll(By.css('.mat-row'));
+    const editButton = orderRows[0].query(By.css('.orderEditButton'));
     click(editButton);
+    fixture.detectChanges();
     tick();
     expect(dialog.open).toHaveBeenCalled();
   }));
 
   // Test for function of order state Button
   it('should set order state from to the next state', fakeAsync(() => {
-    const payButton = el.query(By.css('.payOrderButton'));
+    const orderRows = el.queryAll(By.css('.mat-row'));
+    const payButton = orderRows[0].query(By.css('.orderStateButton'));
     click(payButton);
+    fixture.detectChanges();
     tick();
   }));
 });

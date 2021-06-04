@@ -116,6 +116,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         if (!data) {
           this.orders = [];
         } else {
+          this.orders = data.content;
           this.orders = [];
           for (let entry of data.content) {
             if (!(entry.order.orderState === "canceled" || entry.order.orderState === "orderCompleted")) {

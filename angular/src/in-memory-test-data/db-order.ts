@@ -1,3 +1,5 @@
+import { EventEmitter } from "events";
+
 export const orderData: any = {
   content: [
     {
@@ -157,6 +159,8 @@ export const orderData: any = {
         invitedGuestId: 0,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -278,6 +282,8 @@ export const orderData: any = {
         invitedGuestId: 1,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -338,6 +344,8 @@ export const orderData: any = {
         invitedGuestId: 2,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -398,6 +406,8 @@ export const orderData: any = {
         invitedGuestId: 3,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -458,6 +468,8 @@ export const orderData: any = {
         invitedGuestId: 4,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -519,6 +531,8 @@ export const orderData: any = {
         invitedGuestId: 8,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,
@@ -579,6 +593,8 @@ export const orderData: any = {
         invitedGuestId: 9,
         bookingToken: null,
         hostId: null,
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       booking: {
         modificationCounter: 1,

@@ -72,7 +72,6 @@ fdescribe('OrderArchiveComponent', () => {
         waiterCockpitService = TestBed.inject(WaiterCockpitService);
         dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
-        fixture.detectChanges();
       });
   }));
 
