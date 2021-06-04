@@ -85,10 +85,33 @@ public class OrdermanagementTest extends ApplicationComponentTest {
 
     BookingEto bookingEto = new BookingEto();
     bookingEto.setBookingToken("CB_20170510_123502595Z");
+
+    //orderEto
+    OrderEto oeto  = new OrderEto();
+    oeto.setBookingToken("CB_20170510_123502595Z");
+    oeto.setOrderState("orderTaken");
+    oeto.setPaymentState("pending");
+
     this.orderCto = new OrderCto();
     this.orderCto.setBooking(bookingEto);
     this.orderCto.setOrderLines(lines);
+    this.orderCto.setOrder(oeto);
+  }
 
+  /**
+   * Tests if order and payment states are saved correctly
+   */
+  @Test
+  public void setAndGetOrderAndPaymentState() {
+    OrderEto createdOrder = this.orderManagement.saveOrder(this.orderCto);
+
+    assertThat(createdOrder.getOrderState()).isEqualTo("orderTaken");
+    assertThat(createdOrder.getPaymentState()).isEqualTo("pending");
+    
+    createdOrder.setOrderState("Delivered");
+    createdOrder.setPaymentState("paid");
+    assertThat(createdOrder.getOrderState()).isEqualTo("Delivered");
+    assertThat(createdOrder.getPaymentState()).isEqualTo("paid");
   }
 
   /**
