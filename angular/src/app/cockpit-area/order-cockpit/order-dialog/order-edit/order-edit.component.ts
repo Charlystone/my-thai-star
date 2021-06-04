@@ -55,7 +55,6 @@ export class OrderEditComponent implements OnInit {
       this.data.orderLines,
     );
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
-    this.filter();
   }
 
   setTableHeaders(lang: string): void {
@@ -87,13 +86,6 @@ export class OrderEditComponent implements OnInit {
     this.currentPage = pagingEvent.pageIndex + 1;
     this.pageSize = pagingEvent.pageSize;
     this.fromRow = pagingEvent.pageSize * pagingEvent.pageIndex;
-    this.filter();
-  }
-
-  filter(): void {
-    let newData: any[] = this.datao;
-    newData = newData.slice(this.fromRow, this.currentPage * this.pageSize);
-    setTimeout(() => (this.filteredData = newData));
   }
 
   cancelOrder() {

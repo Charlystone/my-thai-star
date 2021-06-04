@@ -237,7 +237,7 @@ describe('TestingOrderCockpitComponentImplementationsCTro', () => {
       });
   }));
 
-  it('should create', fakeAsync(() => {
+  it('should create', () => {
     spyOn(translocoService, 'selectTranslateObject').and.returnValue(
       translocoServiceStub.selectTranslateObject,
     );
@@ -245,7 +245,7 @@ describe('TestingOrderCockpitComponentImplementationsCTro', () => {
     expect(component).toBeTruthy();
     expect(component.orders).toEqual(orderData.content);
     expect(component.totalOrders).toBe(8);
-  }));
+  });
 
   it('should open OrderEditComponent on click', fakeAsync(() => {
     fixture.detectChanges();
