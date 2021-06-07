@@ -34,9 +34,27 @@ public class DishEntity extends ApplicationPersistenceEntity implements Dish {
 
   private ImageEntity image;
 
+  private boolean isDishOfTheDay;
+
   private List<IngredientEntity> extras;
 
   private List<CategoryEntity> categories;
+
+  /**
+   * @return dish of the day
+   */
+  public boolean getIsDishOfTheDay() {
+
+    return this.isDishOfTheDay;
+  }
+
+  /**
+   * @param isDishOfTheDay new value of {@link #setIsDishOfTheDay}.
+   */
+  public void setIsDishOfTheDay(boolean isDishOfTheDay) {
+
+    this.isDishOfTheDay = isDishOfTheDay;
+  }
 
   /**
    * @return name

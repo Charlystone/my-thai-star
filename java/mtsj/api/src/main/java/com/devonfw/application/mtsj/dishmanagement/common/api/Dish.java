@@ -6,6 +6,10 @@ import com.devonfw.application.mtsj.general.common.api.ApplicationEntity;
 
 public interface Dish extends ApplicationEntity {
 
+  public boolean getIsDishOfTheDay();
+
+  public void setIsDishOfTheDay(boolean isDishOfTheDay);
+
   public String getName();
 
   public void setName(String name);

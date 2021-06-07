@@ -20,6 +20,20 @@ public class DishEto extends AbstractEto implements Dish {
 
   private Long imageId;
 
+  private boolean isDishOfTheDay;
+
+  @Override
+  public boolean getIsDishOfTheDay() {
+
+    return this.isDishOfTheDay;
+  }
+
+  @Override
+  public void setIsDishOfTheDay(boolean isDishOfTheDay) {
+
+      this.isDishOfTheDay = isDishOfTheDay;
+  }
+
   @Override
   public String getName() {
 
