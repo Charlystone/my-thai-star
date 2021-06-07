@@ -125,6 +125,7 @@
     "menu": "Menü",
     "book": "Tisch buchen",
     "orders": "Bestellungen",
+    "dishoftheday": "Tagesangebot",
     "archive": "Archivierte Bestellungen",
     "reservations": "Reservierungen",
     "usermanagement": "Benutzerverwaltung",
@@ -250,6 +251,15 @@
         "extrasH": "Extra",
         "quantityH": "Anzahl",
         "priceH": "Preis"
+      }
+    },
+    "dishOfTheDay": {
+      "title": "Tagesangebot verwalten",
+      "tableHeaders": {
+        "dishIdH": "Id",
+        "dishNameH": "Name",
+        "dishPriceH": "Preis",
+        "isDishOfTheDayH": "Tagesangebot"
       }
     },
     "reservations": {

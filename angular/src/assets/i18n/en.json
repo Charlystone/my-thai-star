@@ -122,6 +122,7 @@
     "menu": "Menu",
     "book": "Book table",
     "orders": "Orders",
+    "dishoftheday": "Dish of the day",
     "archive": "Archived orders",
     "reservations": "Reservations",
     "usermanagement": "Usermanagement",
@@ -247,6 +248,15 @@
         "extrasH": "Extra",
         "quantityH": "Quantity",
         "priceH": "Price"
+      }
+    },
+    "dishOfTheDay": {
+      "title": "Manage dishes of the day",
+      "tableHeaders": {
+        "dishIdH": "Id",
+        "dishNameH": "Name",
+        "dishPriceH": "Price",
+        "isDishOfTheDayH": "Is dish of the day"
       }
     },
     "reservations": {

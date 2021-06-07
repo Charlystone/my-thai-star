@@ -1,0 +1,47 @@
+
+  <mat-progress-bar
+    *ngIf="!dishes"
+    color="accent"
+    mode="indeterminate">
+  </mat-progress-bar>
+  <mat-card>
+    <mat-card-title>{{'cockpit.dishOfTheDay.title' | transloco}}</mat-card-title>
+    <mat-divider></mat-divider>
+
+    <div class="tableContainer">
+      <table mat-table [dataSource]="dishes">
+
+        <!-- Dish Id Column -->
+        <ng-container matColumnDef="dishId">
+          <th mat-header-cell *matHeaderCellDef> {{columns[0].label}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.dish.id}} </td>
+        </ng-container>
+
+        <!-- Dish Name Column -->
+        <ng-container matColumnDef="dishName">
+        <th mat-header-cell *matHeaderCellDef> {{columns[1].label}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.dish.name}} </td>
+        </ng-container>
+
+        <!-- Dish Price Column -->
+        <ng-container matColumnDef="dishPrice">
+        <th mat-header-cell *matHeaderCellDef> {{columns[2].label}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.dish.price}} </td>
+        </ng-container>
+
+        <!-- Is dish of the day Column -->
+        <ng-container matColumnDef="isDishOfTheDay">
+            <th mat-header-cell *matHeaderCellDef> {{columns[3].label}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.dish.isDishOfTheDay}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+    </div>
+
+    <div class="property-text-center noResults" *ngIf="dishes.length===0">
+      <h3>{{'table.noResults' | transloco}}.</h3>
+    </div>
+  </mat-card>

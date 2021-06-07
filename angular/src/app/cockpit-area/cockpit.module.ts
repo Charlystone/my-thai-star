@@ -26,6 +26,8 @@ import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/cr
 import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/new-password-dialog.component';
 import { EmailConfirmationsService } from 'app/email-confirmations/services/email-confirmations.service';
 import { AppRoutingModule } from 'app/app-routing.module';
+import { DishOfTheDayCockpitComponent } from './dish-of-the-day-cockpit/dish-of-the-day-cockpit.component';
+import { MenuService } from 'app/menu/services/menu.service';
 
 @NgModule({
   imports: [
@@ -44,7 +46,8 @@ import { AppRoutingModule } from 'app/app-routing.module';
     ClusteringService,
     BillService,
     AdminCockpitService,
-    EmailConfirmationsService
+    EmailConfirmationsService,
+    MenuService,
   ],
   declarations: [
     ReservationCockpitComponent,
@@ -59,6 +62,7 @@ import { AppRoutingModule } from 'app/app-routing.module';
     AdminCockpitComponent,
     CreateUserDialogComponent,
     NewPasswordDialogComponent,
+    DishOfTheDayCockpitComponent,
   ],
   exports: [
     ReservationCockpitComponent,

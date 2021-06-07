@@ -2,7 +2,7 @@
 
 export class Filter {
     pageable?: Pageable;
-    isFav: boolean;
+    isFav?: boolean;
     searchBy: string;
     // sort: { name: string, direction: string }[];
     maxPrice: number;
