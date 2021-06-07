@@ -4,7 +4,7 @@ import {config} from '../../../../core/config/config';
 import {Store} from '@ngrx/store';
 import {ConfigService} from '../../../../core/config/config.service';
 import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {TranslocoService} from '@ngneat/transloco';
 import {provideMockStore} from '@ngrx/store/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -18,9 +18,6 @@ import { dialogOrderDetails } from 'in-memory-test-data/db-order-dialog-data';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { By } from '@angular/platform-browser';
 import { click } from 'app/shared/common/test-utils';
-import { of } from 'rxjs';
-import { orderData } from 'in-memory-test-data/db-order';
-import { dialog } from 'electron';
 class TestBedSetUp {
   static loadWaiterCockpitServiceStud(): any {
     const initialState = { config };
@@ -85,6 +82,11 @@ describe('OrderEditComponent', () => {
     click(increaseButton);
     tick();
     expect(component.data.orderLines[0].orderLine.amount).toEqual(oldAmount + 1);
+    
+    /*const saveButton = el.query(By.css('.saveButton'));
+    click(saveButton);
+    tick();
+    expect(waiterCockpitService.updateOrderLineAmount).toHaveBeenCalled;*/
   }));
 
   it('should decrease amount of ordered items', fakeAsync(() => {
@@ -96,6 +98,11 @@ describe('OrderEditComponent', () => {
     tick();
     expect(component.data.orderLines[1].orderLine.amount).toEqual(oldAmount - 1);
     expect(component.editedOrderLines.length).toEqual(1);
+
+    /*const saveButton = el.query(By.css('.saveButton'));
+    click(saveButton);
+    tick();
+    expect(waiterCockpitService.updateOrderLineAmount).toHaveBeenCalled;*/
   }));
 
   it('should delete the responding orderLine', fakeAsync(() => {
@@ -107,15 +114,18 @@ describe('OrderEditComponent', () => {
     tick();
     expect(component.data.orderLines.length).toEqual(oldOrderLineAmount - 1);
     expect(component.editedOrderLines.length).toEqual(1);
+    
+    /*const saveButton = el.query(By.css('.saveButton'));
+    click(saveButton);
+    tick();
+    expect(waiterCockpitService.deleteOrderLine).toHaveBeenCalled;*/
   }));
 
-  it('should call updateOrderLines of WaiterCockpitService', fakeAsync(() => {
+  /*it('should call updateOrderState of WaiterCockpitService to cancel order', fakeAsync(() => {
     fixture.detectChanges();
-    expect(waiterCockpitService.updateOrderLines).toHaveBeenCalled;
-  }));
-
-  it('should call updateOrderState of WaiterCockpitService to cancel order', fakeAsync(() => {
-    fixture.detectChanges();
+    const deleteButton = el.query(By.css('.deleteButton'));
+    click(deleteButton);
+    tick();
     expect(waiterCockpitService.updateOrderState).toHaveBeenCalled;
-  }));
+  }));*/
 });

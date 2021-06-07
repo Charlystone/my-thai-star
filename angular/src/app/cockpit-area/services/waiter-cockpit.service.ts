@@ -39,29 +39,13 @@ export class WaiterCockpitService {
     string
   > = this.config.getRestServiceRoot();
 
-  updateSuccessAlert: string;
-  updateFailAlert: string;
   ordersChanged = new EventEmitter<boolean>();
 
   constructor(
     private http: HttpClient,
     private priceCalculator: PriceCalculatorService,
-    private snackBarService: SnackBarService,
     private config: ConfigService,
-    private translocoService: TranslocoService,
   ) {
-    this.translocoService.langChanges$.subscribe((event: any) => {
-      this.setAlerts(event);
-    });
-  }
-
-  setAlerts(lang: string): void {
-      this.translocoService
-      .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
-      .subscribe((alertsWaiterCockpitAlerts) => {
-        this.updateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderLineSuccess;
-        this.updateFailAlert = alertsWaiterCockpitAlerts.updateOrderLineFail;
-      });
   }
 
   getOrders(
@@ -150,36 +134,7 @@ export class WaiterCockpitService {
     );
   }
 
-  updateOrderLines(orderLines: any[]) {
-    this.updateOrderLine(orderLines, 0);
-  }
-
-  private updateOrderLine(orderLines: any[], orderLineIndex: number) {
-    if (orderLines[orderLineIndex].deleted == true && orderLineIndex < orderLines.length - 1) { // delete
-      this.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
-        return this.updateOrderLine(orderLines, ++orderLineIndex);
-      });
-    }
-    if (orderLines[orderLineIndex].deleted == false && orderLineIndex < orderLines.length - 1) { // update
-      this.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
-        return this.updateOrderLine(orderLines, ++orderLineIndex);
-      });
-    }
-    if (orderLines[orderLineIndex].deleted == true && orderLineIndex == orderLines.length - 1) { // last orderLine and delete
-      this.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
-        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-        this.emitOrdersChanged();
-      });;
-    }
-    if (orderLines[orderLineIndex].deleted == false && orderLineIndex == orderLines.length - 1) { // last orderLine and update
-      this.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
-        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-        this.emitOrdersChanged();
-      });;
-    }
-  }
-
-  private updateOrderLineAmount(orderLine: any): Observable<OrderResponse[]> {
+  updateOrderLineAmount(orderLine: any): Observable<OrderResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post<OrderResponse[]>(`${restServiceRoot}${this.orderLine}`, orderLine),
@@ -187,7 +142,7 @@ export class WaiterCockpitService {
     );
   }
 
-  private deleteOrderLine(orderLineId: number): Observable<OrderResponse[]> {
+  deleteOrderLine(orderLineId: number): Observable<OrderResponse[]> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.delete<OrderResponse[]>(`${restServiceRoot}${this.orderLine}` + orderLineId + `/`),

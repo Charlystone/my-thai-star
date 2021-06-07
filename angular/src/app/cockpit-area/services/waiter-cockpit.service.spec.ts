@@ -6,16 +6,6 @@ import { WaiterCockpitService } from './waiter-cockpit.service';
 import { ConfigService } from '../../core/config/config.service';
 import { config } from '../../core/config/config';
 import { provideMockStore } from '@ngrx/store/testing';
-import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
-import { of } from 'rxjs/internal/observable/of';
-import { TranslocoService } from '@ngneat/transloco';
-import { InjectionToken } from '@angular/core';
-
-const mockSnackBarService = {
-  open: jasmine.createSpy('openSnack').and.returnValue({
-    afterClosed: () => of(true),
-  }),
-};
 
 describe('WaiterCockpitService', () => {
   let initialState;
@@ -27,9 +17,6 @@ describe('WaiterCockpitService', () => {
         WaiterCockpitService,
         PriceCalculatorService,
         ConfigService,
-        TranslocoService,
-        { provide: SnackBarService, useValue: mockSnackBarService },
-        { provide: InjectionToken, useValue: [] }
       ],
       imports: [HttpClientTestingModule],
     });

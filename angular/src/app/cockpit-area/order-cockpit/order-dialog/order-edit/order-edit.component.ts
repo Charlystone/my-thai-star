@@ -36,6 +36,9 @@ export class OrderEditComponent implements OnInit {
   totalPrice: number;
   editedOrderLines: any[] = [];
 
+  updateSuccessAlert: string;
+  updateFailAlert: string;
+
   constructor(
     private waiterCockpitService: WaiterCockpitService,
     private translocoService: TranslocoService,
@@ -50,6 +53,7 @@ export class OrderEditComponent implements OnInit {
   ngOnInit(): void {
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
+      this.setAlerts(event);
     });
 
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
@@ -58,6 +62,15 @@ export class OrderEditComponent implements OnInit {
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
     this.filter();
   }
+
+  setAlerts(lang: string): void {
+    this.translocoService
+    .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
+    .subscribe((alertsWaiterCockpitAlerts) => {
+      this.updateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderLineSuccess;
+      this.updateFailAlert = alertsWaiterCockpitAlerts.updateOrderLineFail;
+    });
+}
 
   setTableHeaders(lang: string): void {
     this.translocoService
@@ -97,7 +110,7 @@ export class OrderEditComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  cancelOrder() {
+  deleteOrder() {
     const id = this.data.order.id;
     this.waiterCockpitService.updateOrderState("canceled", id).subscribe((data: any) => {
       this.snackBarService.openSnack(this.cancelSuccessAlert, 5000, "green");
@@ -146,7 +159,32 @@ export class OrderEditComponent implements OnInit {
   }
 
   saveOrder() {
-    this.waiterCockpitService.updateOrderLines(this.editedOrderLines);
+    this.updateOrderLine(this.editedOrderLines, 0);
+  }
+
+  private updateOrderLine(orderLines: any[], orderLineIndex: number) {
+    if (orderLines[orderLineIndex].deleted == true && orderLineIndex < orderLines.length - 1) { // delete
+      this.waiterCockpitService.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
+        return this.updateOrderLine(orderLines, ++orderLineIndex);
+      });
+    }
+    if (orderLines[orderLineIndex].deleted == false && orderLineIndex < orderLines.length - 1) { // update
+      this.waiterCockpitService.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
+        return this.updateOrderLine(orderLines, ++orderLineIndex);
+      });
+    }
+    if (orderLines[orderLineIndex].deleted == true && orderLineIndex == orderLines.length - 1) { // last orderLine and delete
+      this.waiterCockpitService.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
+        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
+        this.waiterCockpitService.emitOrdersChanged();
+      });
+    }
+    if (orderLines[orderLineIndex].deleted == false && orderLineIndex == orderLines.length - 1) { // last orderLine and update
+      this.waiterCockpitService.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
+        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
+        this.waiterCockpitService.emitOrdersChanged();
+      });
+    }
   }
 
   cancelEditing() {
