@@ -34,9 +34,11 @@ const mockDialog = {
 };
 
 const mockSnackBarService = {
-  open: jasmine.createSpy('openSnack').and.returnValue({
-    afterClosed: () => of(true),
-  }),
+  openSnack: jasmine.createSpy('openSnack').and.returnValue(of(true))
+};
+
+const mockBillService = {
+  createBillAsPDF: jasmine.createSpy('createBillAsPDF').and.returnValue(of(true))
 };
 
 const translocoServiceStub = {
@@ -75,6 +77,7 @@ class TestBedSetUp {
         { provide: WaiterCockpitService, useValue: waiterCockpitStub },
         BillService,
         { provide: SnackBarService, useValue: mockSnackBarService },
+        { provide: BillService, useValue: mockBillService },
         TranslocoService,
         ConfigService,
         provideMockStore({ initialState }),
@@ -220,6 +223,8 @@ describe('TestingOrderCockpitComponentImplementationsCTro', () => {
   let translocoService: TranslocoService;
   let configService: ConfigService;
   let el: DebugElement;
+  let snackBarService: SnackBarService;
+  let billService: BillService;
 
   beforeEach(async(() => {
     initialState = { config };
@@ -234,6 +239,8 @@ describe('TestingOrderCockpitComponentImplementationsCTro', () => {
         waiterCockpitService = TestBed.inject(WaiterCockpitService);
         dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
+        snackBarService = TestBed.inject(SnackBarService);
+        billService = TestBed.inject(BillService);
       });
   }));
 

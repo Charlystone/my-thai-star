@@ -63,7 +63,6 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     bookingToken: undefined,
   };
 
-
   constructor(
     private dialog: MatDialog,
     private translocoService: TranslocoService,
@@ -161,14 +160,15 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectedEdit(selection: any): void {
+  selectedEdit(selection: any, event: any): void {
     this.dialog.open(OrderEditComponent, {
       width: '80%',
       data: selection,
     });
+    event.stopPropagation();
   }
 
-  updateOrderState(selectedOrder: any, button):void {
+  updateOrderState(selectedOrder: any, button, event: any):void {
     const currentOrderState = selectedOrder.order.orderState;
     const currentPaymentState = selectedOrder.order.paymentState;
     let orderStateToUpdateTo;
@@ -205,9 +205,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
       });
     }
+    event.stopPropagation();
   }
 
-  payBill(selectedOrder: any):void {
+  payBill(selectedOrder: any, event: any):void {
     this.orders[this.orders.indexOf(selectedOrder)].paymentState = 'paid';
     const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
     const obj = JSON.parse(str);
@@ -217,6 +218,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
       this.billService.createBillAsPDF(selectedOrder);
     })
+    event.stopPropagation();
   }
 
   ngOnDestroy(): void {
