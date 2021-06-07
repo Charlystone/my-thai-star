@@ -6,6 +6,8 @@ export const dialogOrderDetails = {
     invitedGuestId: null,
     bookingToken: null,
     hostId: 0,
+    orderState: "orderTaken",
+    paymentState: "pending",
   },
   booking: {
     modificationCounter: 1,
@@ -32,10 +34,9 @@ export const dialogOrderDetails = {
         id: 0,
         orderId: 0,
         dishId: 0,
-        amount: 2,
+        amount: 3,
         comment: 'please not too spicy',
       },
-      order: null,
       dish: {
         modificationCounter: 1,
         id: 0,
@@ -64,10 +65,9 @@ export const dialogOrderDetails = {
         id: 1,
         orderId: 0,
         dishId: 4,
-        amount: 1,
+        amount: 2,
         comment: null,
       },
-      order: null,
       dish: {
         modificationCounter: 1,
         id: 4,
@@ -97,7 +97,6 @@ export const dialogOrderDetails = {
         amount: 1,
         comment: null,
       },
-      order: null,
       dish: {
         modificationCounter: 1,
         id: 2,

@@ -20,21 +20,9 @@ import { By } from '@angular/platform-browser';
 import { click } from 'app/shared/common/test-utils';
 import { of } from 'rxjs';
 import { orderData } from 'in-memory-test-data/db-order';
-
-const mockDialogRef = {
-  close: jasmine.createSpy('close'),
-};
-
-const waiterCockpitServiceStub = {
-  getOrders: jasmine.createSpy('getOrders').and.returnValue(of(orderData)),
-  ordersChanged: new EventEmitter<boolean>(),
-  updateOrderState: jasmine.createSpy('updateOrderState').and.returnValue(of(orderData)),
-  updatePaymentState: jasmine.createSpy('updatePaymentState').and.returnValue(of(orderData)),
-  getTotalPrice: jasmine.createSpy('getTotalPrice').and.returnValue(100),
-  orderComposer: jasmine.createSpy('orderComposer').and.returnValue(of(dialogOrderDetails.orderLines)),
-};
+import { dialog } from 'electron';
 class TestBedSetUp {
-  static loadWaiterCockpitServiceStud(waiterCockpitStub: any): any {
+  static loadWaiterCockpitServiceStud(): any {
     const initialState = { config };
     return TestBed.configureTestingModule({
       declarations: [OrderEditComponent],
@@ -42,8 +30,7 @@ class TestBedSetUp {
         TranslocoService,
         ConfigService,
         { provide: MAT_DIALOG_DATA, useValue: dialogOrderDetails },
-        { provide: MatDialogRef, useValue: mockDialogRef },
-        { provide: WaiterCockpitService, useValue: waiterCockpitStub },
+        WaiterCockpitService,
         SnackBarService,
         provideMockStore({ initialState }),
       ],
@@ -70,7 +57,7 @@ describe('OrderEditComponent', () => {
 
   beforeEach(async(() => {
     initialState = {config};
-    TestBedSetUp.loadWaiterCockpitServiceStud(waiterCockpitServiceStub)
+    TestBedSetUp.loadWaiterCockpitServiceStud()
       .compileComponents()
       .then(() => {
         fixture = TestBed.createComponent(OrderEditComponent);
@@ -81,6 +68,7 @@ describe('OrderEditComponent', () => {
         snackBarService = TestBed.inject(SnackBarService);
         store = TestBed.inject(Store);
         configService = new ConfigService(store);
+        fixture.detectChanges();
       });
   }));
 
@@ -90,18 +78,44 @@ describe('OrderEditComponent', () => {
   });
 
   it('should increase amount of ordered items', fakeAsync(() => {
+    let oldAmount = component.data.orderLines[0].orderLine.amount;
     fixture.detectChanges();
-    const increaseButton = el.query(By.css('.increaceOrderLineAmountButton'));
+    const orderLines = el.queryAll(By.css('.mat-row'));
+    const increaseButton = orderLines[0].query(By.css('.increaseOrderLineAmountButton'));
     click(increaseButton);
     tick();
-    expect(component.data.orderLines[0].amount).toEqual(3);
+    expect(component.data.orderLines[0].orderLine.amount).toEqual(oldAmount + 1);
   }));
 
   it('should decrease amount of ordered items', fakeAsync(() => {
+    let oldAmount = component.data.orderLines[1].orderLine.amount;
     fixture.detectChanges();
-    const increaseButton = el.query(By.css('.decreaceOrderLineAmountButton'));
-    click(increaseButton);
+    const orderLines = el.queryAll(By.css('.mat-row'));
+    const decreaseButton = orderLines[1].query(By.css('.decreaseOrderLineAmountButton'));
+    click(decreaseButton);
     tick();
-    expect(component.data.orderLines[0].amount).toEqual(1);
+    expect(component.data.orderLines[1].orderLine.amount).toEqual(oldAmount - 1);
+    expect(component.editedOrderLines.length).toEqual(1);
+  }));
+
+  it('should delete the responding orderLine', fakeAsync(() => {
+    let oldOrderLineAmount = component.data.orderLines.length;
+    fixture.detectChanges();
+    const orderLines = el.queryAll(By.css('.mat-row'));
+    const deleteOrderLine = orderLines[0].query(By.css('.deleteOrderLineButton'));
+    click(deleteOrderLine);
+    tick();
+    expect(component.data.orderLines.length).toEqual(oldOrderLineAmount - 1);
+    expect(component.editedOrderLines.length).toEqual(1);
+  }));
+
+  it('should call updateOrderLines of WaiterCockpitService', fakeAsync(() => {
+    fixture.detectChanges();
+    expect(waiterCockpitService.updateOrderLines).toHaveBeenCalled;
+  }));
+
+  it('should call updateOrderState of WaiterCockpitService to cancel order', fakeAsync(() => {
+    fixture.detectChanges();
+    expect(waiterCockpitService.updateOrderState).toHaveBeenCalled;
   }));
 });
