@@ -36,9 +36,27 @@ public class DishEntity extends ApplicationPersistenceEntity implements Dish {
 
   private boolean isDishOfTheDay;
 
+  private BigDecimal dailyPrice;
+
   private List<IngredientEntity> extras;
 
   private List<CategoryEntity> categories;
+
+  /**
+   * @return daily price
+   */
+  public BigDecimal getDailyPrice() {
+
+    return this.dailyPrice;
+  }
+
+  /**
+   * @param price new value of {@link #setDailyPrice}.
+   */
+  public void setDailyPrice(BigDecimal price) {
+
+    this.dailyPrice = price;
+  }
 
   /**
    * @return dish of the day

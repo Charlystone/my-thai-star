@@ -252,11 +252,14 @@
     },
     "dishOfTheDay": {
       "title": "Manage dishes of the day",
+      "dishOfTheDaySucessAlert": "Status successfully changed!",
+      "dailyPriceSucessAlert": "Daily price successfully updated",
       "tableHeaders": {
         "dishIdH": "Id",
         "dishNameH": "Name",
         "dishPriceH": "Price",
-        "isDishOfTheDayH": "Is dish of the day"
+        "isDishOfTheDayH": "Is dish of the day",
+        "dailyPriceH": "Daily price"
       }
     },
     "reservations": {

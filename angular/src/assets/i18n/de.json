@@ -255,11 +255,14 @@
     },
     "dishOfTheDay": {
       "title": "Tagesangebot verwalten",
+      "dishOfTheDaySucessAlert": "Statusänderung erfolgreich!",
+      "dailyPriceSucessAlert": "Tagespreis erfolgreich geändert!",
       "tableHeaders": {
         "dishIdH": "Id",
         "dishNameH": "Name",
         "dishPriceH": "Preis",
-        "isDishOfTheDayH": "Tagesangebot"
+        "isDishOfTheDayH": "Tagesangebot",
+        "dailyPriceH": "Tagespreis"
       }
     },
     "reservations": {

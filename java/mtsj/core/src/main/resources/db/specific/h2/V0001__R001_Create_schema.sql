@@ -116,6 +116,7 @@ CREATE TABLE Dish (
   price DECIMAL (16,10),
   idImage BIGINT UNIQUE NOT NULL,
   isDishOfTheDay BOOLEAN,
+  dailyPrice Decimal (16,10),
   CONSTRAINT PK_Dish PRIMARY KEY(id),
   CONSTRAINT FK_Dish_idImage FOREIGN KEY(idImage) REFERENCES Image(id) NOCHECK
 );
