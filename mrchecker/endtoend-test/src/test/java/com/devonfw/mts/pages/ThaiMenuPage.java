@@ -10,7 +10,7 @@ import com.capgemini.mrchecker.test.core.logger.BFLogger;
 public class ThaiMenuPage extends BasePage {
 
   /** Order options search criteria */
-  private static final By orderOptionsSearch = By.tagName("own-menu-card-details");
+  private static final By orderOptionsSearch = By.tagName("app-own-menu-card-details");
 
   /** Button add-to-order search criteria */
   private static final By addToOrderButtonSearch = By.tagName("button");
