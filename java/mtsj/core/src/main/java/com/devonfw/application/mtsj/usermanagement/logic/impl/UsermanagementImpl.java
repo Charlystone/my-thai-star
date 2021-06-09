@@ -144,8 +144,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
       mailContent.append("Hi ").append(username).append("\n\n");
       mailContent.append("Here is your link to reset your password with:").append("\n\n");
-      String hashCode = user.getPassword().replace("{bcrypt}", "").replace("/", "");
-      String link = getClientUrl() + "/passwordreset?hashCode=" + hashCode;
+      String hashCode = user.getPassword().replace("{bcrypt}", "").replace("/", "").replace("&", "");
+      String link = getClientUrl() + "/passwordreset?username=" + username + "&hashCode=" + hashCode;
       mailContent.append(link);
       this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
 

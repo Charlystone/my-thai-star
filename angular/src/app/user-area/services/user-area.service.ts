@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { exhaustMap, map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../core/authentication/auth.service';
 import { ConfigService } from '../../core/config/config.service';
-import { TwoFactorResponse } from '../../shared/view-models/interfaces';
+import { TwoFactorResponse, UserResponse } from '../../shared/view-models/interfaces';
 import * as authActions from '../store/actions/auth.actions';
 import * as fromAuth from '../store/reducers/';
 import { SnackService } from './snack-bar.service';
@@ -27,6 +27,7 @@ export class UserAreaService {
   private readonly registerRestPath: string = 'register';
   private readonly changePasswordRestPath: string = 'changepassword';
   private readonly validateResetLinkRestPath: string = 'resetlink/';
+  private readonly getUserByUsernameRestPath: string = 'search/';
   authAlerts: any;
 
   constructor(
@@ -43,6 +44,16 @@ export class UserAreaService {
       .subscribe((content: any) => {
         this.authAlerts = content;
       });
+  }
+
+  getUserByUsername(username: string): Observable<any> {
+    return this.restPathRoot$.pipe(
+      exhaustMap((restPathRoot) =>
+        this.http.get(
+          `${restPathRoot}${this.getUserByUsernameRestPath}` + username,
+        ),
+      ),
+    );
   }
 
   validateResetLink(hashCode: string) {
