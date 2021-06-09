@@ -27,8 +27,10 @@ import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetLinkEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserRoleEntity;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.ResetLinkRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRoleRepository;
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
@@ -44,6 +46,9 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Inject
   private UserRepository userDao;
+
+  @Inject
+  private ResetLinkRepository resetLinkDao;
 
   @Inject
   private UserRoleRepository userRoleDao;
@@ -138,9 +143,15 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
       mailContent.append("Hi ").append(username).append("\n\n");
       mailContent.append("Here is your link to reset your password with:").append("\n\n");
-      String link = getClientUrl() + "/passwordReset/" + user.getId() + "/" + user.getPassword().replace("{bcrypt}", "");
+      String link = getClientUrl() + "/passwordreset/" + user.getId() + "/" + user.getPassword().replace("{bcrypt}", "");
       mailContent.append(link);
       this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
+
+      ResetLinkEntity resetLinkEntity = new ResetLinkEntity();
+      resetLinkEntity.setLink(link);
+      resetLinkEntity.setUserId(user.getId());
+      resetLinkEntity.setModificationCounter(1);
+      getResetLinkDao().save(resetLinkEntity);
     } catch (Exception e) {
       LOG.error("Email not sent. {}", e.getMessage());
     }
@@ -167,6 +178,16 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   public UserRepository getUserDao() {
 
     return this.userDao;
+  }
+
+  /**
+   * Returns the field 'resetLinkDao'.
+   *
+   * @return the {@link ResetLinkRepository} instance.
+   */
+  public ResetLinkRepository getResetLinkDao() {
+
+    return this.resetLinkDao;
   }
 
   @Override

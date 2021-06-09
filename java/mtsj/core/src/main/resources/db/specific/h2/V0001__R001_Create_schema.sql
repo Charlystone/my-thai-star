@@ -206,3 +206,12 @@ CREATE TABLE RevInfo(
   "timestamp" BIGINT NOT NULL,
   userLogin VARCHAR(255)
 );
+
+-- *** PasswordResetLink ***
+CREATE TABLE PasswordResetLink (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  userId BIGINT NOT NULL,
+  link  VARCHAR(255),
+  modificationCounter INTEGER NOT NULL,
+  CONSTRAINT PK_PasswordResetLink PRIMARY KEY(id)
+);
