@@ -26,6 +26,7 @@ export class UserAreaService {
   private readonly twofactorRestPath: string = 'twofactor/';
   private readonly registerRestPath: string = 'register';
   private readonly changePasswordRestPath: string = 'changepassword';
+  private readonly validateResetLinkRestPath: string = 'resetlink/';
   authAlerts: any;
 
   constructor(
@@ -42,6 +43,16 @@ export class UserAreaService {
       .subscribe((content: any) => {
         this.authAlerts = content;
       });
+  }
+
+  validateResetLink(hashCode: string) {
+    return this.restPathRoot$.pipe(
+      exhaustMap((restPathRoot) =>
+        this.http.get(
+          `${restPathRoot}${this.validateResetLinkRestPath}` + hashCode,
+        ),
+      ),
+    );
   }
 
   login(username: string, password: string): Observable<any> {

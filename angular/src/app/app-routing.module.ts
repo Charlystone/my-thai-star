@@ -19,7 +19,7 @@ const appRoutes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'bookTable', component: BookTableComponent },
   { path: 'booking/:action/:token', component: EmailConfirmationsComponent },
-  { path: 'passwordreset/:userId/:hashCode', component: PasswordResetComponent },
+  { path: 'passwordreset', component: PasswordResetComponent },
   {
     path: 'dishoftheday',
     component: DishOfTheDayCockpitComponent,

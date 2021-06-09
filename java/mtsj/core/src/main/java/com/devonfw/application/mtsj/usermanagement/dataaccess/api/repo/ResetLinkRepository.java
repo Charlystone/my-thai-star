@@ -27,9 +27,9 @@ public interface ResetLinkRepository extends DefaultRepository<ResetLinkEntity> 
     ResetLinkEntity alias = newDslAlias();
     JPAQuery<ResetLinkEntity> query = newDslQuery(alias);
 
-    String link = criteria.getLink();
-    if ((link != null) && !link.isEmpty()) {
-      QueryUtil.get().whereString(query, $(alias.getLink()), link, criteria.getLinkOption());
+    String hashCode = criteria.gethashCode();
+    if ((hashCode != null) && !hashCode.isEmpty()) {
+      QueryUtil.get().whereString(query, $(alias.gethashCode()), hashCode, criteria.gethashCodeOption());
     }
     /*Long userId = criteria.getUserId();
     if (userId != null && alias.getUserId() != null) {
@@ -40,10 +40,10 @@ public interface ResetLinkRepository extends DefaultRepository<ResetLinkEntity> 
   }
 
   /**
-   * @param link
+   * @param hashCode
    * @return An {@link ResetLinkEntity} objects that matched the search.
    */
   @Query("SELECT PasswordResetLink FROM ResetLinkEntity PasswordResetLink" //
-          + " WHERE PasswordResetLink.link = :link")
-          ResetLinkEntity findByLink(@Param("link") String link);
+          + " WHERE PasswordResetLink.hashCode = :hashCode")
+          ResetLinkEntity findByHashCode(@Param("hashCode") String hashCode);
 }

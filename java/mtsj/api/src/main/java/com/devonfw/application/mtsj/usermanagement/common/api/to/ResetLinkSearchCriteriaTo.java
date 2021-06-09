@@ -9,9 +9,9 @@ private static final long serialVersionUID = 1L;
 
   private Long userId;
 
-  private String link;
+  private String hashCode;
 
-  private StringSearchConfigTo linkOption;
+  private StringSearchConfigTo hashCodeOption;
 
   /**
    * The constructor.
@@ -31,29 +31,29 @@ private static final long serialVersionUID = 1L;
     this.userId = userId;
   }
 
-  public String getLink() {
+  public String gethashCode() {
 
-    return this.link;
+    return this.hashCode;
   }
 
-  public void setLink(String link) {
+  public void sethashCode(String hashCode) {
 
-    this.link = link;
-  }
-
-  /**
-   * @return linkOption
-   */
-  public StringSearchConfigTo getLinkOption() {
-
-    return this.linkOption;
+    this.hashCode = hashCode;
   }
 
   /**
-   * @param linkOption new value of {@link #getLinkOption}.
+   * @return hashCodeOption
    */
-  public void setLinkOption(StringSearchConfigTo linkOption) {
+  public StringSearchConfigTo gethashCodeOption() {
 
-    this.linkOption = linkOption;
+    return this.hashCodeOption;
+  }
+
+  /**
+   * @param linkOption new value of {@link #gethashCodeOption}.
+   */
+  public void sethashCodeOption(StringSearchConfigTo hashCodeOption) {
+
+    this.hashCodeOption = hashCodeOption;
   }
 }

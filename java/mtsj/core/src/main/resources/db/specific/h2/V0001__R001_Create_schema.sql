@@ -211,7 +211,7 @@ CREATE TABLE RevInfo(
 CREATE TABLE PasswordResetLink (
   id BIGINT NOT NULL AUTO_INCREMENT,
   userId BIGINT NOT NULL,
-  link  VARCHAR(255),
+  hashCode  VARCHAR(255),
   modificationCounter INTEGER NOT NULL,
   CONSTRAINT PK_PasswordResetLink PRIMARY KEY(id)
 );

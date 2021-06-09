@@ -22,6 +22,7 @@ import com.devonfw.application.mtsj.general.common.api.to.UserDetailsClientTo;
 import com.devonfw.application.mtsj.general.common.base.QrCodeService;
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
 import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetLinkEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -143,18 +144,28 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
       mailContent.append("Hi ").append(username).append("\n\n");
       mailContent.append("Here is your link to reset your password with:").append("\n\n");
-      String link = getClientUrl() + "/passwordreset/" + user.getId() + "/" + user.getPassword().replace("{bcrypt}", "");
+      String hashCode = user.getPassword().replace("{bcrypt}", "").replace("/", "");
+      String link = getClientUrl() + "/passwordreset?hashCode=" + hashCode;
       mailContent.append(link);
       this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
 
       ResetLinkEntity resetLinkEntity = new ResetLinkEntity();
-      resetLinkEntity.setLink(link);
+      resetLinkEntity.sethashCode(hashCode);
       resetLinkEntity.setUserId(user.getId());
       resetLinkEntity.setModificationCounter(1);
       getResetLinkDao().save(resetLinkEntity);
     } catch (Exception e) {
       LOG.error("Email not sent. {}", e.getMessage());
     }
+  }
+
+  @Override
+  public ResetLinkEto validatePasswordResetLink(String hashCode) {
+
+    Objects.requireNonNull(hashCode, "hashCode");
+    ResetLinkEntity resetLinkEntity = getBeanMapper().map(getResetLinkDao().findByHashCode(hashCode), ResetLinkEntity.class);
+
+    return getBeanMapper().map(resetLinkEntity, ResetLinkEto.class);
   }
 
   @Override

@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetLinkEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -64,6 +65,15 @@ public interface UsermanagementRestService {
   @POST
   @Path("/user/resetlink")
   public void sendPasswordResetLink(UserEto user);
+
+  /**
+   * Delegates to {@link Usermanagement#validatePasswordResetLink}.
+   *
+   * @param hashCode the {@link String} to validate
+   */
+  @GET
+  @Path("/user/resetlink/{hashCode}")
+  public ResetLinkEto validatePasswordResetLink(@PathParam("hashCode") String hashCode);
 
   /**
    * Delegates to {@link Usermanagement#getUserStatus}.

@@ -3,6 +3,7 @@ package com.devonfw.application.mtsj.usermanagement.service.impl;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetLinkEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -44,6 +45,12 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
   public void sendPasswordResetLink(UserEto user) {
 
     this.usermanagement.sendPasswordResetLink(user);
+  }
+
+  @Override
+  public ResetLinkEto validatePasswordResetLink(String hashCode) {
+
+    return this.usermanagement.validatePasswordResetLink(hashCode);
   }
 
   @Override

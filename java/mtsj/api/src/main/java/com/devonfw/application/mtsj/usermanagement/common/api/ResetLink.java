@@ -8,7 +8,7 @@ public interface ResetLink extends ApplicationEntity {
 
     public void setUserId(Long userId);
     
-    public String getLink();
+    public String gethashCode();
 
-    public void setLink(String link);
+    public void sethashCode(String hashCode);
 }

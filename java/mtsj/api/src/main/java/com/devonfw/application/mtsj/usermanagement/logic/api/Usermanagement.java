@@ -3,6 +3,7 @@ package com.devonfw.application.mtsj.usermanagement.logic.api;
 import org.springframework.data.domain.Page;
 
 import com.devonfw.application.mtsj.general.common.api.UserProfile;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetLinkEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
@@ -61,6 +62,14 @@ public interface Usermanagement {
    * @return 
    */
   void sendPasswordResetLink(UserEto user);
+
+  /**
+   * Sends a reset link to the users mail
+   *
+   * @param hashCode to be validated
+   * @return 
+   */
+  ResetLinkEto validatePasswordResetLink(String hashCode);
 
   /**
    * Pick the boolean and persist it for the user.
