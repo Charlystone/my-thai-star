@@ -48,9 +48,9 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
   }
 
   @Override
-  public ResetLinkEto validatePasswordResetLink(String hashCode) {
+  public ResetLinkEto validatePasswordResetLink(String token) {
 
-    return this.usermanagement.validatePasswordResetLink(hashCode);
+    return this.usermanagement.validatePasswordResetLink(token);
   }
 
   @Override
@@ -78,9 +78,9 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
   }
 
   @Override
-  public UserEto findUserByName(String username) {
+  public UserEto findUserByName(String userName) {
 
-    return this.usermanagement.findUserbyName(username);
+    return this.usermanagement.findUserbyName(userName);
   }
 
   @Override

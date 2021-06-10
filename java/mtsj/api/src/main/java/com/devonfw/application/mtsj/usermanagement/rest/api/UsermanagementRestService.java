@@ -72,8 +72,8 @@ public interface UsermanagementRestService {
    * @param hashCode the {@link String} to validate
    */
   @GET
-  @Path("/user/resetlink/{hashCode}")
-  public ResetLinkEto validatePasswordResetLink(@PathParam("hashCode") String hashCode);
+  @Path("/user/resetlink/{token}")
+  public ResetLinkEto validatePasswordResetLink(@PathParam("token") String token);
 
   /**
    * Delegates to {@link Usermanagement#getUserStatus}.

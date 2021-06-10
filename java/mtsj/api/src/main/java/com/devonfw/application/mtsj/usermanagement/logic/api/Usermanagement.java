@@ -66,10 +66,10 @@ public interface Usermanagement {
   /**
    * Sends a reset link to the users mail
    *
-   * @param hashCode to be validated
+   * @param token to be validated
    * @return 
    */
-  ResetLinkEto validatePasswordResetLink(String hashCode);
+  ResetLinkEto validatePasswordResetLink(String token);
 
   /**
    * Pick the boolean and persist it for the user.

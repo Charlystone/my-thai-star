@@ -144,13 +144,16 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
       mailContent.append("Hi ").append(username).append("\n\n");
       mailContent.append("Here is your link to reset your password with:").append("\n\n");
-      String hashCode = user.getPassword().replace("{bcrypt}", "").replace("/", "").replace("&", "");
-      String link = getClientUrl() + "/passwordreset?username=" + username + "&hashCode=" + hashCode;
+      String token = user.getPassword().replace("{bcrypt}", "").replace("/", "").replace("&", "");
+      String link = getClientUrl() + "/passwordreset?username=" + username + "&token=" + token;
       mailContent.append(link);
       this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
 
+      user.setPassword(token);
+      this.saveUser(user);
+
       ResetLinkEntity resetLinkEntity = new ResetLinkEntity();
-      resetLinkEntity.sethashCode(hashCode);
+      resetLinkEntity.setToken(token);
       resetLinkEntity.setUserId(user.getId());
       resetLinkEntity.setModificationCounter(1);
       getResetLinkDao().save(resetLinkEntity);
@@ -160,10 +163,10 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   }
 
   @Override
-  public ResetLinkEto validatePasswordResetLink(String hashCode) {
+  public ResetLinkEto validatePasswordResetLink(String token) {
 
-    Objects.requireNonNull(hashCode, "hashCode");
-    ResetLinkEntity resetLinkEntity = getBeanMapper().map(getResetLinkDao().findByHashCode(hashCode), ResetLinkEntity.class);
+    Objects.requireNonNull(token, "token");
+    ResetLinkEntity resetLinkEntity = getBeanMapper().map(getResetLinkDao().findByToken(token), ResetLinkEntity.class);
 
     return getBeanMapper().map(resetLinkEntity, ResetLinkEto.class);
   }

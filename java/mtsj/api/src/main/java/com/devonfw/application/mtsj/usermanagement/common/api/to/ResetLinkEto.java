@@ -9,7 +9,7 @@ public class ResetLinkEto extends AbstractEto implements ResetLink {
 
     private Long userId;
 
-    private String hashCode;
+    private String token;
 
     @Override
     public Long getUserId() {
@@ -24,15 +24,15 @@ public class ResetLinkEto extends AbstractEto implements ResetLink {
     }
 
     @Override
-    public String gethashCode() {
+    public String getToken() {
         
-        return this.hashCode;
+        return this.token;
     }
 
     @Override
-    public void sethashCode(String hashCode) {
+    public void setToken(String token) {
         
-        this.hashCode = hashCode;
+        this.token = token;
     }
     
 }

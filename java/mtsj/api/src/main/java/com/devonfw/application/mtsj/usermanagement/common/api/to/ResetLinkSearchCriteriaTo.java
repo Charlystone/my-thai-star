@@ -9,9 +9,9 @@ private static final long serialVersionUID = 1L;
 
   private Long userId;
 
-  private String hashCode;
+  private String token;
 
-  private StringSearchConfigTo hashCodeOption;
+  private StringSearchConfigTo tokenOption;
 
   /**
    * The constructor.
@@ -31,29 +31,29 @@ private static final long serialVersionUID = 1L;
     this.userId = userId;
   }
 
-  public String gethashCode() {
+  public String getToken() {
 
-    return this.hashCode;
+    return this.token;
   }
 
-  public void sethashCode(String hashCode) {
+  public void setToken(String token) {
 
-    this.hashCode = hashCode;
+    this.token = token;
   }
 
   /**
    * @return hashCodeOption
    */
-  public StringSearchConfigTo gethashCodeOption() {
+  public StringSearchConfigTo getTokenOption() {
 
-    return this.hashCodeOption;
+    return this.tokenOption;
   }
 
   /**
-   * @param linkOption new value of {@link #gethashCodeOption}.
+   * @param tokenOption new value of {@link #getTokenOption}.
    */
-  public void sethashCodeOption(StringSearchConfigTo hashCodeOption) {
+  public void sethashCodeOption(StringSearchConfigTo tokenOption) {
 
-    this.hashCodeOption = hashCodeOption;
+    this.tokenOption = tokenOption;
   }
 }

@@ -50,17 +50,17 @@ export class UserAreaService {
     return this.restPathRoot$.pipe(
       exhaustMap((restPathRoot) =>
         this.http.get(
-          `${restPathRoot}${this.getUserByUsernameRestPath}` + username,
+          `${restPathRoot}${this.usermanagementRestPath}${this.getUserByUsernameRestPath}${username}`,
         ),
       ),
     );
   }
 
-  validateResetLink(hashCode: string) {
+  validateResetLink(token: string) {
     return this.restPathRoot$.pipe(
       exhaustMap((restPathRoot) =>
         this.http.get(
-          `${restPathRoot}${this.validateResetLinkRestPath}` + hashCode,
+          `${restPathRoot}${this.usermanagementRestPath}${this.validateResetLinkRestPath}${token}`,
         ),
       ),
     );

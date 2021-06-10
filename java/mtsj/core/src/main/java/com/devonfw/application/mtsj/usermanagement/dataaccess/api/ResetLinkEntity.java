@@ -24,7 +24,7 @@ public class ResetLinkEntity extends ApplicationPersistenceEntity implements Res
 
 private Long userId;
 
-private String hashCode;
+private String token;
 
 /**
  * @return userId
@@ -48,17 +48,17 @@ this.userId = userId;
  * @return link
  */
 @Override
-public String gethashCode() {
+public String getToken() {
     
-    return this.hashCode;
+    return this.token;
 }
 
 /**
- * @param hashCode new value of {@link #gethashCode()}.
+ * @param token new value of {@link #getToken()}.
  */
 @Override
-public void sethashCode(String hashCode) {
+public void setToken(String token) {
     
-    this.hashCode = hashCode;
+    this.token = token;
 }
 }

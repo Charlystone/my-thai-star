@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { NewPasswordDialogComponent } from 'app/cockpit-area/admin-cockpit/new-password-dialog/new-password-dialog.component';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { UserAreaService } from '../services/user-area.service';
+import * as authActions from '../store/actions/auth.actions';
+import * as fromAuth from '../store/reducers/';
 
 @Component({
   selector: 'app-password-reset',
@@ -11,7 +14,7 @@ import { UserAreaService } from '../services/user-area.service';
   styleUrls: ['./password-reset.component.scss']
 })
 export class PasswordResetComponent implements OnInit {
-  hashCode: string;
+  token: string;
   data = {
     modificationCounter:1,
     id:0,
@@ -26,29 +29,32 @@ export class PasswordResetComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private userAreaService: UserAreaService,
+    private store: Store<fromAuth.AppState>,
     ) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.hashCode = params.hashCode;
+      this.token = params.token;
       this.data.username = params.username;
 
-      this.userAreaService.login('admin', 'password').subscribe((data) => {
-        console.log(data);
+      this.store.dispatch(authActions.login({username: this.data.username, password: this.token}));
 
-        this.userAreaService.validateResetLink(this.hashCode).subscribe((data) => {
-          console.log(data);
-        });
-  
+      setTimeout(() => {
         this.userAreaService.getUserByUsername(this.data.username).subscribe((data) => {
           this.data = data;
+
+          this.userAreaService.validateResetLink(this.token).subscribe((data) => {
+            console.log(data);
+
+            if (data) {
+              this.dialog.open(NewPasswordDialogComponent, {
+                width: '25%',
+                data: this.data
+              });
+            }
+          });
         });
-  
-        this.dialog.open(NewPasswordDialogComponent, {
-          width: '25%',
-          data: this.data
-        });
-      });
+      }, 2500);
     });
   }
 
