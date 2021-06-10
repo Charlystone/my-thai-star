@@ -120,8 +120,8 @@ public interface UsermanagementRestService {
    * @param username to search for
    * @return the matching {@link UserEto}.
    */
-  @Path("/user/search/{username}")
   @GET
+  @Path("/user/search/{username}")
   public UserEto findUserByName(@PathParam("username") String username);
 
   /**

@@ -79,13 +79,13 @@ public class UsermanagementRestServiceImpl implements UsermanagementRestService 
 
   @Override
   public UserEto findUserByName(String userName) {
-
+    
     return this.usermanagement.findUserbyName(userName);
   }
 
   @Override
   public UserRoleEto getUserRole(long id) {
-
+    
     return this.usermanagement.findUserRole(id);
   }
 

@@ -44,6 +44,6 @@ public interface ResetLinkRepository extends DefaultRepository<ResetLinkEntity> 
    * @return An {@link ResetLinkEntity} objects that matched the search.
    */
   @Query("SELECT PasswordResetLink FROM ResetLinkEntity PasswordResetLink" //
-          + " WHERE PasswordResetLink.token = :token")
+          + " WHERE token = :token")
           ResetLinkEntity findByToken(@Param("token") String token);
 }

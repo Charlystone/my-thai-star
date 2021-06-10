@@ -47,20 +47,20 @@ export class UserAreaService {
   }
 
   getUserByUsername(username: string): Observable<any> {
-    return this.restPathRoot$.pipe(
-      exhaustMap((restPathRoot) =>
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
         this.http.get(
-          `${restPathRoot}${this.usermanagementRestPath}${this.getUserByUsernameRestPath}${username}`,
+          `${restServiceRoot}${this.usermanagementRestPath}${this.getUserByUsernameRestPath}${username}`,
         ),
       ),
     );
   }
 
   validateResetLink(token: string) {
-    return this.restPathRoot$.pipe(
-      exhaustMap((restPathRoot) =>
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
         this.http.get(
-          `${restPathRoot}${this.usermanagementRestPath}${this.validateResetLinkRestPath}${token}`,
+          `${restServiceRoot}${this.usermanagementRestPath}${this.validateResetLinkRestPath}${token}`,
         ),
       ),
     );

@@ -97,8 +97,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Override
   public UserEto findUserbyName(String userName) {
-
-    UserEntity entity = this.userDao.findByUsername(userName);
+    
+    UserEntity entity = getUserDao().findByUsername(userName);
     return getBeanMapper().map(entity, UserEto.class);
   }
 
