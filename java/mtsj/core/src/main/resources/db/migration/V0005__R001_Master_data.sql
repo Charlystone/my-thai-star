@@ -10,6 +10,7 @@ INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, e
 INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (4, 1, 'cTro', '{bcrypt}$2a$10$qPM1WjcRKAffHxWXYEfPJOh2vGPlT/Fdv.hJX/LaZjzg/Wtj2csqO', false, 'team@ctro4.de', 2);
 INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (5, 1, 'Moritz', '{bcrypt}$2a$10$qPM1WjcRKAffHxWXYEfPJOh2vGPlT/Fdv.hJX/LaZjzg/Wtj2csqO', false, 'moritz.alexander.dietrich@gmail.com', 0);
 
+
 INSERT INTO "Table"(id, modificationCounter, seatsNumber) VALUES (0, 1, 4);
 INSERT INTO "Table"(id, modificationCounter, seatsNumber) VALUES (1, 1, 4);
 INSERT INTO "Table"(id, modificationCounter, seatsNumber) VALUES (2, 1, 4);
