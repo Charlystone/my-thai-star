@@ -30,6 +30,7 @@ export class PasswordResetComponent implements OnInit {
     private route: ActivatedRoute,
     private userAreaService: UserAreaService,
     private store: Store<fromAuth.AppState>,
+    private snackBarService: SnackBarService,
     ) { }
 
   ngOnInit(): void {
@@ -44,13 +45,13 @@ export class PasswordResetComponent implements OnInit {
           this.data = data;
 
           this.userAreaService.validateResetLink(this.token).subscribe((data) => {
-            console.log(data);
-
             if (data) {
               this.dialog.open(NewPasswordDialogComponent, {
                 width: '25%',
                 data: this.data
               });
+            } else {
+              this.snackBarService.openSnack('Reset link not valid!', 4000, 'red');
             }
           });
         });
