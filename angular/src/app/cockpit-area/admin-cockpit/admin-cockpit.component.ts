@@ -12,7 +12,7 @@ import {CreateUserDialogComponent} from "./create-user-dialog/create-user-dialog
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { NewPasswordDialogComponent } from './new-password-dialog/new-password-dialog.component';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { AuthService } from 'app/core/authentication/auth.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store';
@@ -71,7 +71,6 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     private adminCockpitService: AdminCockpitService,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
-    public router: Router,
     public auth: AuthService,
     private activatedRoute: ActivatedRoute,
     private store: Store<fromRoot.State>,

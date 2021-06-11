@@ -25,7 +25,7 @@ import { click } from '../../shared/common/test-utils';
 import { ascSortOrder } from '../../../in-memory-test-data/db-order-asc-sort';
 import { orderData } from '../../../in-memory-test-data/db-order';
 import {BillService} from '../services/bill.service';
-import {SnackBarService} from "../../core/snack-bar/snack-bar.service";
+import {SnackBarService} from '../../core/snack-bar/snack-bar.service';
 
 const mockDialog = {
   open: jasmine.createSpy('open').and.returnValue({

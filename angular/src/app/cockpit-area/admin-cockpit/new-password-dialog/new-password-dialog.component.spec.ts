@@ -1,4 +1,4 @@
-/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { NewPasswordDialogComponent } from './new-password-dialog.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -14,7 +14,11 @@ import {getTranslocoModule} from '../../../transloco-testing.module';
 import {CoreModule} from '../../../core/core.module';
 import {Store} from '@ngrx/store';
 import {State} from '../../../store';
-import {DebugElement} from '@angular/core';
+import {DebugElement, EventEmitter} from '@angular/core';
+import {By} from "@angular/platform-browser";
+import {click} from "../../../shared/common/test-utils";
+import {of} from "rxjs/internal/observable/of";
+import {ascSortOrder} from "../../../../in-memory-test-data/db-order-asc-sort";
 
 class TestBedSetUp {
   static loadAdminCockpitServiceStud(): any {
@@ -72,4 +76,13 @@ describe('NewPasswordDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+
+  it('should call submit of NewPasswordComponent', fakeAsync(() => {
+    const submit = jasmine.createSpy('submit');
+    fixture.detectChanges();
+    const applyButton = el.nativeElement.querySelector('.registerSubmit');
+    click(applyButton);
+    tick();
+    expect(component.submit).toHaveBeenCalled();
+  }));
+});

@@ -23,7 +23,7 @@ export class AdminCockpitService {
     'usermanagement/v1/user';
   private readonly passwordResetLinkPath: string =
     'usermanagement/v1/user/resetlink';
-  private readonly searchUserByUsernameRestPath: string = 
+  private readonly searchUserByUsernameRestPath: string =
     'usermanagement/v1/user/search';
   private readonly restServiceRoot$: Observable<
     string
