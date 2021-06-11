@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.common.api.to;
 
+import java.util.Date;
+
 import com.devonfw.application.mtsj.general.common.api.to.AbstractSearchCriteriaTo;
 import com.devonfw.module.basic.common.api.query.StringSearchConfigTo;
 
@@ -7,7 +9,7 @@ public class ResetLinkSearchCriteriaTo extends AbstractSearchCriteriaTo {
     
 private static final long serialVersionUID = 1L;
 
-  private Long userId;
+  private Date expirationDate;
 
   private String token;
 
@@ -21,14 +23,14 @@ private static final long serialVersionUID = 1L;
     super();
   }
 
-  public Long getUserId() {
+  public Date getExpirationDate() {
 
-    return this.userId;
+    return this.expirationDate;
   }
 
-  public void setUserId(Long userId) {
+  public void setExpirationDate(Date expirationDate) {
 
-    this.userId = userId;
+    this.expirationDate = expirationDate;
   }
 
   public String getToken() {

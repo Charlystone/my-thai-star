@@ -1,5 +1,10 @@
 package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -140,23 +145,32 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     try {
       String emailTo = user.getEmail();
       String username = user.getUsername();
-      StringBuilder mailContent = new StringBuilder();
-
-      mailContent.append("Hi ").append(username).append("\n\n");
-      mailContent.append("Here is your link to reset your password with:").append("\n\n");
       String token = user.getPassword().replace("{bcrypt}", "").replace("/", "").replace("&", "");
+      token = this.shuffleString(token);
       String link = getClientUrl() + "/passwordreset?username=" + username + "&token=" + token;
-      mailContent.append(link);
-      this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
-
       user.setPassword(token);
       this.saveUser(user);
 
+      final long ONE_MINUTE_IN_MILLIS = 60000;
+      Calendar date = Calendar.getInstance();
+      long t = date.getTimeInMillis();
+      Date expirationDate = new Date(t + (30 * ONE_MINUTE_IN_MILLIS));
+
       ResetLinkEntity resetLinkEntity = new ResetLinkEntity();
       resetLinkEntity.setToken(token);
-      resetLinkEntity.setUserId(user.getId());
+      resetLinkEntity.setExpirationDate(expirationDate);
       resetLinkEntity.setModificationCounter(1);
       getResetLinkDao().save(resetLinkEntity);
+
+      StringBuilder mailContent = new StringBuilder();
+      mailContent.append("Hi ").append(username).append("\n\n");
+      mailContent.append("Here is your link to reset your password with:\n");
+      mailContent.append(link);
+      mailContent.append("\n\n\nIt expires on:\n");
+      mailContent.append(expirationDate);
+      mailContent.append("\n\n\nBest regards\n");
+      mailContent.append("Your team at MyThaiStar");
+      this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
     } catch (Exception e) {
       LOG.error("Email not sent. {}", e.getMessage());
     }
@@ -167,8 +181,13 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
     Objects.requireNonNull(token, "token");
     ResetLinkEntity resetLinkEntity = getBeanMapper().map(getResetLinkDao().findByToken(token), ResetLinkEntity.class);
-
-    return getBeanMapper().map(resetLinkEntity, ResetLinkEto.class);
+    
+    Date currentTimestamp = new Date();
+    if (currentTimestamp.compareTo(resetLinkEntity.getExpirationDate()) == -1) {
+      return getBeanMapper().map(resetLinkEntity, ResetLinkEto.class);
+    } else {
+      return null;
+    }
   }
 
   @Override
@@ -284,4 +303,13 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     return clientUrl;
   }
 
+  public String shuffleString(String string) {
+    List<String> letters = Arrays.asList(string.split(""));
+    Collections.shuffle(letters);
+    String shuffled = "";
+    for (String letter : letters) {
+      shuffled += letter;
+    }
+    return shuffled;
+  }
 }

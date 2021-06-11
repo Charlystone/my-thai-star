@@ -1,5 +1,6 @@
 package com.devonfw.application.mtsj.usermanagement.dataaccess.api;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,26 +23,26 @@ import com.devonfw.application.mtsj.usermanagement.common.api.User;
 @Table(name = "PasswordResetLink")
 public class ResetLinkEntity extends ApplicationPersistenceEntity implements ResetLink {
 
-private Long userId;
-
 private String token;
+
+private Date expirationDate;
 
 /**
  * @return userId
  */
 @Override
-public Long getUserId() {
+public Date getExpirationDate() {
 
-return this.userId;
+    return this.expirationDate;
 }
 
 /**
- * @param userId new value of {@link #getUserId()}.
+ * @param expirationDate new value of {@link #getExpirationDate()}.
  */
 @Override
-public void setUserId(Long userId) {
+public void setExpirationDate(Date expirationDate) {
 
-this.userId = userId;
+    this.expirationDate = expirationDate;
 }
 
 /**

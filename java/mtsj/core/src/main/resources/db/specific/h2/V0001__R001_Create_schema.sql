@@ -210,8 +210,8 @@ CREATE TABLE RevInfo(
 -- *** PasswordResetLink ***
 CREATE TABLE PasswordResetLink (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  userId BIGINT NOT NULL,
   token  VARCHAR(255),
+  expirationDate TIMESTAMP,
   modificationCounter INTEGER NOT NULL,
   CONSTRAINT PK_PasswordResetLink PRIMARY KEY(id)
 );

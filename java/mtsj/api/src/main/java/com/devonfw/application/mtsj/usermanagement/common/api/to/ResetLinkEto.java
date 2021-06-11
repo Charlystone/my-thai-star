@@ -1,5 +1,7 @@
 package com.devonfw.application.mtsj.usermanagement.common.api.to;
 
+import java.util.Date;
+
 import com.devonfw.application.mtsj.usermanagement.common.api.ResetLink;
 import com.devonfw.module.basic.common.api.to.AbstractEto;
 
@@ -7,20 +9,20 @@ public class ResetLinkEto extends AbstractEto implements ResetLink {
 
     private static final long serialVersionUID = 1L;
 
-    private Long userId;
+    private Date expirationDate;
 
     private String token;
 
     @Override
-    public Long getUserId() {
+    public Date getExpirationDate() {
 
-        return this.userId;
+        return this.expirationDate;
     }
 
     @Override
-    public void setUserId(Long userId) {
-        
-        this.userId = userId;
+    public void setExpirationDate(Date expirationDate) {
+
+        this.expirationDate = expirationDate;
     }
 
     @Override
