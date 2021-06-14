@@ -6,6 +6,10 @@ import com.devonfw.application.mtsj.general.common.api.ApplicationEntity;
 
 public interface Dish extends ApplicationEntity {
 
+  public BigDecimal getDailyPrice(); 
+
+  public void setDailyPrice(BigDecimal price);
+
   public boolean getIsDishOfTheDay();
 
   public void setIsDishOfTheDay(boolean isDishOfTheDay);

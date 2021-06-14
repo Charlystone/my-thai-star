@@ -82,6 +82,14 @@
       >
         {{ 'main.reservations' | transloco | uppercase }}
       </a>
+      <a
+        mat-tab-link
+        routerLink="/dishoftheday"
+        routerLinkActive="navBottomBorder"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        {{ 'main.dishoftheday' | transloco | uppercase }}
+      </a>
     </nav>
   </div>
   <div *ngIf="(auth.getRole() | async) === 'MANAGER'" class="forDesktop">

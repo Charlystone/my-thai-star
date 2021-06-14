@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.data.domain.Page;
 
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetLinkEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleSearchCriteriaTo;
@@ -46,6 +47,24 @@ public interface UsermanagementRestService {
   public UserEto saveUser(UserEto user);
 
   /**
+   * Delegates to {@link Usermanagement#sendPasswordResetLink}.
+   *
+   * @param user the {@link UserEto} to send the link to
+   */
+  @POST
+  @Path("/user/resetlink")
+  public void sendPasswordResetLink(UserEto user);
+
+  /**
+   * Delegates to {@link Usermanagement#validatePasswordResetLink}.
+   *
+   * @param hashCode the {@link String} to validate
+   */
+  @GET
+  @Path("/user/resetlink/{token}")
+  public ResetLinkEto validatePasswordResetLink(@PathParam("token") String token);
+
+  /**
    * Delegates to {@link Usermanagement#deleteUser}.
    *
    * @param id ID of the {@link UserEto} to be deleted
@@ -63,6 +82,16 @@ public interface UsermanagementRestService {
   @Path("/user/search")
   @POST
   public Page<UserEto> findUsersByPost(UserSearchCriteriaTo searchCriteriaTo);
+
+  /**
+   * Delegates to {@link Usermanagement#findUserbyName}.
+   *
+   * @param username to search for
+   * @return the matching {@link UserEto}.
+   */
+  @Path("/user/search/{username}")
+  @GET
+  public UserEto findUserByName(@PathParam("username") String username);
 
   /**
    * Delegates to {@link Usermanagement#findUserRole}.

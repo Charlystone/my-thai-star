@@ -1,5 +1,10 @@
 package com.devonfw.application.mtsj.usermanagement.logic.impl;
 
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -22,13 +27,16 @@ import com.devonfw.application.mtsj.general.common.api.to.UserDetailsClientTo;
 import com.devonfw.application.mtsj.general.common.base.QrCodeService;
 import com.devonfw.application.mtsj.general.logic.base.AbstractComponentFacade;
 import com.devonfw.application.mtsj.mailservice.logic.api.Mail;
+import com.devonfw.application.mtsj.usermanagement.common.api.to.ResetLinkEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserQrCodeTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleEto;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserRoleSearchCriteriaTo;
 import com.devonfw.application.mtsj.usermanagement.common.api.to.UserSearchCriteriaTo;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.ResetLinkEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserEntity;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.UserRoleEntity;
+import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.ResetLinkRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRepository;
 import com.devonfw.application.mtsj.usermanagement.dataaccess.api.repo.UserRoleRepository;
 import com.devonfw.application.mtsj.usermanagement.logic.api.Usermanagement;
@@ -44,6 +52,9 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Inject
   private UserRepository userDao;
+
+  @Inject
+  private ResetLinkRepository resetLinkDao;
 
   @Inject
   private UserRoleRepository userRoleDao;
@@ -91,8 +102,8 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
 
   @Override
   public UserEto findUserbyName(String userName) {
-
-    UserEntity entity = this.userDao.findByUsername(userName);
+    
+    UserEntity entity = getUserDao().findByUsername(userName);
     return getBeanMapper().map(entity, UserEto.class);
   }
 
@@ -134,15 +145,48 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     try {
       String emailTo = user.getEmail();
       String username = user.getUsername();
-      StringBuilder mailContent = new StringBuilder();
+      String token = user.getPassword().replace("{bcrypt}", "").replace("/", "").replace("&", "");
+      token = this.shuffleString(token);
+      String link = getClientUrl() + "/passwordreset?username=" + username + "&token=" + token;
+      user.setPassword(token);
+      this.saveUser(user);
 
+      final long ONE_MINUTE_IN_MILLIS = 60000;
+      Calendar date = Calendar.getInstance();
+      long t = date.getTimeInMillis();
+      Date expirationDate = new Date(t + (30 * ONE_MINUTE_IN_MILLIS));
+
+      ResetLinkEntity resetLinkEntity = new ResetLinkEntity();
+      resetLinkEntity.setToken(token);
+      resetLinkEntity.setExpirationDate(expirationDate);
+      resetLinkEntity.setModificationCounter(1);
+      getResetLinkDao().save(resetLinkEntity);
+
+      StringBuilder mailContent = new StringBuilder();
       mailContent.append("Hi ").append(username).append("\n\n");
-      mailContent.append("Here is your link to reset your password with:").append("\n\n");
-      String link = getClientUrl() + "/passwordReset/" + user.getId() + "/" + user.getPassword().replace("{bcrypt}", "");
+      mailContent.append("Here is your link to reset your password with:\n");
       mailContent.append(link);
+      mailContent.append("\n\n\nIt expires on:\n");
+      mailContent.append(expirationDate);
+      mailContent.append("\n\n\nBest regards\n");
+      mailContent.append("Your team at MyThaiStar");
       this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
     } catch (Exception e) {
       LOG.error("Email not sent. {}", e.getMessage());
+    }
+  }
+
+  @Override
+  public ResetLinkEto validatePasswordResetLink(String token) {
+
+    Objects.requireNonNull(token, "token");
+    ResetLinkEntity resetLinkEntity = getBeanMapper().map(getResetLinkDao().findByToken(token), ResetLinkEntity.class);
+    
+    Date currentTimestamp = new Date();
+    if (currentTimestamp.compareTo(resetLinkEntity.getExpirationDate()) == -1) {
+      return getBeanMapper().map(resetLinkEntity, ResetLinkEto.class);
+    } else {
+      return null;
     }
   }
 
@@ -167,6 +211,16 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   public UserRepository getUserDao() {
 
     return this.userDao;
+  }
+
+  /**
+   * Returns the field 'resetLinkDao'.
+   *
+   * @return the {@link ResetLinkRepository} instance.
+   */
+  public ResetLinkRepository getResetLinkDao() {
+
+    return this.resetLinkDao;
   }
 
   @Override
@@ -249,4 +303,13 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
     return clientUrl;
   }
 
+  public String shuffleString(String string) {
+    List<String> letters = Arrays.asList(string.split(""));
+    Collections.shuffle(letters);
+    String shuffled = "";
+    for (String letter : letters) {
+      shuffled += letter;
+    }
+    return shuffled;
+  }
 }

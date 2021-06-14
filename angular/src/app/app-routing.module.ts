@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookTableComponent } from './book-table/container/book-table/book-table.component';
 import { AdminCockpitComponent } from './cockpit-area/admin-cockpit/admin-cockpit.component';
+import { DishOfTheDayCockpitComponent } from './cockpit-area/dish-of-the-day-cockpit/dish-of-the-day-cockpit.component';
 import { OrderArchiveComponent } from './cockpit-area/order-archive-cockpit/order-archive.component';
 import { OrderCockpitComponent } from './cockpit-area/order-cockpit/order-cockpit.component';
 import { ReservationCockpitComponent } from './cockpit-area/reservation-cockpit/reservation-cockpit.component';
@@ -18,7 +19,12 @@ const appRoutes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'bookTable', component: BookTableComponent },
   { path: 'booking/:action/:token', component: EmailConfirmationsComponent },
-  { path: 'passwordReset/:userId/:hashCode', component: PasswordResetComponent },
+  { path: 'passwordreset', component: PasswordResetComponent },
+  {
+    path: 'dishoftheday',
+    component: DishOfTheDayCockpitComponent,
+    canActivate: [AuthGuardService],
+  },
   {
     path: 'orders',
     component: OrderCockpitComponent,

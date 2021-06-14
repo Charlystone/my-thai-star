@@ -22,6 +22,20 @@ public class DishEto extends AbstractEto implements Dish {
 
   private boolean isDishOfTheDay;
 
+  private BigDecimal dailyPrice;
+
+  @Override
+  public BigDecimal getDailyPrice() {
+
+    return this.dailyPrice;
+  }
+
+  @Override
+  public void setDailyPrice(BigDecimal price) {
+
+    this.dailyPrice = price;
+  }
+
   @Override
   public boolean getIsDishOfTheDay() {
 

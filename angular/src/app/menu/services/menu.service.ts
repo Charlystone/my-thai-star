@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { exhaustMap } from 'rxjs/operators';
 import * as uuid from 'uuid';
 import { ConfigService } from '../../core/config/config.service';
-import { DishView } from '../../shared/view-models/interfaces';
+import { DishResponse, DishView } from '../../shared/view-models/interfaces';
 import { FilterFormData } from '../components/menu-filters/menu-filters.component';
 import { Order } from '../models/order.model';
 
@@ -27,6 +27,7 @@ export class MenuService {
     string
   > = this.config.getRestServiceRoot();
   private readonly filtersRestPath: string = 'dishmanagement/v1/dish/search';
+  private readonly updateDishRestPath: string = 'dishmanagement/v1/dish';
 
   constructor(private http: HttpClient, private config: ConfigService) {}
 
@@ -74,6 +75,14 @@ export class MenuService {
           `${restServiceRoot}${this.filtersRestPath}`,
           filters,
         ),
+      ),
+    );
+  }
+
+  saveDish(dish: any): Observable<DishResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<DishResponse[]>(`${restServiceRoot}${this.updateDishRestPath}`, dish),
       ),
     );
   }
