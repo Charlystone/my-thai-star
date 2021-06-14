@@ -2,58 +2,51 @@
   <mat-card-title>{{'cockpit.users.title' | transloco}}</mat-card-title>
   <br>
 
-  <div *ngIf="(auth.getRole() | async) === 'ADMIN'" class="forDesktop">
-    <nav mat-tab-nav-bar>
-      <a
-        mat-tab-link
-        routerLink="/usermanagement/all"
-        routerLinkActive="activeLink"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ 'cockpit.users.navigationH.allH' | transloco }}
-      </a>
-      <a
-        mat-tab-link
-        class="filterCostumers"
-        name="filterCostumers"
-        routerLink="/usermanagement/customers"
-        routerLinkActive="activeLink"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ 'cockpit.users.navigationH.customersH' | transloco }}
-      </a>
-      <a
-        mat-tab-link
-        class="filterWaiters"
-        name="filterWaiters"
-        routerLink="/usermanagement/waiters"
-        routerLinkActive="activeLink"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ 'cockpit.users.navigationH.waitersH' | transloco }}
-      </a>
-      <a
-        mat-tab-link
-        class="filterManagers"
-        name="filterManagers"
-        routerLink="/usermanagement/managers"
-        routerLinkActive="activeLink"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ 'cockpit.users.navigationH.managersH' | transloco }}
-      </a>
-      <a
-        mat-tab-link
-        class="filterAdmins"
-        name="filterAdmins"
-        routerLink="/usermanagement/admins"
-        routerLinkActive="activeLink"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        {{ 'cockpit.users.navigationH.adminsH' | transloco }}
-      </a>
-    </nav>
-  </div>
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      routerLink="/usermanagement/all"
+      routerLinkActive="activeLink"
+    >
+      {{ 'cockpit.users.navigationH.allH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      class="filterCostumers"
+      name="filterCostumers"
+      routerLink="/usermanagement/customers"
+      routerLinkActive="activeLink"
+    >
+      {{ 'cockpit.users.navigationH.customersH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      class="filterWaiters"
+      name="filterWaiters"
+      routerLink="/usermanagement/waiters"
+      routerLinkActive="activeLink"
+    >
+      {{ 'cockpit.users.navigationH.waitersH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      class="filterManagers"
+      name="filterManagers"
+      routerLink="/usermanagement/managers"
+      routerLinkActive="activeLink"
+    >
+      {{ 'cockpit.users.navigationH.managersH' | transloco }}
+    </a>
+    <a
+      mat-tab-link
+      class="filterAdmins"
+      name="filterAdmins"
+      routerLink="/usermanagement/admins"
+      routerLinkActive="activeLink"
+    >
+      {{ 'cockpit.users.navigationH.adminsH' | transloco }}
+    </a>
+  </nav>
 
   <br>
 
@@ -79,7 +72,7 @@
       <ng-container matColumnDef="userView.setNewPassword">
         <th mat-header-cell *matHeaderCellDef>{{columns[3].label}}</th>
         <td mat-cell *matCellDef="let element" >
-          <button  mat-button  class="resetPasswordButton" name="resetPasswordButton" color="default" (click)="$event.stopPropagation(); setNewPassword(element)" [disabled]="(auth.getUser() | async) == element.username">
+          <button  mat-button  class="resetPasswordButton" name="resetPasswordButton" color="default" (click)="setNewPassword(element)">
             <mat-icon>lock</mat-icon>
           </button>
         </td>
@@ -88,7 +81,7 @@
       <ng-container matColumnDef="userView.sendResetMail">
         <th mat-header-cell *matHeaderCellDef>{{columns[4].label}}</th>
         <td mat-cell *matCellDef="let element" >
-          <button  mat-button color="default" class="sendResetLinkButton" name="sendResetLinkButton" (click)="$event.stopPropagation(); sendEmailForPasswordReset(element)">
+          <button  mat-button color="default" class="sendResetLinkButton" name="sendResetLinkButton" (click)="sendEmailForPasswordReset(element)" [disabled]="(auth.getUser() | async) == element.username">
             <mat-icon>email</mat-icon>
           </button>
         </td>
@@ -97,7 +90,7 @@
       <ng-container matColumnDef="userView.deleteUser">
         <th mat-header-cell *matHeaderCellDef>{{columns[5].label}}</th>
         <td mat-cell *matCellDef="let element" >
-          <button  mat-button color="warn" (click)="$event.stopPropagation(); deleteUser(element)" [disabled]="(auth.getUser() | async) == element.username" >
+          <button  mat-button color="warn" class="deleteUserButton" (click)="deleteUser(element)" [disabled]="(auth.getUser() | async) == element.username" >
             <mat-icon>delete_forever</mat-icon>
           </button>
         </td>

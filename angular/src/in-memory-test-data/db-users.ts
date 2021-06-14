@@ -45,20 +45,11 @@ export const userData: any = {
       userRoleId: 2,
       password: '{bcrypt}$2a$10$qPM1WjcRKAffHxWXYEfPJOh2vGPlT/Fdv.hJX/LaZjzg/Wtj2csqO'
     },
-    {
-      modificationCounter: 1,
-      id: 5,
-      username: 'Moritz',
-      email: 'moritz.alexander.dietrich@gmail.com',
-      twoFactorStatus: false,
-      userRoleId: 2,
-      password: '{bcrypt}$2a$10$qPM1WjcRKAffHxWXYEfPJOh2vGPlT/Fdv.hJX/LaZjzg/Wtj2csqO'
-    }
   ],
   pageable: {
     pageNumber: 0,
     pageSize: 8,
     sort: [],
   },
-  totalElements: 6
+  totalElements: 5
 };

@@ -96,14 +96,14 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
             this.userCategoryId = 0;
             break;
           case 'waiters':
-          this.userCategoryId = 1;
-          break;
+            this.userCategoryId = 1;
+            break;
           case 'managers':
-          this.userCategoryId = 2;
-          break;
+            this.userCategoryId = 2;
+            break;
           case 'admins':
-          this.userCategoryId = 3;
-          break;
+            this.userCategoryId = 3;
+            break;
         }
         this.loadUsers();
       });
@@ -115,10 +115,6 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
     this.usersChangedSubscription = this.adminCockpitService.usersChanged.subscribe(() => {
       this.loadUsers();
     });
-  }
-
-  navigateTo(route: string): void {
-    this.store.dispatch(fromRoot.go({ path: [route] }));
   }
 
   setTableHeaders(lang: string): void {
