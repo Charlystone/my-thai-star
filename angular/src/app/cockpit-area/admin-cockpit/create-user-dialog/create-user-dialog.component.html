@@ -37,11 +37,11 @@
         </mat-select>
       </mat-form-field>
     </div>
-    
+
   </div>
 
   <div class="align-right">
     <button mat-button mat-dialog-close color="default">{{'buttons.cancel' | transloco | uppercase}}</button>
-    <button name="registerSubmit" mat-button [disabled]="!(signForm.form.valid && selected && passwordIdentical())" (click)="submit()" color="accent">{{'buttons.save' | transloco | uppercase}}</button>
+    <button class="saveButton" name="saveButton" mat-button [disabled]="!(signForm.form.valid && selected && passwordIdentical())" (click)="submit()" color="accent">{{'buttons.save' | transloco | uppercase}}</button>
   </div>
 </form>

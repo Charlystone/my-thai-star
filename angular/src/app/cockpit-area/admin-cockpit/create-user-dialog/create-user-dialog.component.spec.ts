@@ -1,4 +1,4 @@
-/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, tick} from '@angular/core/testing';
 
 import { CreateUserDialogComponent } from './create-user-dialog.component';
 import {TranslocoService} from '@ngneat/transloco';
@@ -15,6 +15,8 @@ import { getTranslocoModule } from 'app/transloco-testing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store } from '@ngrx/store';
+import {click} from "../../../shared/common/test-utils";
+import {NewPasswordDialogComponent} from "../new-password-dialog/new-password-dialog.component";
 class TestBedSetUp {
   static loadAdminCockpitServiceStud(): any {
     const initialState = { config };
@@ -39,7 +41,7 @@ class TestBedSetUp {
   }
 }
 
-describe('CreateUserDialogComponent', () => {
+fdescribe('CreateUserDialogComponent', () => {
   let component: CreateUserDialogComponent;
   let fixture: ComponentFixture<CreateUserDialogComponent>;
   let store: Store<State>;
@@ -69,4 +71,13 @@ describe('CreateUserDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
+
+  it('should call submit of CreateUserDialogComponent', () => {
+    spyOn(CreateUserDialogComponent.prototype, 'submit');
+    fixture.detectChanges();
+    const saveButton = el.nativeElement.querySelector('.saveButton');
+    click(saveButton);
+    tick();
+    expect(CreateUserDialogComponent.prototype.submit).toHaveBeenCalled();
+    });
+});

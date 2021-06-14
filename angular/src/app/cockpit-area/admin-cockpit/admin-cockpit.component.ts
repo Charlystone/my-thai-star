@@ -150,7 +150,7 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
         if (!data) {
           this.users = [];
         } else {
-          if (this.userCategoryId == -1) {
+          if (this.userCategoryId === -1) {
             this.users = data.content;
           } else {
             this.users = [];
