@@ -74,7 +74,7 @@
           <th mat-header-cell *matHeaderCellDef> {{columns[4].label}} </th>
           <td mat-cell *matCellDef="let element">
             <button mat-button color="accent" *ngIf="element.order.paymentState != 'pending'" (click)="$event.stopPropagation()"><mat-icon>check</mat-icon></button>
-            <button class="payOrderButton" name="payOrderButton" mat-button color="warn" (click)="payBill(element, $event);" *ngIf="element.order.paymentState == 'pending'"><mat-icon>euro_symbol</mat-icon></button>
+            <button class="payOrderButton" name="payOrderButton" mat-button color="warn" (click)="payBill(element, $event);" *ngIf="element.order.paymentState == 'pending'"><mat-icon>money_off</mat-icon></button>
           </td>
         </ng-container>
 
