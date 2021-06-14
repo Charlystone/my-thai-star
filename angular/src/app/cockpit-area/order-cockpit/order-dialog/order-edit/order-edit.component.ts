@@ -111,11 +111,13 @@ export class OrderEditComponent implements OnInit {
   }
 
   deleteOrder() {
-    const id = this.data.order.id;
-    this.waiterCockpitService.updateOrderState("canceled", id).subscribe((data: any) => {
-      this.snackBarService.openSnack(this.cancelSuccessAlert, 5000, "green");
-      this.waiterCockpitService.emitOrdersChanged();
-    });
+    if (confirm('Bestellung wirklich löschen?')) {
+      const id = this.data.order.id;
+      this.waiterCockpitService.updateOrderState("canceled", id).subscribe((data: any) => {
+        this.snackBarService.openSnack(this.cancelSuccessAlert, 5000, "green");
+        this.waiterCockpitService.emitOrdersChanged();
+      });
+    }
   }
 
   decreaceOrderLineAmount(element: any): void {
@@ -139,13 +141,15 @@ export class OrderEditComponent implements OnInit {
   }
 
   deleteOrderLine(element: any): void {
-    for(let orderLine of this.data.orderLines) {
-      if (orderLine.orderLine.id == element.orderLine.id) {
-        this.data.orderLines.splice(this.data.orderLines.indexOf(orderLine), 1);
+    if (confirm('Position wirklich durchführen?')) {
+      for(let orderLine of this.data.orderLines) {
+        if (orderLine.orderLine.id == element.orderLine.id) {
+          this.data.orderLines.splice(this.data.orderLines.indexOf(orderLine), 1);
+        }
       }
+      element.deleted = true;
+      this.saveUpdatedOrderLine(element);
     }
-    element.deleted = true;
-    this.saveUpdatedOrderLine(element);
   }
 
   private saveUpdatedOrderLine(element) {

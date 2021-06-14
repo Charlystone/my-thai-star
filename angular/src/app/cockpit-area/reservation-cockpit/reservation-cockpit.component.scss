@@ -38,6 +38,14 @@ table {
   min-width: 600px;
 }
 
+.mat-row:nth-child(odd) {
+  background-color: #f5f0ef;
+}
+
+.mat-row {
+  height: 65px;
+}
+
 th {
   width: 33.33%;
   font-weight: bold;

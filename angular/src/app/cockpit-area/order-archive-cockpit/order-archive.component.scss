@@ -24,6 +24,14 @@
     align-items: center;
   }
   
+  .mat-row:nth-child(odd) {
+    background-color: #f5f0ef;
+  }
+  
+  .mat-row {
+    height: 65px;
+  }
+
   form button,
   mat-card-title {
     text-transform: uppercase;

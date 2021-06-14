@@ -11,3 +11,11 @@ td.mat-cell {
   max-width: 50px;
   width: 50px;
 }
+
+.mat-row:nth-child(odd) {
+  background-color: #f5f0ef;
+}
+
+.mat-row {
+  height: 65px;
+}

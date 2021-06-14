@@ -169,55 +169,59 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   updateOrderState(selectedOrder: any, button, event: any):void {
-    const currentOrderState = selectedOrder.order.orderState;
-    const currentPaymentState = selectedOrder.order.paymentState;
-    let orderStateToUpdateTo;
-    let currentColor;
-    let colorToUpdateTo;
-    switch (currentOrderState) {
-      case 'orderTaken':
-        orderStateToUpdateTo = 'orderDelivered';
-        currentColor = 'grey';
-        colorToUpdateTo = '#388e3c';
-        break;
-      case 'orderDelivered':
-        orderStateToUpdateTo = 'orderCompleted';
-        currentColor = '#388e3c';
-        colorToUpdateTo = 'black';
-        break;
-    }
-    if (orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
-      this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
-    } else {
-      button.lastElementChild.animate([
-        {transform: 'translateX(0)', width: '100%', backgroundColor: currentColor},
-        {transform: 'translateX(-112.5px)', width: '150px', backgroundColor: colorToUpdateTo},
-      ], 300);
-      button.lastElementChild.style.width = '150px';
-      button.lastElementChild.style.transform = 'translateX(-112.5px)';
-      button.lastElementChild.style.backgroundColor = colorToUpdateTo;
-      this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
-      const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
-      const obj = JSON.parse(str);
-      const id = obj.order.id;
-      this.waiterCockpitService.updateOrderState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
-        this.applyFilters();
-        this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
-      });
+    if (confirm('Statusänderung wirklich durchführen?')) {
+      const currentOrderState = selectedOrder.order.orderState;
+      const currentPaymentState = selectedOrder.order.paymentState;
+      let orderStateToUpdateTo;
+      let currentColor;
+      let colorToUpdateTo;
+      switch (currentOrderState) {
+        case 'orderTaken':
+          orderStateToUpdateTo = 'orderDelivered';
+          currentColor = 'grey';
+          colorToUpdateTo = '#388e3c';
+          break;
+        case 'orderDelivered':
+          orderStateToUpdateTo = 'orderCompleted';
+          currentColor = '#388e3c';
+          colorToUpdateTo = 'black';
+          break;
+      }
+      if (orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
+        this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
+      } else {
+        button.lastElementChild.animate([
+          {transform: 'translateX(0)', width: '100%', backgroundColor: currentColor},
+          {transform: 'translateX(-112.5px)', width: '150px', backgroundColor: colorToUpdateTo},
+        ], 300);
+        button.lastElementChild.style.width = '150px';
+        button.lastElementChild.style.transform = 'translateX(-112.5px)';
+        button.lastElementChild.style.backgroundColor = colorToUpdateTo;
+        this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
+        const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
+        const obj = JSON.parse(str);
+        const id = obj.order.id;
+        this.waiterCockpitService.updateOrderState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
+          this.applyFilters();
+          this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
+        });
+      }
     }
     event.stopPropagation();
   }
 
   payBill(selectedOrder: any, event: any):void {
-    this.orders[this.orders.indexOf(selectedOrder)].paymentState = 'paid';
-    const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
-    const obj = JSON.parse(str);
-    const id = obj.order.id;
-    this.waiterCockpitService.updatePaymentState(this.orders[this.orders.indexOf(selectedOrder)].paymentState, id).subscribe((data: any) => {
-      this.applyFilters();
-      this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
-      this.billService.createBillAsPDF(selectedOrder);
-    })
+    if (confirm('Bestellung als bezahlt markieren?')) {
+      this.orders[this.orders.indexOf(selectedOrder)].paymentState = 'paid';
+      const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
+      const obj = JSON.parse(str);
+      const id = obj.order.id;
+      this.waiterCockpitService.updatePaymentState(this.orders[this.orders.indexOf(selectedOrder)].paymentState, id).subscribe((data: any) => {
+        this.applyFilters();
+        this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
+        this.billService.createBillAsPDF(selectedOrder);
+      })
+    }
     event.stopPropagation();
   }
 

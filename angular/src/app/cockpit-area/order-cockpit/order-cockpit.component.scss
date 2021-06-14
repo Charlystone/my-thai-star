@@ -39,6 +39,21 @@ table {
   min-width: 600px;
 }
 
+.state_switch_icon {
+  color: white;
+  left: 6.75px;
+  top: 6.75px;
+  position: relative;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f5f0ef;
+}
+
+.mat-row {
+  height: 65px;
+}
+
 th {
   width: 33.33%;
   font-weight: bold;
