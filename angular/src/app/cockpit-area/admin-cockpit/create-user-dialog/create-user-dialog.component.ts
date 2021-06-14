@@ -125,7 +125,6 @@ export class CreateUserDialogComponent implements OnInit, OnDestroy {
           this.adminCockpitService.emitUsersChanged();
           this.snackBarService.openSnack(this.userCreationSuccessAltert, 5000, "green");
         });
-        this.dialog.close();
       }
     });
   }

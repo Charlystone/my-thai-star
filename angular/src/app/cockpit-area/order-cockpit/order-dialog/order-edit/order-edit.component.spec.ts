@@ -12,7 +12,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {getTranslocoModule} from '../../../../transloco-testing.module';
 import {CoreModule} from '../../../../core/core.module';
 import {State} from '../../../../store';
-import {DebugElement, EventEmitter} from '@angular/core';
+import {DebugElement} from '@angular/core';
 import { OrderEditComponent } from './order-edit.component';
 import { dialogOrderDetails } from 'in-memory-test-data/db-order-dialog-data';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
@@ -75,6 +75,7 @@ describe('OrderEditComponent', () => {
   });
 
   it('should increase amount of ordered items', fakeAsync(() => {
+    spyOn(WaiterCockpitService.prototype, 'updateOrderLineAmount');
     let oldAmount = component.data.orderLines[0].orderLine.amount;
     fixture.detectChanges();
     const orderLines = el.queryAll(By.css('.mat-row'));
@@ -83,13 +84,14 @@ describe('OrderEditComponent', () => {
     tick();
     expect(component.data.orderLines[0].orderLine.amount).toEqual(oldAmount + 1);
     
-    /*const saveButton = el.query(By.css('.saveButton'));
+    const saveButton = el.query(By.css('.saveButton'));
     click(saveButton);
     tick();
-    expect(waiterCockpitService.updateOrderLineAmount).toHaveBeenCalled;*/
+    expect(WaiterCockpitService.prototype.updateOrderLineAmount).toHaveBeenCalled;
   }));
 
   it('should decrease amount of ordered items', fakeAsync(() => {
+    spyOn(WaiterCockpitService.prototype, 'updateOrderLineAmount');
     let oldAmount = component.data.orderLines[1].orderLine.amount;
     fixture.detectChanges();
     const orderLines = el.queryAll(By.css('.mat-row'));
@@ -99,13 +101,14 @@ describe('OrderEditComponent', () => {
     expect(component.data.orderLines[1].orderLine.amount).toEqual(oldAmount - 1);
     expect(component.editedOrderLines.length).toEqual(1);
 
-    /*const saveButton = el.query(By.css('.saveButton'));
+    const saveButton = el.query(By.css('.saveButton'));
     click(saveButton);
     tick();
-    expect(waiterCockpitService.updateOrderLineAmount).toHaveBeenCalled;*/
+    expect(WaiterCockpitService.prototype.updateOrderLineAmount).toHaveBeenCalled;
   }));
 
   it('should delete the responding orderLine', fakeAsync(() => {
+    spyOn(WaiterCockpitService.prototype, 'deleteOrderLine');
     let oldOrderLineAmount = component.data.orderLines.length;
     fixture.detectChanges();
     const orderLines = el.queryAll(By.css('.mat-row'));
@@ -115,17 +118,18 @@ describe('OrderEditComponent', () => {
     expect(component.data.orderLines.length).toEqual(oldOrderLineAmount - 1);
     expect(component.editedOrderLines.length).toEqual(1);
     
-    /*const saveButton = el.query(By.css('.saveButton'));
+    const saveButton = el.query(By.css('.saveButton'));
     click(saveButton);
     tick();
-    expect(waiterCockpitService.deleteOrderLine).toHaveBeenCalled;*/
+    expect(WaiterCockpitService.prototype.deleteOrderLine).toHaveBeenCalled;
   }));
 
-  /*it('should call updateOrderState of WaiterCockpitService to cancel order', fakeAsync(() => {
+  it('should call updateOrderState of WaiterCockpitService to cancel order', fakeAsync(() => {
+    spyOn(WaiterCockpitService.prototype, 'updateOrderState');
     fixture.detectChanges();
     const deleteButton = el.query(By.css('.deleteButton'));
     click(deleteButton);
     tick();
-    expect(waiterCockpitService.updateOrderState).toHaveBeenCalled;
-  }));*/
+    expect(WaiterCockpitService.prototype.updateOrderState).toHaveBeenCalled;
+  }));
 });

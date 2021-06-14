@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminCockpitComponent } from './admin-cockpit.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {Overlay} from "@angular/cdk/overlay";
 import {config} from "../../core/config/config";
 import {TranslocoService} from "@ngneat/transloco";
 import {SnackBarService} from "../../core/snack-bar/snack-bar.service";
@@ -15,16 +14,16 @@ import {getTranslocoModule} from "../../transloco-testing.module";
 import {CoreModule} from "../../core/core.module";
 import {Store} from "@ngrx/store";
 import {State} from "../../store";
-import {DebugElement, NgModuleFactoryLoader} from "@angular/core";
-import {ActivatedRoute, ChildrenOutletContexts, Router, UrlSerializer} from "@angular/router";
+import {DebugElement, EventEmitter} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {of} from "rxjs/internal/observable/of";
-import {orderData} from "../../../in-memory-test-data/db-order";
 import {userData} from "../../../in-memory-test-data/db-users";
-import {Observable} from "rxjs";
 import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs-compat';
 
 const adminCockpitServiceStub = {
-  loadUsers: jasmine.createSpy('loadUsers').and.returnValue(of(userData)),
+  getUsers: jasmine.createSpy('getUsers').and.returnValue(of(userData)),
+  usersChanged: new EventEmitter<boolean>(),
 };
 
   class TestBedSetUp {
@@ -36,20 +35,10 @@ const adminCockpitServiceStub = {
         TranslocoService,
         SnackBarService,
         MatDialog,
-        AdminCockpitService,
+        { provide: AdminCockpitService, useValue: adminCockpitStub },
         ConfigService,
         provideMockStore({ initialState }),
-        { provide: MatDialogRef, useValue: [] },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} },
-        { provide: ActivatedRoute, useValue: { params: {category: 'all'} } },
-        //TypeError: this.activatedRoute.params.subscribe is not a function
-
-
-    //{ provide: ActivatedRoute, useValue: { params: of({ category: 'all' }) } }
-        //error properties: Object({ longStack: 'TypeError: Cannot read property 'loaded' of undefined
-        // Das Problem ist, dass die Property zu dem eitpunkt des Access NOCH nicht existiert.
-
+        { provide: ActivatedRoute, useValue: { params: Observable.from([{category: 'all'}]) }},
       ],
       imports: [
         BrowserAnimationsModule,
@@ -61,7 +50,7 @@ const adminCockpitServiceStub = {
   }
 }
 
-describe('AdminCockpitComponent', () => {
+fdescribe('AdminCockpitComponent', () => {
   let component: AdminCockpitComponent;
   let fixture: ComponentFixture<AdminCockpitComponent>;
   let store: Store<State>;
@@ -71,6 +60,7 @@ describe('AdminCockpitComponent', () => {
   let translocoService: TranslocoService;
   let configService: ConfigService;
   let el: DebugElement;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
     initialState = { config };
@@ -85,10 +75,11 @@ describe('AdminCockpitComponent', () => {
         adminCockpitService = TestBed.inject(AdminCockpitService);
         dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
+        activatedRoute = TestBed.inject(ActivatedRoute);
       });
   }));
 
-  it('should create', () => {
+  it('should create and check for amount of loaded users', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
     expect(component.users).toEqual(userData.content);

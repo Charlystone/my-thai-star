@@ -1,16 +1,14 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {BookingInfo, UserInfo} from '../../../shared/backend-models/interfaces';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {UserInfo} from '../../../shared/backend-models/interfaces';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
-import { WindowService } from '../../../core/window/window.service';
 import { TranslocoService } from '@ngneat/transloco';
-import { Title } from '@angular/platform-browser';
 import { AdminCockpitService } from 'app/cockpit-area/services/admin-cockpit.service';
 import * as moment from 'moment';
 
@@ -43,7 +41,6 @@ export class NewPasswordDialogComponent implements OnInit {
   translocoSubscription;
 
   constructor(
-    private window: WindowService,
     private translocoService: TranslocoService,
     private snackBarService: SnackBarService,
     private dialog: MatDialogRef<NewPasswordDialogComponent>,
@@ -55,13 +52,7 @@ export class NewPasswordDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm = new FormGroup({
-      username: new FormControl(this.userInfo.userName, Validators.required),
-      email: new FormControl(this.userInfo.email, [
-        Validators.required,
-        Validators.pattern(this.REGEXP_EMAIL),
-      ]),
       password: new FormControl(this.userInfo.password, Validators.required),
-      role: new FormControl(this.userInfo.role, Validators.required),
       confirmPassword: new FormControl(this.userInfo.confirmPassword, Validators.required),
     });
 
@@ -73,9 +64,6 @@ export class NewPasswordDialogComponent implements OnInit {
       });
       moment.locale(this.translocoService.getActiveLang());
     });
-  }
-
-  signInSubmit(formValue: FormGroup): void {
   }
 
   get password(): AbstractControl {

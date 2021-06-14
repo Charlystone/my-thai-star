@@ -1,26 +1,23 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { NewPasswordDialogComponent } from './new-password-dialog.component';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {SnackBarService} from '../../../core/snack-bar/snack-bar.service';
-import {TRANSLOCO_TRANSPILER, TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@ngneat/transloco';
 import {ConfigService} from '../../../core/config/config.service';
 import {provideMockStore} from '@ngrx/store/testing';
 import {config} from '../../../core/config/config';
 import {AdminCockpitService} from '../../services/admin-cockpit.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {getTranslocoModule} from '../../../transloco-testing.module';
 import {CoreModule} from '../../../core/core.module';
 import {Store} from '@ngrx/store';
 import {State} from '../../../store';
-import {DebugElement, EventEmitter} from '@angular/core';
+import {DebugElement} from '@angular/core';
 import {click} from "../../../shared/common/test-utils";
-import {userData} from "../../../../in-memory-test-data/db-users";
-import {AdminCockpitComponent} from "../admin-cockpit.component";
-import {ActivatedRoute, Router} from "@angular/router";
-import {of} from "rxjs/internal/observable/of";
-
+import { By } from '@angular/platform-browser';
+import { UserDetailsTestData } from 'in-memory-test-data/db-user-details-test-data';
 class TestBedSetUp {
   static loadNewPasswordDialogComponentStub(): any {
     const initialState = { config };
@@ -29,19 +26,11 @@ class TestBedSetUp {
       providers: [
         TranslocoService,
         SnackBarService,
-        MatDialog,
         AdminCockpitService,
         ConfigService,
         provideMockStore({ initialState }),
+        { provide: MAT_DIALOG_DATA, useValue: UserDetailsTestData.userAreaServiceData },
         { provide: MatDialogRef, useValue: [] },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} },
-        // { provide: ActivatedRoute, useValue: { params: {category: 'all'} } },
-
-        { provide: ActivatedRoute, useValue: { params: of({ category: 'all' }) } }
-        //error properties: Object({ longStack: 'TypeError: Cannot read property 'loaded' of undefined
-        // Das Problem ist, dass die Property zu dem eitpunkt des Access NOCH nicht existiert.
-
   ],
       imports: [
         BrowserAnimationsModule,
@@ -54,44 +43,65 @@ class TestBedSetUp {
 }
 
 describe('NewPasswordDialogComponent', () => {
-  let component: AdminCockpitComponent;
-  let fixture: ComponentFixture<AdminCockpitComponent>;
+  let component: NewPasswordDialogComponent;
+  let fixture: ComponentFixture<NewPasswordDialogComponent>;
   let store: Store<State>;
   let initialState;
   let adminCockpitService: AdminCockpitService;
-  let dialog: MatDialog;
   let translocoService: TranslocoService;
   let configService: ConfigService;
   let el: DebugElement;
+  let snackBarService: SnackBarService;
+  let dialog: MatDialog;
+
+  const REGEXP_EMAIL = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
   beforeEach(async(() => {
     initialState = { config };
     TestBedSetUp.loadNewPasswordDialogComponentStub()
       .compileComponents()
       .then( () => {
-        fixture = TestBed.createComponent(AdminCockpitComponent);
+        dialog = TestBed.inject(MatDialog);
+        fixture = TestBed.createComponent(NewPasswordDialogComponent);
         component = fixture.componentInstance;
         el = fixture.debugElement;
         store = TestBed.inject(Store);
         configService = new ConfigService(store);
         adminCockpitService = TestBed.inject(AdminCockpitService);
-        dialog = TestBed.inject(MatDialog);
         translocoService = TestBed.inject(TranslocoService);
+        snackBarService = TestBed.inject(SnackBarService);
+        fixture.detectChanges();
       });
   }));
 
-  it('should create', () => {
-    fixture.detectChanges();
+  it('should create and check for username', () => {
     expect(component).toBeTruthy();
+    expect(component.data.username).toEqual(UserDetailsTestData.userAreaServiceData.username);
   });
 
-  it('should call submit of NewPasswordComponent', fakeAsync(() => {
-    spyOn(NewPasswordDialogComponent.prototype, 'submit');
+  it('check for disabled submit button with distinct passwords', fakeAsync(() => {
+    component.createForm = new FormGroup({
+      password: new FormControl('password', Validators.required),
+      confirmPassword: new FormControl('Password123', Validators.required),
+    });
+
     fixture.detectChanges();
-    const applyButton = el.nativeElement.querySelector('.registerSubmit');
-    click(applyButton);
+    const submitButton = el.query(By.css('.registerSubmit'));
+    expect(submitButton.nativeElement).toHaveClass('mat-button-disabled');
+  }));
+
+  it('should submit form and call updateUser of AdminCockpitService', fakeAsync(() => {
+    spyOn(AdminCockpitService.prototype, 'updateUser');
+
+    component.createForm = new FormGroup({
+      password: new FormControl('password', Validators.required),
+      confirmPassword: new FormControl('password', Validators.required),
+    });
+
+    fixture.detectChanges();
+    const submitButton = el.query(By.css('.registerSubmit'));
+    click(submitButton);
     tick();
-    //expect(NewPasswordDialogComponent.prototype.submit).toHaveBeenCalled();
-    // geht nicht, wird wohl nicht aufgerufen vllt sind die Passwörter noch nicht eingetragen?
+    expect(AdminCockpitService.prototype.updateUser).toHaveBeenCalled();
   }));
 });
