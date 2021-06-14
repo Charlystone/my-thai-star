@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable, OnInit } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import {
   FilterCockpit,
   Pageable,
@@ -11,7 +11,6 @@ import { ConfigService } from '../../core/config/config.service';
 import {
   UserResponse,
 } from '../../shared/view-models/interfaces';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable()
 export class AdminCockpitService {
@@ -34,11 +33,7 @@ export class AdminCockpitService {
   constructor(
     private http: HttpClient,
     private config: ConfigService,
-    private translocoService: TranslocoService,
   ) {
-    this.translocoService.langChanges$.subscribe((event: any) => {
-
-    });
   }
     sorting: Sort[];
     filters: FilterCockpit;
