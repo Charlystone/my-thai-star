@@ -190,13 +190,12 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       if (orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
         this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
       } else {
-        button.lastElementChild.animate([
-          {transform: 'translateX(0)', width: '100%', backgroundColor: currentColor},
-          {transform: 'translateX(-112.5px)', width: '150px', backgroundColor: colorToUpdateTo},
+        button.firstElementChild.animate([
+          {width: '37.5px', backgroundColor: currentColor},
+          {width: '150px', backgroundColor: colorToUpdateTo},
         ], 300);
-        button.lastElementChild.style.width = '150px';
-        button.lastElementChild.style.transform = 'translateX(-112.5px)';
-        button.lastElementChild.style.backgroundColor = colorToUpdateTo;
+        button.firstElementChild.style.width = '150px';
+        button.firstElementChild.style.backgroundColor = colorToUpdateTo;
         this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
         const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
         const obj = JSON.parse(str);
