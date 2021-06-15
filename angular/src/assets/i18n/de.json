@@ -228,8 +228,8 @@
         "roleH": "Rolle",
         "newUserH": "Benutzer anlegen",
         "newPasswordH": "Passwort neu setzen",
-        "passwordResetMailH": "Passwort Rücksetzlink versenden",
-        "deleteUserH": "Benutzer löschen",
+        "passwordResetMailH": "Rücksetzlink versenden",
+        "deleteUserH": "Löschen",
         "navigationH": {
           "allH": "Alle Benutzer",
           "customersH": "Gäste",

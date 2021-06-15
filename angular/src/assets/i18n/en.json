@@ -225,8 +225,8 @@
       "roleH": "Role",
       "newUserH": "Create user",
       "newPasswordH": "Set new password",
-      "passwordResetMailH": "Send password reset link",
-      "deleteUserH": "Delete user",
+      "passwordResetMailH": "Send reset link",
+      "deleteUserH": "Delete",
       "navigationH": {
         "allH": "All users",
         "customersH": "Customers",

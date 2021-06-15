@@ -172,30 +172,35 @@ export class AdminCockpitComponent implements OnInit, OnDestroy {
 
   createUserDialog(): void {
     this.dialog.open(CreateUserDialogComponent, {
-      width: '25%'
+      width: '40%'
     });
   }
 
   deleteUser(element: any): void {
-    this.adminCockpitService.deleteUser(element.id).subscribe((data: any) => {
+    if (confirm('Benutzer wirklich löschen?')) {
+      this.adminCockpitService.deleteUser(element.id).subscribe((data: any) => {
       this.adminCockpitService.emitUsersChanged();
       this.snackBarService.openSnack(this.deleteUserSuccessAlert, 5000, "green");
-    },
-    (error: any) => {
-      this.snackBarService.openSnack(this.deleteUserFailAlert, 5000, "red");
-    });
+      },
+      (error: any) => {
+        this.snackBarService.openSnack(this.deleteUserFailAlert, 5000, "red");
+      });
+    }
+    
   }
 
   setNewPassword(element: any): void {
     this.dialog.open(NewPasswordDialogComponent, {
-      width: '25%',
+      width: '40%',
       data : element
     });
   }
 
   sendEmailForPasswordReset(element: any): void {
-    this.adminCockpitService.sendPasswordResetEmail(element).subscribe((data: any) => {
-      this.snackBarService.openSnack(this.resetLinkSuccessAlert, 5000, "green");
-    });
+    if (confirm('Rücksetzlink versenden?')) {
+      this.adminCockpitService.sendPasswordResetEmail(element).subscribe((data: any) => {
+        this.snackBarService.openSnack(this.resetLinkSuccessAlert, 5000, "green");
+      });
+    }
   }
 }
