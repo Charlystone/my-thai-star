@@ -46,8 +46,11 @@ table {
   height: 65px;
 }
 
+td, th {
+  width: 150px;
+}
+
 th {
-  width: 33.33%;
   font-weight: bold;
 }
 

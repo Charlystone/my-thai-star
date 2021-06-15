@@ -1,19 +1,19 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import {config} from '../../../../core/config/config';
+import {config} from '../../../core/config/config';
 import {Store} from '@ngrx/store';
-import {ConfigService} from '../../../../core/config/config.service';
-import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
+import {ConfigService} from '../../../core/config/config.service';
+import {WaiterCockpitService} from '../../services/waiter-cockpit.service';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {TranslocoService} from '@ngneat/transloco';
 import {provideMockStore} from '@ngrx/store/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms';
-import {getTranslocoModule} from '../../../../transloco-testing.module';
-import {CoreModule} from '../../../../core/core.module';
-import {State} from '../../../../store';
+import {getTranslocoModule} from '../../../transloco-testing.module';
+import {CoreModule} from '../../../core/core.module';
+import {State} from '../../../store';
 import {DebugElement} from '@angular/core';
-import { OrderEditComponent } from './order-edit.component';
+import { OrderEditComponent } from './order-edit-dialog.component';
 import { dialogOrderDetails } from 'in-memory-test-data/db-order-dialog-data';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { By } from '@angular/platform-browser';

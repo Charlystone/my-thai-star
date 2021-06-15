@@ -39,7 +39,7 @@ export class OrderArchiveComponent implements OnInit {
 
   displayedColumns: string[] = [
     'booking.bookingDate',
-    'booking.email',
+    'booking.name',
     'booking.table',
     'booking.paymentState',
     'booking.orderState', //abd
@@ -77,7 +77,7 @@ export class OrderArchiveComponent implements OnInit {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
-          { name: 'booking.email', label: cockpitTable.emailH },
+          { name: 'booking.name', label: cockpitTable.guestNameH },
           { name: 'booking.table', label: cockpitTable.tableH },
           { name: 'booking.paymentState', label: cockpitTable.paymentStateH },
           { name: 'booking.orderState', label: cockpitTable.orderStateH }, //abd

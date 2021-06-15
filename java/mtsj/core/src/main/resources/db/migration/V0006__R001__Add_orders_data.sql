@@ -1,6 +1,6 @@
 INSERT INTO Orders (id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (0, 'orderTaken', 'pending', 1, 0, 0, null);
 INSERT INTO Orders (id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (1, 'orderDelivered', 'pending', 1, 3, 0, null);
-INSERT INTO Orders (id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (2, 'orderTaken', 'pending', 1, 1, 1, null);
+INSERT INTO Orders (id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (2, 'canceled', 'canceled', 1, 1, 1, null);
 INSERT INTO Orders (id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (3, 'orderDelivered', 'pending', 1, 4, 2, null);
 INSERT INTO Orders (id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES (4, 'orderTaken', 'pending', 1, 2, 8, null);
 

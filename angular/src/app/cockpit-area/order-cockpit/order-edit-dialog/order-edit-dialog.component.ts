@@ -1,16 +1,15 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {BookingView, OrderListView, OrderView} from '../../../../shared/view-models/interfaces';
-import {WaiterCockpitService} from '../../../services/waiter-cockpit.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {OrderView} from '../../../shared/view-models/interfaces';
+import {WaiterCockpitService} from '../../services/waiter-cockpit.service';
 import {TranslocoService} from '@ngneat/transloco';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {ConfigService} from '../../../../core/config/config.service';
+import {ConfigService} from '../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
-import { Router } from '@angular/router';
 @Component({
-  selector: 'app-order-edit',
-  templateUrl: './order-edit.component.html',
-  styleUrls: ['./order-edit.component.scss']
+  selector: 'app-order-edit-dialog',
+  templateUrl: './order-edit-dialog.component.html',
+  styleUrls: ['./order-edit-dialog.component.scss']
 })
 export class OrderEditComponent implements OnInit {
 
@@ -141,7 +140,7 @@ export class OrderEditComponent implements OnInit {
   }
 
   deleteOrderLine(element: any): void {
-    if (confirm('Position wirklich durchführen?')) {
+    if (confirm('Position wirklich löschen?')) {
       for(let orderLine of this.data.orderLines) {
         if (orderLine.orderLine.id == element.orderLine.id) {
           this.data.orderLines.splice(this.data.orderLines.indexOf(orderLine), 1);

@@ -55,8 +55,10 @@
     },
     "waiterCockpitAlerts": {
       "updateOrderStateSuccess": "Bestellstatus erfolgreich geändert!",
+      "updateOrderStateFail": "Bestellstatus konnte nicht geändert werden!",
       "updateOrderStateNotAllowed": "Bestellung unbezahlt. Statusänderung nicht möglich!",
       "updatePaymentStateSuccess": "Bezahlstatus erfolreich geändert!",
+      "updatePaymentStateFail": "Bezahlstatus konnte nicht geändert werden!",
       "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!",
       "updateOrderLineFail": "Fehler beim Editieren der Bestellung!",
       "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!"
@@ -126,7 +128,7 @@
     "book": "Tisch buchen",
     "orders": "Bestellungen",
     "dishoftheday": "Tagesangebot",
-    "archive": "Archivierte Bestellungen",
+    "archive": "Archiv",
     "reservations": "Reservierungen",
     "usermanagement": "Benutzerverwaltung",
     "userActions": {
@@ -210,7 +212,7 @@
     "filter": "Filter",
     "orders": {
       "title": "Bestellungen",
-      "dialogTitle": "BESTELLDETAILS - REFERENZNUMMER",
+      "dialogTitle": "Bestelldetails - Tisch Nr.",
       "dialogTable": {
         "dishH": "Gericht",
         "commentsH": "Kommentare",
@@ -244,7 +246,7 @@
       },
     "archive": {
       "title": "Archivierte Bestellungen",
-      "dialogTitle": "BESTELLDETAILS - REFERENZNUMMER",
+      "dialogTitle": "Bestelldetails - Tisch Nr.",
       "dialogTable": {
         "dishH": "Gericht",
         "commentsH": "Kommentare",
@@ -267,7 +269,7 @@
     },
     "reservations": {
       "title": "Reservierungen",
-      "dialogTitle": "RESERVIERUNGSDETAILS - REFERENZNUMMER",
+      "dialogTitle": "Reservierungsdetails - Tisch Nr.",
       "dialogTable": {
         "guestEmailH": "Gäste email",
         "acceptanceH": "Zusagen und Absagen",
@@ -277,9 +279,11 @@
     "table": {
       "reservationDateH": "Reservierungsdatum",
       "emailH": "Email",
+      "guestNameH": "Name",
       "bookingTokenH": "Referenznummer",
       "ownerH": "Eigentümer",
       "tableH": "Tisch Nr",
+      "editH": "Bearbeiten",
       "creationDateH": "Erstelldatum",
       "orderStateH": "Bestellstatus",
       "paymentStateH": "Bezahlstatus"

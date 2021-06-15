@@ -13,11 +13,9 @@ import {
 import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { OrderDialogComponent } from './order-dialog/order-dialog.component';
-import {FormControl} from '@angular/forms';
-import {OrderEditComponent} from "./order-dialog/order-edit/order-edit.component";
+import { OrderEditComponent } from "./order-edit-dialog/order-edit-dialog.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { BillService } from '../services/bill.service';
-import { ChildActivationEnd } from '@angular/router';
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -41,14 +39,16 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
 
   columns: any[];
   orderStateUpdateSuccessAlert: string;
+  orderStateUpdateFailAlert: string;
   orderStateUpdateNotAllowed: string;
   paymentStateUpdateSuccessAlert: string;
+  paymentStateUpdateFailAlert: string;
 
   orderChangedSubscription;
 
   displayedColumns: string[] = [
     'booking.bookingDate',
-    'booking.email',
+    'booking.name',
     'booking.table',
     'buttons.edit',
     'booking.paymentState',
@@ -92,7 +92,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .subscribe((cockpitTable) => {
         this.columns = [
           { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
-          { name: 'booking.email', label: cockpitTable.emailH },
+          { name: 'booking.name', label: cockpitTable.guestNameH },
           { name: 'booking.table', label: cockpitTable.tableH },
           { name: 'buttons.edit', label: cockpitTable.editH},
           { name: 'booking.paymentState', label: cockpitTable.paymentStateH },
@@ -103,7 +103,9 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
       .subscribe((alertsWaiterCockpitAlerts) => {
         this.orderStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderStateSuccess;
+        this.orderStateUpdateFailAlert = alertsWaiterCockpitAlerts.updateOrderStateFail;
         this.paymentStateUpdateSuccessAlert = alertsWaiterCockpitAlerts.updatePaymentStateSuccess;
+        this.paymentStateUpdateFailAlert = alertsWaiterCockpitAlerts.updatePaymentStateFail;
         this.orderStateUpdateNotAllowed = alertsWaiterCockpitAlerts.updateOrderStateNotAllowed;
       });
   }
@@ -164,6 +166,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     this.dialog.open(OrderEditComponent, {
       width: '80%',
       data: selection,
+      autoFocus: false,
     });
     event.stopPropagation();
   }
@@ -190,39 +193,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       if (orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
         this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
       } else {
-        button.lastElementChild.innerText = '';
-        button.firstElementChild.firstElementChild.innerText = 'refresh';
-        button.firstElementChild.animate([
-          {width: '37.5px', backgroundColor: currentColor},
-          {width: '150px', backgroundColor: colorToUpdateTo},
-        ], 400);
-        button.firstElementChild.firstElementChild.animate([
-          {transform: 'rotateZ(0deg)', scale: '1'},
-          {transform: 'rotateZ(90deg)', scale: '1'},
-          {transform: 'rotateZ(180deg)', scale: '1'},
-          {transform: 'rotateZ(270deg)', scale: '1'},
-          {transform: 'rotateZ(360deg)', scale: '0.1'},
-        ], 400);
-        setTimeout(() => {
-          button.firstElementChild.style.width = '150px';
-          button.firstElementChild.style.backgroundColor = colorToUpdateTo;
-          button.firstElementChild.firstElementChild.innerText = 'check';
-          button.firstElementChild.firstElementChild.style.opacity = '0';
-          button.firstElementChild.firstElementChild.animate([
-            {scale: '0.1', opacity: '1'},
-            {scale: '1', opacity: '1'},
-            {scale: '1.5', opacity: '1'},
-            {scale: '2', opacity: '0.5'},
-            {scale: '2', opacity: '0'},
-          ], 600);
-          setTimeout(() => {
-            button.firstElementChild.style.width = '37.5px';
-            button.firstElementChild.animate([
-              {width: '150px'},
-              {width: '37.5px'},
-            ], 400);
-          }, 200);
-        }, 400);
+        this.animateOrderStateButton(button, currentColor, colorToUpdateTo);
         setTimeout(() => {
           this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
           const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
@@ -231,6 +202,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.waiterCockpitService.updateOrderState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
             this.applyFilters();
             this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
+          },
+          (error: any) => {
+            this.applyFilters();
+            this.snackBarService.openSnack(this.orderStateUpdateFailAlert, 5000, "red");
           });
         }, 1000);
       }
@@ -248,9 +223,49 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
         this.applyFilters();
         this.snackBarService.openSnack(this.paymentStateUpdateSuccessAlert, 5000, "green");
         this.billService.createBillAsPDF(selectedOrder);
-      })
+      },
+      (error: any) => {
+        this.applyFilters();
+        this.snackBarService.openSnack(this.paymentStateUpdateFailAlert, 5000, "red");
+      });
     }
     event.stopPropagation();
+  }
+
+  animateOrderStateButton(button, currentColor: string, colorToUpdateTo: string): void {
+    button.lastElementChild.innerText = '';
+    button.firstElementChild.firstElementChild.innerText = 'refresh';
+    button.firstElementChild.style.width = '150px';
+    button.firstElementChild.style.backgroundColor = colorToUpdateTo;
+    button.firstElementChild.animate([
+      {width: '37.5px', backgroundColor: currentColor},
+      {width: '150px', backgroundColor: colorToUpdateTo},
+    ], 300);
+    button.firstElementChild.firstElementChild.animate([
+      {transform: 'rotateZ(0deg)', scale: '1'},
+      {transform: 'rotateZ(90deg)', scale: '1'},
+      {transform: 'rotateZ(180deg)', scale: '1'},
+      {transform: 'rotateZ(270deg)', scale: '1'},
+      {transform: 'rotateZ(360deg)', scale: '0.1'},
+    ], 400);
+    setTimeout(() => {
+      button.firstElementChild.firstElementChild.innerText = 'check';
+      button.firstElementChild.firstElementChild.style.opacity = '0';
+      button.firstElementChild.firstElementChild.animate([
+        {scale: '0.1', opacity: '1'},
+        {scale: '1', opacity: '1'},
+        {scale: '1.5', opacity: '1'},
+        {scale: '2', opacity: '0.5'},
+        {scale: '2', opacity: '0'},
+      ], 600);
+      setTimeout(() => {
+        button.firstElementChild.style.width = '37.5px';
+        button.firstElementChild.animate([
+          {width: '150px'},
+          {width: '37.5px'},
+        ], 300);
+      }, 300);
+    }, 400);
   }
 
   ngOnDestroy(): void {

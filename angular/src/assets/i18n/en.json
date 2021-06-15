@@ -54,8 +54,10 @@
     },
     "waiterCockpitAlerts": {
       "updateOrderStateSuccess": "Order state update successful!",
+      "updateOrderStateFail": "Order state couldn't be updated!",
       "updateOrderStateNotAllowed": "Order not paid yet. State update not possible!",
       "updatePaymentStateSuccess": "Payment state update successful!",
+      "updatePaymentStateFail": "Payment state couldn't be updated!",
       "updateOrderLineSuccess": "Order succesfully edited!",
       "updateOrderLineFail": "Editing of order failed!",
       "cancelOrderSuccess": "Order succefully canceled!"
@@ -123,7 +125,7 @@
     "book": "Book table",
     "orders": "Orders",
     "dishoftheday": "Dish of the day",
-    "archive": "Archived orders",
+    "archive": "Archive",
     "reservations": "Reservations",
     "usermanagement": "Usermanagement",
     "userActions": {
@@ -207,7 +209,7 @@
     "filter": "Filter",
     "orders": {
       "title": "Orders",
-      "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",
+      "dialogTitle": "Order details - Table nr.",
       "dialogTable": {
         "dishH": "Dish",
         "commentsH": "Comments",
@@ -241,7 +243,7 @@
     },
     "archive": {
       "title": "Archived orders",
-      "dialogTitle": "ORDER DETAILS - REFERENCE NUMBER",
+      "dialogTitle": "Order details - Table nr.",
       "dialogTable": {
         "dishH": "Dish",
         "commentsH": "Comments",
@@ -264,7 +266,7 @@
     },
     "reservations": {
       "title": "Reservations",
-      "dialogTitle": "RESERVATION DETAILS - REFERENCE NUMBER",
+      "dialogTitle": "Reservation details - Table nr.",
       "dialogTable": {
         "guestEmailH": "Guest email",
         "acceptanceH": "Acceptances and declines",
@@ -274,9 +276,11 @@
     "table": {
       "reservationDateH": "Reservation Date",
       "emailH": "Email",
+      "guestNameH": "Name",
       "bookingTokenH": "Reference Number",
       "ownerH": "Owner",
       "tableH": "Table Nr",
+      "editH": "Edit",
       "creationDateH": "Creation date",
       "orderStateH": "Order state",
       "paymentStateH": "Payment state"

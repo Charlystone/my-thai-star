@@ -32,8 +32,7 @@
     height: 65px;
   }
 
-  form button,
-  mat-card-title {
+  form button{
     text-transform: uppercase;
   }
   
@@ -52,8 +51,13 @@
   }
   
   th {
-    width: 33.33%;
     font-weight: bold;
+  }
+
+  .tableNrField {
+    display: block;
+    width: 45px; 
+    text-align: center;
   }
   
   td:not(:nth-child(1)) {

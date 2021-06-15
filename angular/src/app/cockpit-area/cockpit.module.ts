@@ -20,7 +20,7 @@ import { ClusteringCockpitComponent } from './clustering-cockpit/clustering-cock
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslocoRootModule } from '../transloco-root.module';
 import { OrderArchiveComponent } from './order-archive-cockpit/order-archive.component';
-import {OrderEditComponent} from "./order-cockpit/order-dialog/order-edit/order-edit.component";
+import { OrderEditComponent } from "./order-cockpit/order-edit-dialog/order-edit-dialog.component";
 import { AdminCockpitComponent } from './admin-cockpit/admin-cockpit.component';
 import { CreateUserDialogComponent } from './admin-cockpit/create-user-dialog/create-user-dialog.component';
 import { NewPasswordDialogComponent } from './admin-cockpit/new-password-dialog/new-password-dialog.component';

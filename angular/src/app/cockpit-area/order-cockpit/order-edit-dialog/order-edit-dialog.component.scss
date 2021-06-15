@@ -26,6 +26,19 @@ th {
   font-weight: bold;
 }
 
+.mat-column-orderLine-amount {
+  min-width: 30%;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: #f5f0ef;
+}
+
+.commentData {
+  font-style: italic;
+  color: grey;
+}
+
 .bookingDateData,
 .dishNameData {
   word-break: break-word;
@@ -48,13 +61,6 @@ th {
 .extrasData {
   padding: 0 3%;
   word-break: break-word;
-}
-
-.tableIdHeader,
-.tableIdData,
-.priceHeader,
-.priceData {
-  text-align: right;
 }
 
 .actionButtons {

@@ -24,8 +24,7 @@
   align-items: center;
 }
 
-form button,
-mat-card-title {
+form button {
   text-transform: uppercase;
 }
 
@@ -55,7 +54,6 @@ table {
 }
 
 th {
-  width: 33.33%;
   font-weight: bold;
 }
 
@@ -65,6 +63,12 @@ td.mat-cell {
 
 td:not(:nth-child(1)) {
   word-break: break-all;
+}
+
+.tableNrField {
+  display: block;
+  width: 45px; 
+  text-align: center;
 }
 
 .noResults {
