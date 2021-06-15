@@ -190,20 +190,49 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       if (orderStateToUpdateTo == 'orderCompleted' && currentPaymentState == 'pending') {
         this.snackBarService.openSnack(this.orderStateUpdateNotAllowed, 5000, "red");
       } else {
+        button.lastElementChild.innerText = '';
+        button.firstElementChild.firstElementChild.innerText = 'refresh';
         button.firstElementChild.animate([
           {width: '37.5px', backgroundColor: currentColor},
           {width: '150px', backgroundColor: colorToUpdateTo},
-        ], 300);
-        button.firstElementChild.style.width = '150px';
-        button.firstElementChild.style.backgroundColor = colorToUpdateTo;
-        this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
-        const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
-        const obj = JSON.parse(str);
-        const id = obj.order.id;
-        this.waiterCockpitService.updateOrderState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
-          this.applyFilters();
-          this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
-        });
+        ], 400);
+        button.firstElementChild.firstElementChild.animate([
+          {transform: 'rotateZ(0deg)', scale: '1'},
+          {transform: 'rotateZ(90deg)', scale: '1'},
+          {transform: 'rotateZ(180deg)', scale: '1'},
+          {transform: 'rotateZ(270deg)', scale: '1'},
+          {transform: 'rotateZ(360deg)', scale: '0.1'},
+        ], 400);
+        setTimeout(() => {
+          button.firstElementChild.style.width = '150px';
+          button.firstElementChild.style.backgroundColor = colorToUpdateTo;
+          button.firstElementChild.firstElementChild.innerText = 'check';
+          button.firstElementChild.firstElementChild.style.opacity = '0';
+          button.firstElementChild.firstElementChild.animate([
+            {scale: '0.1', opacity: '1'},
+            {scale: '1', opacity: '1'},
+            {scale: '1.5', opacity: '1'},
+            {scale: '2', opacity: '0.5'},
+            {scale: '2', opacity: '0'},
+          ], 600);
+          setTimeout(() => {
+            button.firstElementChild.style.width = '37.5px';
+            button.firstElementChild.animate([
+              {width: '150px'},
+              {width: '37.5px'},
+            ], 400);
+          }, 200);
+        }, 400);
+        setTimeout(() => {
+          this.orders[this.orders.indexOf(selectedOrder)].orderState = orderStateToUpdateTo;
+          const str = JSON.stringify(this.orders[this.orders.indexOf(selectedOrder)]);
+          const obj = JSON.parse(str);
+          const id = obj.order.id;
+          this.waiterCockpitService.updateOrderState(this.orders[this.orders.indexOf(selectedOrder)].orderState, id).subscribe((data: any) => {
+            this.applyFilters();
+            this.snackBarService.openSnack(this.orderStateUpdateSuccessAlert, 5000, "green");
+          });
+        }, 1000);
       }
     }
     event.stopPropagation();
