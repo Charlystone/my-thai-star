@@ -25,7 +25,9 @@
     "guests": "Guests",
     "waiters": "Waiters",
     "admins": "Admins",
-    "createUser": "Create User"
+    "createUser": "Create User",
+    "addPosition": "Add",
+    "newPosition": "New item"
   },
 
   "table": {

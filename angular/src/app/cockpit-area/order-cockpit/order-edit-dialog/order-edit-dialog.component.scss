@@ -26,6 +26,16 @@ th {
   font-weight: bold;
 }
 
+#addOrderLineButton {
+  margin-top: 15px;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+#newOrderLineDialog td {
+  width: 100px;
+}
+
 .mat-column-orderLine-amount {
   min-width: 30%;
 }

@@ -25,7 +25,9 @@
     "guests": "Gäste",
     "waiters": "Kellner",
     "admins": "Admins",
-    "createUser": "Benutzer anlegen"
+    "createUser": "Benutzer anlegen",
+    "addPosition": "Hinzufügen",
+    "newPosition": "Neue Position"
   },
   "table": {
     "rowsPage": "Zeilen pro Seite",

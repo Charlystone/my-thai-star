@@ -6,6 +6,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ConfigService} from '../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-order-edit-dialog',
   templateUrl: './order-edit-dialog.component.html',
@@ -38,6 +39,21 @@ export class OrderEditComponent implements OnInit {
   updateSuccessAlert: string;
   updateFailAlert: string;
 
+  showNewOrderLineDialog = false;
+  newOrderLineForm: FormGroup;
+  newOrderLineTmp: OrderView = {
+    orderLine: {
+      amount: 1,
+      comment: '',
+    },
+    dish: {
+      id: null,
+      name: '',
+      price: 0.00,
+    },
+    extras: null,
+  };
+
   constructor(
     private waiterCockpitService: WaiterCockpitService,
     private translocoService: TranslocoService,
@@ -54,7 +70,7 @@ export class OrderEditComponent implements OnInit {
       this.setTableHeaders(event);
       this.setAlerts(event);
     });
-
+    this.showNewOrderLineDialog = false;
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
       this.data.orderLines,
     );
@@ -117,6 +133,24 @@ export class OrderEditComponent implements OnInit {
         this.waiterCockpitService.emitOrdersChanged();
       });
     }
+  }
+
+  toggleNewOrderLineDialog() {
+    this.showNewOrderLineDialog = !this.showNewOrderLineDialog;
+    if (this.showNewOrderLineDialog) {
+      this.newOrderLineForm = new FormGroup({
+        dish: new FormControl(this.newOrderLineTmp.dish.name, Validators.required),
+        comment: new FormControl(this.newOrderLineTmp.orderLine.comment),
+        extra: new FormControl(this.newOrderLineTmp.extras),
+        amount: new FormControl(this.newOrderLineTmp.orderLine.amount, Validators.required),
+        price: new FormControl(this.newOrderLineTmp.dish.price, Validators.required),
+      });
+    }
+  }
+
+  addOrderLine() {
+    this.data.orderLines.push(this.newOrderLineTmp);
+    this.saveUpdatedOrderLine(this.newOrderLineTmp);
   }
 
   decreaceOrderLineAmount(element: any): void {
