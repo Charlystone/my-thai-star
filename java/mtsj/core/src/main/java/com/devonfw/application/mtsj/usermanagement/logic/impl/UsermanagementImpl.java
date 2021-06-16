@@ -139,10 +139,11 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
   }
 
   @Override
-  public void sendPasswordResetLink(UserEto user) {
+  public boolean sendPasswordResetLink(UserEto user) {
     
-    Objects.requireNonNull(user, "user");
+    
     try {
+      Objects.requireNonNull(user, "user");
       String emailTo = user.getEmail();
       String username = user.getUsername();
       String token = user.getPassword().replace("{bcrypt}", "").replace("/", "").replace("&", "");
@@ -171,8 +172,10 @@ public class UsermanagementImpl extends AbstractComponentFacade implements Userm
       mailContent.append("\n\n\nBest regards\n");
       mailContent.append("Your team at MyThaiStar");
       this.mailService.sendMail(emailTo, "MyThaiStar - Your password reset link", mailContent.toString());
+      return true;
     } catch (Exception e) {
       LOG.error("Email not sent. {}", e.getMessage());
+      return false;
     }
   }
 

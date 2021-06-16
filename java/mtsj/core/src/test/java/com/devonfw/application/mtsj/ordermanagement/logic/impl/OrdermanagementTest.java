@@ -92,6 +92,22 @@ public class OrdermanagementTest extends ApplicationComponentTest {
   }
 
   /**
+   * tests whether default states are present and tests changes to them
+   */
+  @Test
+  public void setAndGetOrderAndPaymentState() {
+    OrderEto createdOrder = this.orderManagement.saveOrder(this.orderCto);
+
+    assertThat(createdOrder.getOrderState()).isEqualTo("orderTaken");
+    assertThat(createdOrder.getPaymentState()).isEqualTo("pending");
+    
+    createdOrder.setOrderState("Delivered");
+    createdOrder.setPaymentState("paid");
+    assertThat(createdOrder.getOrderState()).isEqualTo("Delivered");
+    assertThat(createdOrder.getPaymentState()).isEqualTo("paid");
+  }
+
+  /**
    * Tests if an order is created
    */
   @Test

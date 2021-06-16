@@ -61,7 +61,7 @@ public interface Usermanagement {
    * @param user the {@link UserEto} to send the link to
    * @return 
    */
-  void sendPasswordResetLink(UserEto user);
+  boolean sendPasswordResetLink(UserEto user);
 
   /**
    * Sends a reset link to the users mail
@@ -131,5 +131,12 @@ public interface Usermanagement {
    * @return The {@link UserProfile} with the given <code>login</code> or {@code null} if no such object exists.
    */
   UserProfile findUserProfileByLogin(String login);
+
+  /**
+   * 
+   * @param string string to be shuffled
+   * @return shuffled string
+   */
+  public String shuffleString(String string);
 
 }
