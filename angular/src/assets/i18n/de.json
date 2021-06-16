@@ -171,6 +171,10 @@
       "vegan": "Vegan",
       "vegetarian": "Vegetarisch",
       "favourites": "Favouriten"
+    },
+    "extraIngredients": {
+      "tofu": "Tofu",
+      "curry": "Extra curry"
     }
   },
   "sidenav": {
@@ -221,6 +225,11 @@
         "extrasH": "Extra",
         "quantityH": "Anzahl",
         "priceH": "Preis"
+      },
+      "newOrderLineDialogPlaceholder": {
+        "category": "Kategorie",
+        "dish": "Gericht",
+        "extra": "Extra"
       }
     },
       "users": {

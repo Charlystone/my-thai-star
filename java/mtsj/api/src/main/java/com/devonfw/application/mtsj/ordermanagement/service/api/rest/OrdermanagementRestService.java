@@ -108,7 +108,7 @@ public interface OrdermanagementRestService {
    */
   @POST
   @Path("/orderline/")
-  public OrderLineEto saveOrderLine(OrderLineEto orderline);
+  public OrderLineEto saveOrderLine(OrderLineCto orderline);
 
   /**
    * Delegates to {@link Ordermanagement#deleteOrderLine}.

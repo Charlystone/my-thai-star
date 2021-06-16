@@ -330,10 +330,17 @@ public class OrdermanagementImpl extends AbstractComponentFacade implements Orde
   }
 
   @Override
-  public OrderLineEto saveOrderLine(OrderLineEto orderLine) {
+  public OrderLineEto saveOrderLine(OrderLineCto orderLine) {
 
     Objects.requireNonNull(orderLine, "orderLine");
     OrderLineEntity orderLineEntity = getBeanMapper().map(orderLine, OrderLineEntity.class);
+    orderLineEntity.setExtras(getBeanMapper().mapList(orderLine.getExtras(), IngredientEntity.class));
+    orderLineEntity.setDishId(orderLine.getOrderLine().getDishId());
+    orderLineEntity.setOrderId(orderLine.getOrderLine().getOrderId());
+    orderLineEntity.setAmount(orderLine.getOrderLine().getAmount());
+    orderLineEntity.setComment(orderLine.getOrderLine().getComment());
+    orderLineEntity.setId(orderLine.getOrderLine().getId());
+    orderLineEntity.setModificationCounter(orderLine.getOrderLine().getModificationCounter());
 
     // initialize, validate orderLineEntity here if necessary
     OrderLineEntity resultEntity = getOrderLineDao().save(orderLineEntity);

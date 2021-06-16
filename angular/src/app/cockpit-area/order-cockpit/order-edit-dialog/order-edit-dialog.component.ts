@@ -19,7 +19,7 @@ export class OrderEditComponent implements OnInit {
   private fromRow = 0;
   private currentPage = 1;
 
-  pageSize = 4;
+  pageSize = 8;
 
   private pageable: Pageable = {
     pageSize: 100,
@@ -54,10 +54,23 @@ export class OrderEditComponent implements OnInit {
 
   showNewOrderLineDialog = false;
   newOrderLineForm: FormGroup;
+  newOrderLineDialogPlaceholder;
   availableDishes;
   availableOrderLineExtras;
   availableCategories = [];
   selectedCategories = [];
+  availableExtraIngredients = [
+    {
+      id: 0,    ​​​​
+      name: 'Tofu',
+      price: 1 
+    },
+    { 
+      id: 1,    ​​​​
+      name: 'Extra curry',
+      price: 1 
+    },
+  ];
 
   constructor(
     private waiterCockpitService: WaiterCockpitService,
@@ -75,7 +88,8 @@ export class OrderEditComponent implements OnInit {
     this.translocoService.langChanges$.subscribe((lang: string) => {
       this.setTableHeaders(lang);
       this.setAlerts(lang);
-      this.setCategoryNames(lang);
+      this.setDishCategoryNames(lang);
+      this.setOrderLineDialogPlaceholder(lang);
     });
     this.showNewOrderLineDialog = false;
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
@@ -85,7 +99,19 @@ export class OrderEditComponent implements OnInit {
     this.filter();
   }
 
-  setCategoryNames(lang: string) {
+  setOrderLineDialogPlaceholder(lang: string) {
+    this.translocoService
+    .selectTranslateObject('cockpit.orders.newOrderLineDialogPlaceholder', {}, lang)
+    .subscribe((newOrderLineDialogPlaceholder) => {
+      this.newOrderLineDialogPlaceholder = {
+        category: newOrderLineDialogPlaceholder.category,
+        dish: newOrderLineDialogPlaceholder.dish,
+        extra: newOrderLineDialogPlaceholder.extra,
+      }
+    });
+  }
+
+  setDishCategoryNames(lang: string) {
     this.translocoService
     .selectTranslateObject('menu.filter', {}, lang)
     .subscribe((menuFilters) => {
@@ -161,6 +187,7 @@ export class OrderEditComponent implements OnInit {
   }
 
   loadDishes() {
+    this.newOrderLineForm.get('dish').setValue(null);
     this.menuService.getDishes({
       categories: this.selectedCategories,
       maxPrice: null,
@@ -184,14 +211,14 @@ export class OrderEditComponent implements OnInit {
   toggleNewOrderLineDialog() {
     this.showNewOrderLineDialog = !this.showNewOrderLineDialog;
     if (this.showNewOrderLineDialog) {
-      this.loadDishes();
       this.newOrderLineForm = new FormGroup({
         category: new FormControl(null, Validators.required),
         dish: new FormControl(null, Validators.required),
         comment: new FormControl(null),
-        extras: new FormControl(null),
+        extra: new FormControl(null),
         amount: new FormControl(1, Validators.required),
       });
+      this.loadDishes();
     }
   }
 
@@ -206,52 +233,57 @@ export class OrderEditComponent implements OnInit {
         orderId: this.data.order.id,
       },
       dish: this.newOrderLineForm.value.dish,
-      extras: this.newOrderLineForm.value.extras,
+      extras: (this.newOrderLineForm.value.extra) ? [ this.newOrderLineForm.value.extra ] : [],
       deleted: false,
+      isNew: true,
     }
     this.data.orderLines.push(newOrderLine);
-    this.saveUpdatedOrderLines(newOrderLine);
+    this.saveUpdatedOrderLine(newOrderLine);
   }
 
-  decreaceOrderLineAmount(element: any): void {
-    element.orderLine.amount--;
-    this.updateOrderLineAmount(element);
+  decreaceOrderLineAmount(orderLine: any): void {
+    orderLine.orderLine.amount--;
+    this.updateOrderLineAmount(orderLine);
   }
 
-  increaseOrderLineAmount(element: any): void {
-    element.orderLine.amount++;
-    this.updateOrderLineAmount(element);
+  increaseOrderLineAmount(orderLine: any): void {
+    orderLine.orderLine.amount++;
+    this.updateOrderLineAmount(orderLine);
   }
 
-  private updateOrderLineAmount(element) {
-    for(let orderLine of this.data.orderLines) {
-      if(orderLine.orderLine.id == element.orderLine.id) {
-        orderLine.orderLine.amount = element.orderLine.amount;
+  private updateOrderLineAmount(newOrderLine) {
+    for(let item of this.data.orderLines) {
+      if(item.orderLine.id == newOrderLine.orderLine.id) {
+        item.orderLine.amount = newOrderLine.orderLine.amount;
       }
     }
-    element.deleted = false;
-    this.saveUpdatedOrderLines(element);
+    newOrderLine.deleted = false;
+    newOrderLine.isNew = false;
+    this.saveUpdatedOrderLine(newOrderLine);
   }
 
-  deleteOrderLine(element: any): void {
+  deleteOrderLine(orderLineToDelete): void {
     if (confirm('Position wirklich löschen?')) {
-      for(let orderLine of this.data.orderLines) {
-        if (orderLine.orderLine.id == element.orderLine.id) {
-          this.data.orderLines.splice(this.data.orderLines.indexOf(orderLine), 1);
+      for(let item of this.data.orderLines) {
+        if (item.orderLine.id == orderLineToDelete.orderLine.id) {
+          this.data.orderLines.splice(this.data.orderLines.indexOf(item), 1);
         }
       }
-      element.deleted = true;
-      this.saveUpdatedOrderLines(element);
+      orderLineToDelete.deleted = true;
+      orderLineToDelete.isNew = false;
+      this.saveUpdatedOrderLine(orderLineToDelete);
     }
   }
 
-  private saveUpdatedOrderLines(element) {
-    for(let orderLine of this.editedOrderLines) {
-      if (orderLine.orderLine.id == element.orderLine.id) {
-        this.editedOrderLines.splice(this.editedOrderLines.indexOf(orderLine), 1);
+  private saveUpdatedOrderLine(orderLineToSave) {
+    if (!orderLineToSave.isNew) {
+      for(let item of this.editedOrderLines) {
+        if (item.orderLine.id == orderLineToSave.orderLine.id) {
+          this.editedOrderLines.splice(this.editedOrderLines.indexOf(item), 1);
+        }
       }
     }
-    this.editedOrderLines.push(element);
+    this.editedOrderLines.push(orderLineToSave);
     this.ngOnInit();
   }
 
@@ -260,24 +292,43 @@ export class OrderEditComponent implements OnInit {
   }
 
   private updateOrderLine(orderLines: any[], orderLineIndex: number) {
+    let extraIngredients = [];
+    if (typeof orderLines[orderLineIndex].extras === 'string' || orderLines[orderLineIndex].extras instanceof String) {
+      if (orderLines[orderLineIndex].extras != "") {
+        let extrasAsStringArray = orderLines[orderLineIndex].extras.split(',');
+        for (let string of extrasAsStringArray) {
+          extraIngredients.push(this.availableExtraIngredients.find((ingredient) => {
+            return ingredient.name == string.trim();
+          }));
+        }
+        console.log(extraIngredients)
+      }
+    } else {
+      extraIngredients = orderLines[orderLineIndex].extras;
+    }
+    const orderLine = {
+      orderLine : orderLines[orderLineIndex].orderLine,
+      extras: extraIngredients,
+      dish: orderLines[orderLineIndex].dish,
+    }
     if (orderLines[orderLineIndex].deleted == true && orderLineIndex < orderLines.length - 1) { // delete
-      this.waiterCockpitService.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
+      this.waiterCockpitService.deleteOrderLine(orderLine.orderLine.id).subscribe((data: any) => {
         return this.updateOrderLine(orderLines, ++orderLineIndex);
       });
     }
     if (orderLines[orderLineIndex].deleted == false && orderLineIndex < orderLines.length - 1) { // update
-      this.waiterCockpitService.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
+      this.waiterCockpitService.updateOrderLineAmount(orderLine).subscribe((data: any) => {
         return this.updateOrderLine(orderLines, ++orderLineIndex);
       });
     }
     if (orderLines[orderLineIndex].deleted == true && orderLineIndex == orderLines.length - 1) { // last orderLine and delete
-      this.waiterCockpitService.deleteOrderLine(orderLines[orderLineIndex].orderLine.id).subscribe((data: any) => {
+      this.waiterCockpitService.deleteOrderLine(orderLine.orderLine.id).subscribe((data: any) => {
         this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
         this.waiterCockpitService.emitOrdersChanged();
       });
     }
     if (orderLines[orderLineIndex].deleted == false && orderLineIndex == orderLines.length - 1) { // last orderLine and update
-      this.waiterCockpitService.updateOrderLineAmount(orderLines[orderLineIndex].orderLine).subscribe((data: any) => {
+      this.waiterCockpitService.updateOrderLineAmount(orderLine).subscribe((data: any) => {
         this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
         this.waiterCockpitService.emitOrdersChanged();
       });

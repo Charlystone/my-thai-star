@@ -129,7 +129,7 @@ public interface Ordermanagement {
    * @param orderLine the {@link OrderLineEto} to create.
    * @return the new {@link OrderLineEto} that has been saved with ID and version.
    */
-  OrderLineEto saveOrderLine(OrderLineEto orderLine);
+  OrderLineEto saveOrderLine(OrderLineCto orderLine);
 
   Page<OrderedDishesCto> findOrderedDishes(OrderedDishesSearchCriteriaTo criteria);
 

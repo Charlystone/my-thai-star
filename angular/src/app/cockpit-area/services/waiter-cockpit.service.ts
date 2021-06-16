@@ -149,4 +149,8 @@ export class WaiterCockpitService {
       ),
     );
   }
+
+  saveExtraIngredient() {
+    // TODO
+  }
 }

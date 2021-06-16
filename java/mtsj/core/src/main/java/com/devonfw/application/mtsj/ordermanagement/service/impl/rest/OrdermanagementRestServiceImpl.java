@@ -67,7 +67,7 @@ public class OrdermanagementRestServiceImpl implements OrdermanagementRestServic
   }
 
   @Override
-  public OrderLineEto saveOrderLine(OrderLineEto orderline) {
+  public OrderLineEto saveOrderLine(OrderLineCto orderline) {
 
     return this.ordermanagement.saveOrderLine(orderline);
   }
