@@ -7,6 +7,8 @@ import {ConfigService} from '../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MenuService } from 'app/menu/services/menu.service';
+import { Pageable } from 'app/shared/backend-models/interfaces';
 @Component({
   selector: 'app-order-edit-dialog',
   templateUrl: './order-edit-dialog.component.html',
@@ -18,6 +20,17 @@ export class OrderEditComponent implements OnInit {
   private currentPage = 1;
 
   pageSize = 4;
+
+  private pageable: Pageable = {
+    pageSize: 100,
+    pageNumber: 0,
+    sort: [
+      {
+        property: "id",
+        direction: "ASC",
+      },
+    ],
+  };
 
   data: any;
   datao: OrderView[] = [];
@@ -41,18 +54,10 @@ export class OrderEditComponent implements OnInit {
 
   showNewOrderLineDialog = false;
   newOrderLineForm: FormGroup;
-  newOrderLineTmp: OrderView = {
-    orderLine: {
-      amount: 1,
-      comment: '',
-    },
-    dish: {
-      id: null,
-      name: '',
-      price: 0.00,
-    },
-    extras: null,
-  };
+  availableDishes;
+  availableOrderLineExtras;
+  availableCategories = [];
+  selectedCategories = [];
 
   constructor(
     private waiterCockpitService: WaiterCockpitService,
@@ -60,15 +65,17 @@ export class OrderEditComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
+    private menuService: MenuService,
   ) {
     this.data = dialogData;
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 
   ngOnInit(): void {
-    this.translocoService.langChanges$.subscribe((event: any) => {
-      this.setTableHeaders(event);
-      this.setAlerts(event);
+    this.translocoService.langChanges$.subscribe((lang: string) => {
+      this.setTableHeaders(lang);
+      this.setAlerts(lang);
+      this.setCategoryNames(lang);
     });
     this.showNewOrderLineDialog = false;
     this.totalPrice = this.waiterCockpitService.getTotalPrice(
@@ -76,6 +83,24 @@ export class OrderEditComponent implements OnInit {
     );
     this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
     this.filter();
+  }
+
+  setCategoryNames(lang: string) {
+    this.translocoService
+    .selectTranslateObject('menu.filter', {}, lang)
+    .subscribe((menuFilters) => {
+      this.availableCategories = [
+        { name: menuFilters.mainDishes , id:  0 },
+        { name: menuFilters.starters , id:  1 },
+        { name: menuFilters.desserts , id:  2 },
+        { name: menuFilters.noodle , id:  3 },
+        { name: menuFilters.rice , id:  4 },
+        { name: menuFilters.curry , id:  5 },
+        { name: menuFilters.vegan , id:  6 },
+        { name: menuFilters.vegetarian , id:  7 },
+        { name: menuFilters.favourites , id:  8 },
+      ]
+    });
   }
 
   setAlerts(lang: string): void {
@@ -135,22 +160,57 @@ export class OrderEditComponent implements OnInit {
     }
   }
 
+  loadDishes() {
+    this.menuService.getDishes({
+      categories: this.selectedCategories,
+      maxPrice: null,
+      minLikes: null,
+      pageable: this.pageable, 
+      searchBy: '',
+    }).subscribe((data: any) => {
+      if (!data) {
+        this.availableDishes = [];
+      } else {
+        this.availableDishes = data.content;
+      }
+    });
+  }
+
+  switchDishCategory(category: any) {
+    this.selectedCategories = [ { id: category.id } ];
+    this.loadDishes();
+  }
+
   toggleNewOrderLineDialog() {
     this.showNewOrderLineDialog = !this.showNewOrderLineDialog;
     if (this.showNewOrderLineDialog) {
+      this.loadDishes();
       this.newOrderLineForm = new FormGroup({
-        dish: new FormControl(this.newOrderLineTmp.dish.name, Validators.required),
-        comment: new FormControl(this.newOrderLineTmp.orderLine.comment),
-        extra: new FormControl(this.newOrderLineTmp.extras),
-        amount: new FormControl(this.newOrderLineTmp.orderLine.amount, Validators.required),
-        price: new FormControl(this.newOrderLineTmp.dish.price, Validators.required),
+        category: new FormControl(null, Validators.required),
+        dish: new FormControl(null, Validators.required),
+        comment: new FormControl(null),
+        extras: new FormControl(null),
+        amount: new FormControl(1, Validators.required),
       });
     }
   }
 
   addOrderLine() {
-    this.data.orderLines.push(this.newOrderLineTmp);
-    this.saveUpdatedOrderLine(this.newOrderLineTmp);
+    const newOrderLine = {
+      orderLine: {
+        id: null,
+        amount: 1,
+        comment: this.newOrderLineForm.value.comment,
+        dishId: this.newOrderLineForm.value.dish.id,
+        modificationCounter: 1,
+        orderId: this.data.order.id,
+      },
+      dish: this.newOrderLineForm.value.dish,
+      extras: this.newOrderLineForm.value.extras,
+      deleted: false,
+    }
+    this.data.orderLines.push(newOrderLine);
+    this.saveUpdatedOrderLines(newOrderLine);
   }
 
   decreaceOrderLineAmount(element: any): void {
@@ -170,7 +230,7 @@ export class OrderEditComponent implements OnInit {
       }
     }
     element.deleted = false;
-    this.saveUpdatedOrderLine(element);
+    this.saveUpdatedOrderLines(element);
   }
 
   deleteOrderLine(element: any): void {
@@ -181,11 +241,11 @@ export class OrderEditComponent implements OnInit {
         }
       }
       element.deleted = true;
-      this.saveUpdatedOrderLine(element);
+      this.saveUpdatedOrderLines(element);
     }
   }
 
-  private saveUpdatedOrderLine(element) {
+  private saveUpdatedOrderLines(element) {
     for(let orderLine of this.editedOrderLines) {
       if (orderLine.orderLine.id == element.orderLine.id) {
         this.editedOrderLines.splice(this.editedOrderLines.indexOf(orderLine), 1);

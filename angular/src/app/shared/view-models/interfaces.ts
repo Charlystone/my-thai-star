@@ -29,6 +29,11 @@ export interface DishResponse {
   content: DishView;
 }
 
+export interface CategoryResponse {
+  name: string,
+  description: string,
+}
+
 // BOOKING
 export interface ReservationView {
   booking: BookingView;

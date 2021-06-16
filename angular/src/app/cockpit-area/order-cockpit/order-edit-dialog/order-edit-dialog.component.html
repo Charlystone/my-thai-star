@@ -48,40 +48,40 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumnsO;"></tr>
   </table>
 </div>
-<button mat-button id="addOrderLineButton" *ngIf="!showNewOrderLineDialog" color="accent" (click)="toggleNewOrderLineDialog()"><mat-icon>fastfood</mat-icon><mat-icon>add</mat-icon> {{'buttons.newPosition' | transloco}}</button>
+
+<!-- Button and dialog for new order line -->
+<button mat-button id="showOrderLineDialogButton" *ngIf="!showNewOrderLineDialog" color="accent" (click)="toggleNewOrderLineDialog()"><mat-icon>fastfood</mat-icon><mat-icon>add</mat-icon> {{'buttons.newPosition' | transloco}}</button>
 <form *ngIf="showNewOrderLineDialog" id="newOrderLineDialog" [formGroup]="newOrderLineForm">
   <table>
-    <tr><td>
-    <mat-select placeholder="Gericht wählen" formControlName="dish">
-      <mat-option value=0>test</mat-option>
-      <mat-option value=1>test</mat-option>
-      <mat-option value=2>test</mat-option>
-    </mat-select>
-    </td>
-    <td>
-      <mat-form-field color="accent">
-        <input matInput type="text" name="comment" formControlName="comment" placeholder="Kommentar einfügen">
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-select placeholder="Extra wählen" formControlName="extra">
-        <mat-option value=0>test</mat-option>
-        <mat-option value=1>test</mat-option>
-        <mat-option value=2>test</mat-option>
-      </mat-select>
-    </td>
-    <td>
-      <input matInput type="text" name="amount" formControlName="amount" readonly>
-    </td>
-    <td>
-      <input matInput type="text" name="price" formControlName="price" readonly>
-    </td>
-    <td>
-      <button mat-button color="accent" (click)="addOrderLine()"><mat-icon>add_circle</mat-icon> {{'buttons.addPosition' | transloco}}</button>
-    </td></tr>
+    <tr>
+      <td>
+        <mat-select placeholder="Kategorie" formControlName="category">
+          <mat-option *ngFor="let category of availableCategories" [value]="category" (click)="switchDishCategory(category)">{{ category.name }}</mat-option>
+        </mat-select>
+      </td>
+      <td>
+        <mat-select placeholder="Gericht" formControlName="dish">
+          <mat-option *ngFor="let item of availableDishes" [value]="item.dish">{{ item.dish.name }}</mat-option>
+        </mat-select>
+      </td>
+      <td>
+        <mat-form-field color="accent">
+          <input matInput type="text" name="comment" formControlName="comment" placeholder="Kommentar">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-select placeholder="Extras" formControlName="extras">
+          <mat-option *ngFor="let item of availableOrderLineExtras"></mat-option>
+        </mat-select>
+      </td>
+      <td>
+        <button mat-button color="accent" id="addOrderLineButton" (click)="addOrderLine()"><mat-icon>add_circle</mat-icon> {{'buttons.addPosition' | transloco}}</button>
+      </td>
+    </tr>
   </table>
 </form>
 <br>
+
 <div class="totalRow">
   <h4>{{'formFields.total' | transloco}}</h4>
   <h4>{{totalPrice | number : '2.2-2'}} €</h4>
