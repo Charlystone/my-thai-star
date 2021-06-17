@@ -84,8 +84,8 @@ export class NewOrderDialogComponent implements OnInit {
         bookingToken: '',
       },
       order: {
-        orderState: "orderTaken",
-        paymentState: "pending",
+        orderState: 'orderTaken',
+        paymentState: 'pending',
       },
       orderLines: [],
     };
