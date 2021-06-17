@@ -18,9 +18,9 @@ public interface InvitedGuest extends ApplicationEntity {
 
   public void setEmail(String email);
 
-  public Boolean getAccepted();
+  public boolean getAccepted();
 
-  public void setAccepted(Boolean accepted);
+  public void setAccepted(boolean accepted);
 
   public Instant getModificationDate();
 

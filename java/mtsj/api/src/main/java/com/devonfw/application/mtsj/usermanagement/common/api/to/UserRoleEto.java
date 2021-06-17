@@ -27,13 +27,13 @@ public class UserRoleEto extends AbstractEto implements UserRole {
   }
 
   @Override
-  public Boolean getActive() {
+  public boolean getActive() {
 
     return this.active;
   }
 
   @Override
-  public void setActive(Boolean active) {
+  public void setActive(boolean active) {
 
     this.active = active;
   }
