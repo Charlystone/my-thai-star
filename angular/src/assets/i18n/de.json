@@ -286,6 +286,7 @@
     },
     "reservations": {
       "title": "Reservierungen",
+      "setTableNr": "Tisch zuweisen",
       "dialogTitle": "Reservierungsdetails - Tisch Nr.",
       "dialogTable": {
         "guestEmailH": "Gäste email",
@@ -303,7 +304,9 @@
       "editH": "Bearbeiten",
       "creationDateH": "Erstelldatum",
       "orderStateH": "Bestellstatus",
-      "paymentStateH": "Bezahlstatus"
+      "paymentStateH": "Bezahlstatus",
+      "saveTableNrSuccessAlert": "Tisch erfolgreich zugewiesen!",
+      "saveTableNrFailAlert": "Tischzuweisung nicht möglich!"
     },
     "orderStates": {
       "orderTakenH": "Aufgenommen",

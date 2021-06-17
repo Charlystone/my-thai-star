@@ -283,6 +283,7 @@
     },
     "reservations": {
       "title": "Reservations",
+      "setTableNr": "Choose table",
       "dialogTitle": "Reservation details - Table nr.",
       "dialogTable": {
         "guestEmailH": "Guest email",
@@ -300,7 +301,9 @@
       "editH": "Edit",
       "creationDateH": "Creation date",
       "orderStateH": "Order state",
-      "paymentStateH": "Payment state"
+      "paymentStateH": "Payment state",
+      "saveTableNrSuccessAlert": "Table successfully assigned!",
+      "saveTableNrFailAlert": "Assignment not possible!"
     },
     "orderStates": {
       "orderTakenH": "Taken",

@@ -31,14 +31,14 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/search';
   private readonly orderUpdateState: string =
     'ordermanagement/v1/order/orderstatus/';
-  private readonly orderUpdate: string =
-    'ordermanagement/v1/order/updateorder/';
   private readonly orderPaymentState: string =
     'ordermanagement/v1/order/paymentstate/';
   private readonly orderLine: string =
     'ordermanagement/v1/orderline/';
   private readonly saveNewOrder: string = 
     'ordermanagement/v1/order';
+  private readonly saveBookingPath: string = 
+    'ordermanagement/v1/booking';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -95,6 +95,7 @@ export class WaiterCockpitService {
     const orders: OrderView[] = cloneDeep(orderList);
     map(orders, (o: OrderViewResult) => {
       o.dish.price = this.priceCalculator.getPrice(o);
+      o.dish.dailyPrice = this.priceCalculator.getPrice(o);
       o.extras = map(o.extras, 'name').join(', ');
     });
     return orders;
@@ -158,6 +159,14 @@ export class WaiterCockpitService {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
         this.http.post<SaveOrderResponse>(`${restServiceRoot}${this.saveNewOrder}`, order),
+      ),
+    );
+  }
+
+  saveBooking(booking: any): Observable<BookingResponse[]> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<BookingResponse[]>(`${restServiceRoot}${this.saveBookingPath}`, booking),
       ),
     );
   }

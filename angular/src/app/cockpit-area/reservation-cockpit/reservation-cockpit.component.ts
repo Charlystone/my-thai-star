@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { ConfigService } from '../../core/config/config.service';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
+import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-cockpit-reservation-cockpit',
@@ -44,11 +45,15 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
     bookingToken: undefined
   };
 
+  saveTableNrSuccessAlert: string;
+  saveTableNrFailAlert: string;
+
   constructor(
     private waiterCockpitService: WaiterCockpitService,
     private translocoService: TranslocoService,
     private dialog: MatDialog,
     private configService: ConfigService,
+    private snackBarService: SnackBarService,
   ) {
     this.pageSizes = this.configService.getValues().pageSizes;
   }
@@ -71,6 +76,8 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
           { name: 'booking.email', label: cockpitTable.emailH },
           { name: 'booking.tableNr', label: cockpitTable.tableH },
         ];
+        this.saveTableNrSuccessAlert = cockpitTable.saveTableNrSuccessAlert;
+        this.saveTableNrFailAlert = cockpitTable.saveTableNrFailAlert;
       });
   }
 
@@ -124,6 +131,23 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
       width: '80%',
       data: selection,
     });
+  }
+
+  setTableNr(element, event) {
+    const booking = {
+      booking: element.booking
+    }
+    if(event.srcElement.value) {
+      element.booking.tableId = parseInt(event.srcElement.value);
+      this.waiterCockpitService.saveBooking(booking).subscribe((data: any) => {
+        this.applyFilters();
+        this.snackBarService.openSnack(this.saveTableNrSuccessAlert, 5000, "green");
+      },
+      (error: any) => {
+        this.snackBarService.openSnack(this.saveTableNrFailAlert, 5000, "red");
+      });
+    }
+    event.stopPropagation();
   }
 
   ngOnDestroy(): void {
