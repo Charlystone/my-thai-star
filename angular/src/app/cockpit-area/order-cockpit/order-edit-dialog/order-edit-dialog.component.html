@@ -61,7 +61,7 @@
       </td>
       <td>
         <mat-select [placeholder]="newOrderLineDialogPlaceholder.dish" formControlName="dish">
-          <mat-option *ngFor="let item of availableDishes" [value]="item.dish">{{ item.dish.name }}</mat-option>
+          <mat-option *ngFor="let item of availableDishes" [value]="item.dish" (click)="loadAvailableExtras(item)">{{ item.dish.name }}</mat-option>
         </mat-select>
       </td>
       <td>

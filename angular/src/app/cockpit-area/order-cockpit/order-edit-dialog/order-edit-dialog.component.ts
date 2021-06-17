@@ -56,21 +56,9 @@ export class OrderEditComponent implements OnInit {
   newOrderLineForm: FormGroup;
   newOrderLineDialogPlaceholder;
   availableDishes;
-  availableOrderLineExtras;
   availableCategories = [];
   selectedCategories = [];
-  availableExtraIngredients = [
-    {
-      id: 0,    ​​​​
-      name: 'Tofu',
-      price: 1 
-    },
-    { 
-      id: 1,    ​​​​
-      name: 'Extra curry',
-      price: 1 
-    },
-  ];
+  availableExtraIngredients = [];
 
   constructor(
     private waiterCockpitService: WaiterCockpitService,
@@ -186,6 +174,25 @@ export class OrderEditComponent implements OnInit {
     }
   }
 
+  toggleNewOrderLineDialog() {
+    this.showNewOrderLineDialog = !this.showNewOrderLineDialog;
+    if (this.showNewOrderLineDialog) {
+      this.newOrderLineForm = new FormGroup({
+        category: new FormControl(null, Validators.required),
+        dish: new FormControl(null, Validators.required),
+        comment: new FormControl(null),
+        extra: new FormControl(null),
+        amount: new FormControl(1, Validators.required),
+      });
+      this.loadDishes();
+    }
+  }
+
+  switchDishCategory(category: any) {
+    this.selectedCategories = [ { id: category.id } ];
+    this.loadDishes();
+  }
+
   loadDishes() {
     this.newOrderLineForm.get('dish').setValue(null);
     this.menuService.getDishes({
@@ -203,23 +210,8 @@ export class OrderEditComponent implements OnInit {
     });
   }
 
-  switchDishCategory(category: any) {
-    this.selectedCategories = [ { id: category.id } ];
-    this.loadDishes();
-  }
-
-  toggleNewOrderLineDialog() {
-    this.showNewOrderLineDialog = !this.showNewOrderLineDialog;
-    if (this.showNewOrderLineDialog) {
-      this.newOrderLineForm = new FormGroup({
-        category: new FormControl(null, Validators.required),
-        dish: new FormControl(null, Validators.required),
-        comment: new FormControl(null),
-        extra: new FormControl(null),
-        amount: new FormControl(1, Validators.required),
-      });
-      this.loadDishes();
-    }
+  loadAvailableExtras(item: any) {
+    this.availableExtraIngredients = item.extras;
   }
 
   addOrderLine() {
@@ -251,39 +243,39 @@ export class OrderEditComponent implements OnInit {
     this.updateOrderLineAmount(orderLine);
   }
 
-  private updateOrderLineAmount(newOrderLine) {
+  private updateOrderLineAmount(orderLine: any) {
     for(let item of this.data.orderLines) {
-      if(item.orderLine.id == newOrderLine.orderLine.id) {
-        item.orderLine.amount = newOrderLine.orderLine.amount;
+      if(item.orderLine.id == orderLine.orderLine.id) {
+        item.orderLine.amount = orderLine.orderLine.amount;
       }
     }
-    newOrderLine.deleted = false;
-    newOrderLine.isNew = false;
-    this.saveUpdatedOrderLine(newOrderLine);
+    orderLine.deleted = false;
+    orderLine.isNew = false;
+    this.saveUpdatedOrderLine(orderLine);
   }
 
-  deleteOrderLine(orderLineToDelete): void {
+  deleteOrderLine(orderLine: any): void {
     if (confirm('Position wirklich löschen?')) {
       for(let item of this.data.orderLines) {
-        if (item.orderLine.id == orderLineToDelete.orderLine.id) {
+        if (item.orderLine.id == orderLine.orderLine.id) {
           this.data.orderLines.splice(this.data.orderLines.indexOf(item), 1);
         }
       }
-      orderLineToDelete.deleted = true;
-      orderLineToDelete.isNew = false;
-      this.saveUpdatedOrderLine(orderLineToDelete);
+      orderLine.deleted = true;
+      orderLine.isNew = false;
+      this.saveUpdatedOrderLine(orderLine);
     }
   }
 
-  private saveUpdatedOrderLine(orderLineToSave) {
-    if (!orderLineToSave.isNew) {
+  private saveUpdatedOrderLine(orderLine: any) {
+    if (!orderLine.isNew) {
       for(let item of this.editedOrderLines) {
-        if (item.orderLine.id == orderLineToSave.orderLine.id) {
+        if (item.orderLine.id == orderLine.orderLine.id) {
           this.editedOrderLines.splice(this.editedOrderLines.indexOf(item), 1);
         }
       }
     }
-    this.editedOrderLines.push(orderLineToSave);
+    this.editedOrderLines.push(orderLine);
     this.ngOnInit();
   }
 
