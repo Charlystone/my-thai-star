@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
 import {
   FilterCockpit,
+  OrderListInfo,
   Pageable,
   Sort,
 } from 'app/shared/backend-models/interfaces';
@@ -14,6 +15,7 @@ import {
   OrderResponse,
   OrderView,
   OrderViewResult,
+  SaveOrderResponse,
 } from '../../shared/view-models/interfaces';
 import { PriceCalculatorService } from '../../sidenav/services/price-calculator.service';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
@@ -35,6 +37,8 @@ export class WaiterCockpitService {
     'ordermanagement/v1/order/paymentstate/';
   private readonly orderLine: string =
     'ordermanagement/v1/orderline/';
+  private readonly saveNewOrder: string = 
+    'ordermanagement/v1/order';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -150,7 +154,11 @@ export class WaiterCockpitService {
     );
   }
 
-  saveExtraIngredient() {
-    // TODO
+  saveOrder(order: OrderListInfo): Observable<SaveOrderResponse> {
+    return this.restServiceRoot$.pipe(
+      exhaustMap((restServiceRoot) =>
+        this.http.post<SaveOrderResponse>(`${restServiceRoot}${this.saveNewOrder}`, order),
+      ),
+    );
   }
 }

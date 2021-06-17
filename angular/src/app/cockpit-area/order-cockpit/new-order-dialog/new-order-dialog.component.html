@@ -1,8 +1,38 @@
-<h3 mat-dialog-title>{{'cockpit.orders.dialogTitle' | transloco}} {{data.booking.tableId}} </h3>
+<h3 mat-dialog-title>{{'cockpit.orders.newOrderDialog.dialogTitle' | transloco}}</h3>
 <mat-divider></mat-divider>
 <div class="tableContainer">
+    <button mat-button color="accent" id="loadReservationsButton" (click)="loadReservations()" *ngIf="reservations.length == 0"><mat-icon>assignment</mat-icon> {{'cockpit.orders.newOrderDialog.addReservation' | transloco}}</button>
+    <table mat-table [dataSource]="reservations" *ngIf="reservations.length > 0" class="reservationsTable">
+        <!-- Date Column -->
+        <ng-container matColumnDef="bookingDate">
+            <th mat-header-cell *matHeaderCellDef> {{columns[0].label}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.booking.bookingDate|amFromUnix|amDateFormat:'lll'}} </td>
+          </ng-container>
+  
+          <!-- Name Column -->
+          <ng-container matColumnDef="guestName">
+            <th mat-header-cell *matHeaderCellDef> {{columns[1].label}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.booking.name}} </td>
+          </ng-container>
+  
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> {{columns[2].label}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.booking.email}} </td>
+          </ng-container>
+  
+          <!-- Table nr Column -->
+          <ng-container matColumnDef="tableNr">
+            <th mat-header-cell *matHeaderCellDef> {{columns[3].label}} </th>
+            <td mat-cell *matCellDef="let element"> {{element.booking.tableId}} </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectReservation(row)" class="reservationsRow"></tr>
+    </table>
 </div>
-<div class="tableContainer">
+<mat-divider></mat-divider>
+<div class="tableContainer" *ngIf="data.orderLines.length > 0">
   <table mat-table [dataSource]="filteredData">
     <!-- Dish Column -->
     <ng-container matColumnDef="dish.name">
@@ -50,7 +80,7 @@
 </div>
 
 <!-- Button and dialog for new order line -->
-<button mat-button id="showOrderLineDialogButton" *ngIf="!showNewOrderLineDialog" color="accent" (click)="toggleNewOrderLineDialog()"><mat-icon>fastfood</mat-icon><mat-icon>add</mat-icon> {{'buttons.addPosition' | transloco}}</button>
+<button mat-button id="showOrderLineDialogButton" *ngIf="!showNewOrderLineDialog" [disabled]="data.booking.bookingToken == ''" color="accent" (click)="toggleNewOrderLineDialog()"><mat-icon>fastfood</mat-icon><mat-icon>add</mat-icon> {{'buttons.addPosition' | transloco}}</button>
 <form *ngIf="showNewOrderLineDialog" id="newOrderLineDialog" [formGroup]="newOrderLineForm">
   <table>
     <tr>
@@ -82,7 +112,7 @@
 </form>
 <br>
 
-<div class="totalRow">
+<div class="totalRow" *ngIf="data.orderLines.length > 0">
   <h4>{{'formFields.total' | transloco}}</h4>
   <h4>{{totalPrice | number : '2.2-2'}} €</h4>
 </div>
@@ -91,6 +121,5 @@
 </mat-paginator>
 <div class="align-right actionButtons">
   <button mat-button mat-dialog-close color="accent" (click)="saveOrder()" class="saveButton">{{'buttons.saveOrder' | transloco | uppercase}}</button>
-  <button mat-button mat-dialog-close color="warn" (click)="deleteOrder()" class="deleteButton">{{'buttons.cancelOrder' | transloco | uppercase}}</button>
-  <button mat-button mat-dialog-close color="base" (click)="cancelEditing()">{{'buttons.cancel' | transloco | uppercase}}</button>
+  <button mat-button mat-dialog-close color="base">{{'buttons.cancel' | transloco | uppercase}}</button>
 </div>

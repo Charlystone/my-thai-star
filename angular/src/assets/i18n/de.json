@@ -63,7 +63,9 @@
       "updatePaymentStateFail": "Bezahlstatus konnte nicht geändert werden!",
       "updateOrderLineSuccess": "Bestellung wurde erfolgreich editiert!",
       "updateOrderLineFail": "Fehler beim Editieren der Bestellung!",
-      "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!"
+      "cancelOrderSuccess": "Bestellung wurde erfolgreich storniert!",
+      "orderCreationSuccessAlert": "Bestellung wurde erfolreich angelegt!",
+      "orderCreationFailAlert": "Bestellung konnte nicht angelegt werden!"
     },
     "adminCockpitAlerts": {
       "deleteUserSuccess": "Benutzer wurde erfolgreich gelöscht!",
@@ -230,6 +232,10 @@
         "category": "Kategorie",
         "dish": "Gericht",
         "extra": "Extra"
+      },
+      "newOrderDialog": {
+        "dialogTitle": "Neue Bestellung anlegen",
+        "addReservation": "Reservierung auswählen"
       }
     },
       "users": {

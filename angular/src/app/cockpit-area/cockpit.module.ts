@@ -28,6 +28,7 @@ import { EmailConfirmationsService } from 'app/email-confirmations/services/emai
 import { AppRoutingModule } from 'app/app-routing.module';
 import { DishOfTheDayCockpitComponent } from './dish-of-the-day-cockpit/dish-of-the-day-cockpit.component';
 import { MenuService } from 'app/menu/services/menu.service';
+import { NewOrderDialogComponent } from './order-cockpit/new-order-dialog/new-order-dialog.component';
 
 @NgModule({
   imports: [
@@ -63,6 +64,7 @@ import { MenuService } from 'app/menu/services/menu.service';
     CreateUserDialogComponent,
     NewPasswordDialogComponent,
     DishOfTheDayCockpitComponent,
+    NewOrderDialogComponent,
   ],
   exports: [
     ReservationCockpitComponent,

@@ -16,6 +16,7 @@ import { OrderDialogComponent } from './order-dialog/order-dialog.component';
 import { OrderEditComponent } from "./order-edit-dialog/order-edit-dialog.component";
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { BillService } from '../services/bill.service';
+import { NewOrderDialogComponent } from './new-order-dialog/new-order-dialog.component';
 @Component({
   selector: 'app-cockpit-order-cockpit',
   templateUrl: './order-cockpit.component.html',
@@ -153,6 +154,12 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
       });
     }
     this.applyFilters();
+  }
+
+  openNewOrderDialog(): void {
+    this.dialog.open(NewOrderDialogComponent, {
+      width: '80%',
+    });
   }
 
   selected(selection: any): void {

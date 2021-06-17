@@ -62,7 +62,9 @@
       "updatePaymentStateFail": "Payment state couldn't be updated!",
       "updateOrderLineSuccess": "Order succesfully edited!",
       "updateOrderLineFail": "Editing of order failed!",
-      "cancelOrderSuccess": "Order succefully canceled!"
+      "cancelOrderSuccess": "Order succefully canceled!",
+      "orderCreationSuccessAlert": "Order has been successfully placed!",
+      "orderCreationFailAlert": "Order couldn't be placed!"
     },
     "adminCockpitAlerts": {
       "deleteUserSuccess": "User successfully deleted!",
@@ -227,6 +229,10 @@
         "category": "Category",
         "dish": "Dish",
         "extra": "Extra"
+      },
+      "newOrderDialog": {
+        "dialogTitle": "Create new order",
+        "addReservation": "Choose reservation"
       }
     },
     "users": {

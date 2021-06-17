@@ -1,0 +1,124 @@
+[mat-dialog-title] {
+    word-break: break-word;
+  }
+  
+  .tableContainer {
+    width: 100%;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+    min-width: 600px;
+  }
+  
+  .totalRow {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 16px;
+    text-transform: uppercase;
+  }
+  
+  th {
+    width: 20%;
+    font-weight: bold;
+  }
+  
+  #showOrderLineDialogButton, #loadReservationsButton {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+    font-size: 16px;
+  }
+
+  tr.reservationsRow {
+    transition: 250ms;
+  }
+
+  tr.reservationsRow:hover {
+    cursor: pointer;
+    background-color: #c8e9ca;
+  }
+  
+  #addOrderLineButton {
+    font-size: 16px;
+  }
+  
+  #newOrderLineDialog {
+    margin-top: 25px;
+    box-shadow: 0 7px 28px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+  }
+  
+  #newOrderLineDialog td {
+    width: 15%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    display: inline-block;
+  }
+  
+  #newOrderLineDialog td:last-child {
+    width: 12.5%;
+    margin-left: 5%;
+  }
+  
+  .mat-column-orderLine-amount {
+    min-width: 30%;
+  }
+  
+  .mat-row:nth-child(odd) {
+    background-color: #f5f0ef;
+  }
+  
+  .commentData {
+    font-style: italic;
+    color: grey;
+  }
+  
+  .bookingDateData,
+  .dishNameData {
+    word-break: break-word;
+  }
+  
+  .creationDateHeader,
+  .nameHeader,
+  .emailHeader,
+  .commentHeader,
+  .extrasHeader,
+  .amountHeader,
+  .amountData {
+    padding: 0 3%;
+  }
+  
+  .creationDateData,
+  .nameData,
+  .emailData,
+  .commentData,
+  .extrasData {
+    padding: 0 3%;
+    word-break: break-word;
+  }
+  
+  .actionButtons {
+    padding-top: 16px;
+  }
+  
+  @media (max-width: 599px) {
+    td,
+    th {
+      min-width: 100px;
+    }
+  }
+  
+  @media (max-width: 1080px) {
+    #newOrderLineDialog td .mat-form-field {
+      width: 100%;
+    }
+  
+    #newOrderLineDialog td:last-child {
+      width: 12.5%;
+      margin-left: 0%;
+    }
+  }
+  

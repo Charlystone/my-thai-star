@@ -96,6 +96,8 @@
       </table>
     </div>
 
+    <button mat-button id="openNewOrderDialogButton" color="accent" (click)="openNewOrderDialog()"><mat-icon>assignment</mat-icon><mat-icon>add</mat-icon> {{'buttons.addPosition' | transloco}}</button>
+
     <div class="property-text-center noResults" *ngIf="orders.length===0">
       <h3>{{'table.noResults' | transloco}}.</h3>
     </div>

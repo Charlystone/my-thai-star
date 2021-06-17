@@ -1,21 +1,20 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {OrderView} from '../../../shared/view-models/interfaces';
+import {Component, OnInit} from '@angular/core';
+import {OrderView, ReservationView} from '../../../shared/view-models/interfaces';
 import {WaiterCockpitService} from '../../services/waiter-cockpit.service';
 import {TranslocoService} from '@ngneat/transloco';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ConfigService} from '../../../core/config/config.service';
 import {PageEvent} from '@angular/material/paginator';
 import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuService } from 'app/menu/services/menu.service';
-import { Pageable } from 'app/shared/backend-models/interfaces';
+import { FilterCockpit, Pageable } from 'app/shared/backend-models/interfaces';
 @Component({
-  selector: 'app-order-edit-dialog',
-  templateUrl: './order-edit-dialog.component.html',
-  styleUrls: ['./order-edit-dialog.component.scss']
+  selector: 'app-new-order-dialog',
+  templateUrl: 'new-order-dialog.component.html',
+  styleUrls: ['new-order-dialog.component.scss']
 })
-export class OrderEditComponent implements OnInit {
-
+export class NewOrderDialogComponent implements OnInit {
+  private sorting: any[] = [];
   private fromRow = 0;
   private currentPage = 1;
 
@@ -32,6 +31,15 @@ export class OrderEditComponent implements OnInit {
     ],
   };
 
+  filters: FilterCockpit = {
+    bookingDate: undefined,
+    email: undefined,
+    bookingToken: undefined
+  };
+
+  columns: any[];
+  displayedColumns: string[] = ['bookingDate', 'guestName', 'email', 'tableNr'];
+
   data: any;
   datao: OrderView[] = [];
   columnso: any[];
@@ -47,10 +55,13 @@ export class OrderEditComponent implements OnInit {
   pageSizes: number[];
   filteredData: OrderView[] = this.datao;
   totalPrice: number;
-  editedOrderLines: any[] = [];
 
-  updateSuccessAlert: string;
-  updateFailAlert: string;
+  isNew: boolean;
+  orderCreationSuccessAlert: string;
+  orderCreationFailAlert: string;
+
+  reservations: ReservationView[] = [];
+  totalReservations: number;
 
   showNewOrderLineDialog = false;
   newOrderLineForm: FormGroup;
@@ -63,28 +74,54 @@ export class OrderEditComponent implements OnInit {
   constructor(
     private waiterCockpitService: WaiterCockpitService,
     private translocoService: TranslocoService,
-    @Inject(MAT_DIALOG_DATA) dialogData: any,
     private configService: ConfigService,
     private snackBarService: SnackBarService,
     private menuService: MenuService,
   ) {
-    this.data = dialogData;
+    this.isNew = true;
+    this.data = {
+      booking: {
+        bookingToken: '',
+      },
+      order: {
+        orderState: "orderTaken",
+        paymentState: "pending",
+      },
+      orderLines: [],
+    };
     this.pageSizes = this.configService.getValues().pageSizesDialog;
   }
 
   ngOnInit(): void {
     this.translocoService.langChanges$.subscribe((lang: string) => {
       this.setTableHeaders(lang);
+      this.setReservationsTableHeaders(lang);
       this.setAlerts(lang);
       this.setDishCategoryNames(lang);
       this.setOrderLineDialogPlaceholder(lang);
     });
     this.showNewOrderLineDialog = false;
-    this.totalPrice = this.waiterCockpitService.getTotalPrice(
-      this.data.orderLines,
-    );
-    this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
-    this.filter();
+    if (!this.isNew) {
+      this.totalPrice = this.waiterCockpitService.getTotalPrice(
+        this.data.orderLines,
+      );
+      this.datao = this.waiterCockpitService.orderComposer(this.data.orderLines);
+      this.filter();
+    }
+    this.isNew = false;
+  }
+
+  loadReservations() {
+    this.waiterCockpitService
+    .getReservations(this.pageable, this.sorting, this.filters)
+    .subscribe((data: any) => {
+      if (!data) {
+        this.reservations = [];
+      } else {
+        this.reservations = data.content;
+      }
+      this.totalReservations = data.totalElements;
+    });
   }
 
   setOrderLineDialogPlaceholder(lang: string) {
@@ -121,10 +158,23 @@ export class OrderEditComponent implements OnInit {
     this.translocoService
     .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
     .subscribe((alertsWaiterCockpitAlerts) => {
-      this.updateSuccessAlert = alertsWaiterCockpitAlerts.updateOrderLineSuccess;
-      this.updateFailAlert = alertsWaiterCockpitAlerts.updateOrderLineFail;
+      this.orderCreationSuccessAlert = alertsWaiterCockpitAlerts.orderCreationSuccessAlert;
+      this.orderCreationFailAlert = alertsWaiterCockpitAlerts.orderCreationFailAlert;
     });
-}
+  }
+
+  setReservationsTableHeaders(lang: string): void {
+    this.translocoService
+      .selectTranslateObject('cockpit.table', {}, lang)
+      .subscribe((cockpitTable) => {
+        this.columns = [
+          { name: 'booking.bookingDate', label: cockpitTable.reservationDateH },
+          { name: 'booking.guestName', label: cockpitTable.guestNameH },
+          { name: 'booking.email', label: cockpitTable.emailH },
+          { name: 'booking.tableNr', label: cockpitTable.tableH },
+        ];
+      });
+  }
 
   setTableHeaders(lang: string): void {
     this.translocoService
@@ -143,12 +193,11 @@ export class OrderEditComponent implements OnInit {
           },
         ];
       });
-      this.translocoService
-      .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
-      .subscribe((alertsWaiterCockpitAlerts) => {
-        this.cancelSuccessAlert = alertsWaiterCockpitAlerts.cancelOrderSuccess;
-      });
-      
+    this.translocoService
+    .selectTranslateObject('alerts.waiterCockpitAlerts', {}, lang)
+    .subscribe((alertsWaiterCockpitAlerts) => {
+      this.cancelSuccessAlert = alertsWaiterCockpitAlerts.cancelOrderSuccess;
+    });  
   }
 
   page(pagingEvent: PageEvent): void {
@@ -164,13 +213,13 @@ export class OrderEditComponent implements OnInit {
     setTimeout(() => (this.filteredData = newData));
   }
 
-  deleteOrder() {
-    if (confirm('Bestellung wirklich löschen?')) {
-      const id = this.data.order.id;
-      this.waiterCockpitService.updateOrderState("canceled", id).subscribe((data: any) => {
-        this.snackBarService.openSnack(this.cancelSuccessAlert, 5000, "green");
-        this.waiterCockpitService.emitOrdersChanged();
-      });
+  selectReservation(reservation) {
+    this.data.booking.bookingToken = reservation.booking.bookingToken;
+    for (let item of this.reservations) {
+      if (item.booking.bookingToken == reservation.booking.bookingToken) {
+        this.reservations = [];
+        this.reservations.push(item);
+      }
     }
   }
 
@@ -226,11 +275,9 @@ export class OrderEditComponent implements OnInit {
       },
       dish: this.newOrderLineForm.value.dish,
       extras: (this.newOrderLineForm.value.extra) ? [ this.newOrderLineForm.value.extra ] : [],
-      deleted: false,
-      isNew: true,
     }
     this.data.orderLines.push(newOrderLine);
-    this.saveUpdatedOrderLine(newOrderLine);
+    this.ngOnInit();
   }
 
   decreaceOrderLineAmount(orderLine: any): void {
@@ -249,9 +296,7 @@ export class OrderEditComponent implements OnInit {
         item.orderLine.amount = orderLine.orderLine.amount;
       }
     }
-    orderLine.deleted = false;
-    orderLine.isNew = false;
-    this.saveUpdatedOrderLine(orderLine);
+    this.ngOnInit();
   }
 
   deleteOrderLine(orderLine: any): void {
@@ -261,73 +306,17 @@ export class OrderEditComponent implements OnInit {
           this.data.orderLines.splice(this.data.orderLines.indexOf(item), 1);
         }
       }
-      orderLine.deleted = true;
-      orderLine.isNew = false;
-      this.saveUpdatedOrderLine(orderLine);
+      this.ngOnInit();
     }
-  }
-
-  private saveUpdatedOrderLine(orderLine: any) {
-    if (!orderLine.isNew) {
-      for(let item of this.editedOrderLines) {
-        if (item.orderLine.id == orderLine.orderLine.id) {
-          this.editedOrderLines.splice(this.editedOrderLines.indexOf(item), 1);
-        }
-      }
-    }
-    this.editedOrderLines.push(orderLine);
-    this.ngOnInit();
   }
 
   saveOrder() {
-    this.updateOrderLine(this.editedOrderLines, 0);
-  }
-
-  private updateOrderLine(orderLines: any[], orderLineIndex: number) {
-    let extraIngredients = [];
-    if (typeof orderLines[orderLineIndex].extras === 'string' || orderLines[orderLineIndex].extras instanceof String) {
-      if (orderLines[orderLineIndex].extras != "") {
-        let extrasAsStringArray = orderLines[orderLineIndex].extras.split(',');
-        for (let string of extrasAsStringArray) {
-          extraIngredients.push(this.availableExtraIngredients.find((ingredient) => {
-            return ingredient.name == string.trim();
-          }));
-        }
-        console.log(extraIngredients)
-      }
-    } else {
-      extraIngredients = orderLines[orderLineIndex].extras;
-    }
-    const orderLine = {
-      orderLine : orderLines[orderLineIndex].orderLine,
-      extras: extraIngredients,
-      dish: orderLines[orderLineIndex].dish,
-    }
-    if (orderLines[orderLineIndex].deleted == true && orderLineIndex < orderLines.length - 1) { // delete
-      this.waiterCockpitService.deleteOrderLine(orderLine.orderLine.id).subscribe((data: any) => {
-        return this.updateOrderLine(orderLines, ++orderLineIndex);
-      });
-    }
-    if (orderLines[orderLineIndex].deleted == false && orderLineIndex < orderLines.length - 1) { // update
-      this.waiterCockpitService.updateOrderLineAmount(orderLine).subscribe((data: any) => {
-        return this.updateOrderLine(orderLines, ++orderLineIndex);
-      });
-    }
-    if (orderLines[orderLineIndex].deleted == true && orderLineIndex == orderLines.length - 1) { // last orderLine and delete
-      this.waiterCockpitService.deleteOrderLine(orderLine.orderLine.id).subscribe((data: any) => {
-        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-        this.waiterCockpitService.emitOrdersChanged();
-      });
-    }
-    if (orderLines[orderLineIndex].deleted == false && orderLineIndex == orderLines.length - 1) { // last orderLine and update
-      this.waiterCockpitService.updateOrderLineAmount(orderLine).subscribe((data: any) => {
-        this.snackBarService.openSnack(this.updateSuccessAlert, 5000, "green");
-        this.waiterCockpitService.emitOrdersChanged();
-      });
-    }
-  }
-
-  cancelEditing() {
-    this.waiterCockpitService.emitOrdersChanged();
+    this.waiterCockpitService.saveOrder(this.data).subscribe((data: any) => {
+      this.snackBarService.openSnack(this.orderCreationSuccessAlert, 5000, "green");
+      this.waiterCockpitService.emitOrdersChanged();
+    },
+    (error: any) => {
+      this.snackBarService.openSnack(this.orderCreationFailAlert, 5000, "red");
+    });
   }
 }
