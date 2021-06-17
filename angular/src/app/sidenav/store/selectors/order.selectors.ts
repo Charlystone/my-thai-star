@@ -30,7 +30,7 @@ export const getTotalPrice = createSelector(getAllOrders, (state) => {
       (totalPrice =
         totalPrice +
         order.details.orderLine.amount *
-          (order.details.dish.price +
+          (((order.details.dish.isDishOfTheDay) ? order.details.dish.dailyPrice : order.details.dish.price) +
             order.details.extras.reduce((t, e) => t + e.price, 0))),
   );
   return totalPrice;

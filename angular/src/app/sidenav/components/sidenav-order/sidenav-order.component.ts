@@ -27,6 +27,13 @@ export class SidenavOrderComponent implements OnInit {
   }
 
   calculateOrderPrice(): number {
+    if (this.order.details.dish.isDishOfTheDay) {
+      return (
+        this.order.details.orderLine.amount *
+        (this.order.details.dish.dailyPrice +
+          this.order.details.extras.reduce((t, e) => t + e.price, 0))
+      );
+    }
     return (
       this.order.details.orderLine.amount *
       (this.order.details.dish.price +

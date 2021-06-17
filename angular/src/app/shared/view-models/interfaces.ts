@@ -15,6 +15,8 @@ export interface PlateView {
   name: string;
   description: string;
   price: number;
+  isDishOfTheDay: boolean;
+  dailyPrice: number;
 }
 
 export interface ExtraView {
@@ -61,6 +63,8 @@ export interface OrderDishView {
     id: number;
     name: string;
     price: number;
+    isDishOfTheDay: boolean;
+    dailyPrice: number;
   };
 }
 
@@ -69,6 +73,8 @@ export interface OrderView {
     id: number;
     name: string;
     price: number;
+    isDishOfTheDay: boolean;
+    dailyPrice: number;
   };
   orderLine: {
     amount: number;
@@ -82,6 +88,8 @@ export interface OrderViewResult {
     id: number;
     name: string;
     price: number;
+    isDishOfTheDay: boolean;
+    dailyPrice: number;
   };
   orderLine: {
     amount: number;

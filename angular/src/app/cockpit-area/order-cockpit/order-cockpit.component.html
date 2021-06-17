@@ -55,13 +55,13 @@
 
         <!-- Table Column -->
         <ng-container matColumnDef="booking.table">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[2].label}} </th>
+          <th mat-header-cell *matHeaderCellDef> {{columns[2].label}} </th>
           <td mat-cell *matCellDef="let element"><span class="tableNrField">{{element.booking.tableId}}</span></td>
         </ng-container>
 
         <!-- Edit Column -->
         <ng-container matColumnDef="buttons.edit">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{columns[3].label}} </th>
+          <th mat-header-cell *matHeaderCellDef> {{columns[3].label}} </th>
           <td mat-cell *matCellDef="let element" >
             <button  class="orderEditButton" name="orderEditButton" mat-button type="button" (click)="selectedEdit(element, $event); " [disabled]="element.order.orderState != 'orderTaken' || element.order.paymentState != 'pending'">
               <mat-icon>edit</mat-icon>

@@ -11,6 +11,41 @@
   color: #514f4f;
 }
 
+.dailyPrice {
+  text-align: right;
+}
+
+.dailyPrice .oldPrice {
+  color: red;
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
+.strikethrough {
+  position: relative;
+}
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 3px solid;
+  border-color: inherit;
+
+  -webkit-transform:rotate(-10deg);
+  -moz-transform:rotate(-10deg);
+  -ms-transform:rotate(-10deg);
+  -o-transform:rotate(-10deg);
+  transform:rotate(-10deg);
+}
+
+.dailyPrice .newPrice {
+  font-size: 2.25em;
+  color: #388e3c;
+  font-weight: bold;
+}
+
 .description {
   display: flex;
   margin-top: 0px;

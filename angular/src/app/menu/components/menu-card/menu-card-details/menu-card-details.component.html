@@ -1,5 +1,16 @@
 <div>
-  <span class="price"> {{ menuInfo.dish.price | number: '1.2-2' }} € </span>
+  <span class="price" *ngIf="!menuInfo.dish.isDishOfTheDay"> {{ menuInfo.dish.price  | number:'1.2-2'}} € </span>
+  <span class="dailyPrice" *ngIf="menuInfo.dish.isDishOfTheDay">
+    <span class="oldPrice">
+      <span class="strikethrough">
+        {{ menuInfo.dish.price  | number:'1.2-2'}} € 
+      </span>
+    </span>
+    <span class="newPrice">
+      <mat-icon>local_offer</mat-icon>
+      {{ menuInfo.dish.dailyPrice  | number:'1.2-2'}} € 
+    </span>
+  </span>
 </div>
 <div>
   <h3>

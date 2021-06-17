@@ -20,7 +20,7 @@ export class PriceCalculatorService {
       )
       .value();
 
-    return (order.dish.price + extrasPrice) * order.orderLine.amount;
+    return (((order.dish.isDishOfTheDay) ? order.dish.dailyPrice : order.dish.price) + extrasPrice) * order.orderLine.amount;
   }
 
   getTotalPrice(orders: OrderView[]): number {
