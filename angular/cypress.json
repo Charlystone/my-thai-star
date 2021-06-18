@@ -1,7 +1,7 @@
 {
-  "baseUrl": "http://localhost:4042/",
+  "baseUrl": "https://mythaistar.ctro4.de:4042/",
   "env": {
-    "backendUrl": "http://localhost:8081/mythaistar/services/rest/",
+    "backendUrl": "https://bd17191c2ce9.ngrok.io/mythaistar/services/rest/",
     "mobileWidth": 414,
     "mobileHeight": 736
   },
