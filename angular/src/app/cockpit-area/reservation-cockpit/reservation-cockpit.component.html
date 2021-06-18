@@ -66,6 +66,7 @@
             <mat-form-field class="tableNrInputField">
               <input name="dailyPrice" matInput [placeholder]="(element.booking.tableId) ? element.booking.tableId : 'cockpit.reservations.setTableNr' | transloco" (click)="$event.stopPropagation()" (keyup.enter)="setTableNr(element, $event)" (focusout)="setTableNr(element, $event)">
             </mat-form-field>
+            <mat-icon color="accent">edit</mat-icon>
           </td>
         </ng-container>
 

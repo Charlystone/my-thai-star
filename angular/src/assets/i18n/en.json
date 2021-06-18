@@ -128,7 +128,7 @@
     "menu": "Menu",
     "book": "Book table",
     "orders": "Orders",
-    "dishoftheday": "Dish of the day",
+    "dishoftheday": "Today's specials",
     "archive": "Archive",
     "reservations": "Reservations",
     "usermanagement": "Usermanagement",
@@ -270,14 +270,14 @@
       }
     },
     "dishOfTheDay": {
-      "title": "Manage dishes of the day",
+      "title": "Manage today's specials",
       "dishOfTheDaySucessAlert": "Status successfully changed!",
       "dailyPriceSucessAlert": "Daily price successfully updated",
       "tableHeaders": {
         "dishIdH": "Id",
         "dishNameH": "Name",
         "dishPriceH": "Price",
-        "isDishOfTheDayH": "Is dish of the day",
+        "isDishOfTheDayH": "Is today's special",
         "dailyPriceH": "Daily price"
       }
     },

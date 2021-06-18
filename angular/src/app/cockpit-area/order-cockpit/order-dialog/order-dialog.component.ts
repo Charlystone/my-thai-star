@@ -15,7 +15,7 @@ export class OrderDialogComponent implements OnInit {
   private fromRow = 0;
   private currentPage = 1;
 
-  pageSize = 4;
+  pageSize = 8;
   showBillCreationButton: boolean = false;
   showBillPrintButton: boolean = false;
 

@@ -69,6 +69,11 @@ td:not(:nth-child(1)) {
   word-break: break-all;
 }
 
+.mat-icon {
+  display: inline-block;
+  margin-left: 5px;
+}
+
 .noResults {
   padding: 16px;
 }
