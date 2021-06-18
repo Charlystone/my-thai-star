@@ -63,9 +63,8 @@
         <ng-container matColumnDef="tableNr">
           <th mat-header-cell *matHeaderCellDef> {{columns[3].label}} </th>
           <td mat-cell *matCellDef="let element">
-            <span class="tableNrField" *ngIf="element.booking.tableId">{{element.booking.tableId}}</span>
-            <mat-form-field *ngIf="!element.booking.tableId" class="tableNrInputField">
-              <input name="dailyPrice" matInput placeholder="{{'cockpit.reservations.setTableNr' | transloco}}" (click)="$event.stopPropagation()" (keyup.enter)="setTableNr(element, $event)" (focusout)="setTableNr(element, $event)">
+            <mat-form-field class="tableNrInputField">
+              <input name="dailyPrice" matInput [placeholder]="(element.booking.tableId) ? element.booking.tableId : 'cockpit.reservations.setTableNr' | transloco" (click)="$event.stopPropagation()" (keyup.enter)="setTableNr(element, $event)" (focusout)="setTableNr(element, $event)">
             </mat-form-field>
           </td>
         </ng-container>

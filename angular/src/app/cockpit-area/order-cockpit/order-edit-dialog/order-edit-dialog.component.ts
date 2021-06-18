@@ -112,7 +112,7 @@ export class OrderEditComponent implements OnInit {
         { name: menuFilters.curry , id:  5 },
         { name: menuFilters.vegan , id:  6 },
         { name: menuFilters.vegetarian , id:  7 },
-        { name: menuFilters.favourites , id:  8 },
+        { name: menuFilters.drinks , id:  8 },
       ]
     });
   }

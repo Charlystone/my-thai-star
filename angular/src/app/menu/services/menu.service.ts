@@ -18,7 +18,7 @@ const categoryNameToServerId: { [key: string]: number } = Object.freeze({
   curry: 5,
   vegan: 6,
   vegetarian: 7,
-  favourites: 8,
+  drinks: 8,
 });
 
 @Injectable()

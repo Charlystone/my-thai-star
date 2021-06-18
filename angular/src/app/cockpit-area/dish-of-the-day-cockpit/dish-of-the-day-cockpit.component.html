@@ -32,7 +32,7 @@
         <!-- Is dish of the day Column -->
         <ng-container matColumnDef="isDishOfTheDay">
             <th mat-header-cell *matHeaderCellDef> {{columns[3].label}} </th>
-            <td mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.dish.isDishOfTheDay" (change)="setIsDishOfTheDay(element)"></mat-checkbox></td>
+            <td mat-cell *matCellDef="let element"><mat-slide-toggle [checked]="element.dish.isDishOfTheDay" (change)="setIsDishOfTheDay(element)"></mat-slide-toggle></td>
         </ng-container>
 
         <!-- daily price Column -->
@@ -42,6 +42,7 @@
             <mat-form-field *ngIf="element.dish.dailyPrice && element.dish.isDishOfTheDay">
               <input name="dailyPrice" matInput [placeholder]="element.dish.dailyPrice.toFixed(2) + ' €'" (keyup.enter)="updateDailyPrice(element, $event)" (focusout)="updateDailyPrice(element, $event)">
             </mat-form-field>
+            <mat-icon color="accent" *ngIf="element.dish.dailyPrice && element.dish.isDishOfTheDay">edit</mat-icon>
           </td>
         </ng-container>
 

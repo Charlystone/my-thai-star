@@ -56,5 +56,5 @@ export interface CategoriesModel {
   curry: boolean;
   vegan: boolean;
   vegetarian: boolean;
-  favourites: boolean;
+  drinks: boolean;
 }

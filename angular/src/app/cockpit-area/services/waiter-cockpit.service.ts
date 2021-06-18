@@ -38,7 +38,7 @@ export class WaiterCockpitService {
   private readonly saveNewOrder: string = 
     'ordermanagement/v1/order';
   private readonly saveBookingPath: string = 
-    'ordermanagement/v1/booking';
+    'bookingmanagement/v1/booking';
   private readonly restServiceRoot$: Observable<
     string
   > = this.config.getRestServiceRoot();
@@ -163,10 +163,10 @@ export class WaiterCockpitService {
     );
   }
 
-  saveBooking(booking: any): Observable<BookingResponse[]> {
+  saveBooking(booking: any): Observable<any> {
     return this.restServiceRoot$.pipe(
       exhaustMap((restServiceRoot) =>
-        this.http.post<BookingResponse[]>(`${restServiceRoot}${this.saveBookingPath}`, booking),
+        this.http.post(`${restServiceRoot}${this.saveBookingPath}`, booking),
       ),
     );
   }
