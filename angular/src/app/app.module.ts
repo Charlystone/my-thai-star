@@ -26,6 +26,7 @@ import { WebviewDirective } from './shared/directives/webview.directive';
 import { SidenavModule } from './sidenav/sidenav.module';
 import { CustomSerializer, effects, reducers } from './store';
 import { UserAreaModule } from './user-area/user-area.module';
+import { HoldableDirective } from './cockpit-area/order-cockpit/order-edit-dialog/holdable.directive';
 
 @NgModule({
   imports: [
@@ -59,7 +60,7 @@ import { UserAreaModule } from './user-area/user-area.module';
     HttpClientModule
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
-  declarations: [AppComponent, WebviewDirective],
+  declarations: [AppComponent, WebviewDirective, HoldableDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

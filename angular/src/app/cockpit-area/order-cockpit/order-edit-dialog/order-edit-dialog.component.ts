@@ -9,6 +9,7 @@ import { SnackBarService } from 'app/core/snack-bar/snack-bar.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MenuService } from 'app/menu/services/menu.service';
 import { Pageable } from 'app/shared/backend-models/interfaces';
+
 @Component({
   selector: 'app-order-edit-dialog',
   templateUrl: './order-edit-dialog.component.html',
@@ -61,14 +62,14 @@ export class OrderEditComponent implements OnInit {
   selectedCategories = [];
   availableExtraIngredients = [
     {
-      id: 0,    ​​​​
+      id: 0,
       name: 'Tofu',
-      price: 1 
+      price: 1
     },
-    { 
-      id: 1,    ​​​​
+    {
+      id: 1,
       name: 'Extra curry',
-      price: 1 
+      price: 1
     },
   ];
 
@@ -160,7 +161,7 @@ export class OrderEditComponent implements OnInit {
       .subscribe((alertsWaiterCockpitAlerts) => {
         this.cancelSuccessAlert = alertsWaiterCockpitAlerts.cancelOrderSuccess;
       });
-      
+
   }
 
   page(pagingEvent: PageEvent): void {
@@ -192,7 +193,7 @@ export class OrderEditComponent implements OnInit {
       categories: this.selectedCategories,
       maxPrice: null,
       minLikes: null,
-      pageable: this.pageable, 
+      pageable: this.pageable,
       searchBy: '',
     }).subscribe((data: any) => {
       if (!data) {
