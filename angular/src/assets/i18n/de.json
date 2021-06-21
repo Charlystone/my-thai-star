@@ -275,7 +275,7 @@
     "dishOfTheDay": {
       "title": "Tagesangebot verwalten",
       "dishOfTheDaySucessAlert": "Statusänderung erfolgreich!",
-      "dailyPriceSucessAlert": "Tagespreis erfolgreich geändert!",
+      "dailyPriceSucessAlert": "Tagespreis erfolgreich aktualisiert!",
       "tableHeaders": {
         "dishIdH": "Id",
         "dishNameH": "Name",

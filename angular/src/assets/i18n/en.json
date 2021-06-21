@@ -272,7 +272,7 @@
     "dishOfTheDay": {
       "title": "Manage today's specials",
       "dishOfTheDaySucessAlert": "Status successfully changed!",
-      "dailyPriceSucessAlert": "Daily price successfully updated",
+      "dailyPriceSucessAlert": "Daily price successfully updated!",
       "tableHeaders": {
         "dishIdH": "Id",
         "dishNameH": "Name",
