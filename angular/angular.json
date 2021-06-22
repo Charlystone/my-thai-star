@@ -183,7 +183,7 @@
           "options": {
             "browserTarget": "my-thai-star:build",
             "port": 4200,
-            "host": "mythaistar.ctro4.de"
+            "host": "localhost"
           },
           "configurations": {
             "production": {
