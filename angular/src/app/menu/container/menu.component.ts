@@ -54,7 +54,7 @@ export class MenuComponent implements OnInit {
 
   onFilterChange(filters: FilterFormData): void {
     const pageable: Pageable = {
-      pageSize: 8,
+      pageSize: 32,
       pageNumber: 0,
       sort: [
         {
