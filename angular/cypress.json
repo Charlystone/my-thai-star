@@ -1,7 +1,7 @@
 {
   "baseUrl": "http://localhost:4042/",
   "env": {
-    "backendUrl": "https://d92a24851183.ngrok.io/mythaistar/services/rest/",
+    "backendUrl": "https://8f535b876fff.ngrok.io/mythaistar/services/rest/",
     "mobileWidth": 414,
     "mobileHeight": 736
   },

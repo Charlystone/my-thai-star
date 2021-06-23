@@ -31,8 +31,8 @@ export interface Config {
 export const config: Config = {
   version: 'dev',
   backendType: BackendType.REST,
-  restPathRoot: 'https://d92a24851183.ngrok.io/mythaistar/',
-  restServiceRoot: 'https://d92a24851183.ngrok.io/mythaistar/services/rest/',
+  restPathRoot: 'https://8f535b876fff.ngrok.io/mythaistar/',
+  restServiceRoot: 'https://8f535b876fff.ngrok.io/mythaistar/services/rest/',
   loadExternalConfig: false, // load external configuration on /config endpoint
   pageSizes: [8, 16, 24],
   pageSizesDialog: [4, 8, 12],
