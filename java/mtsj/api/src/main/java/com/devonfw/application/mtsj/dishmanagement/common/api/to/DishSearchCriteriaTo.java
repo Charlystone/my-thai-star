@@ -26,7 +26,7 @@ public class DishSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private boolean isFav;
 
-  private boolean isDishOfTheDay;
+  private boolean showOnlyDailyOffer;
 
   private StringSearchConfigTo searchByOption;
 
@@ -38,14 +38,14 @@ public class DishSearchCriteriaTo extends AbstractSearchCriteriaTo {
     super();
   }
 
-  public boolean getIsDishOfTheDay() {
+  public boolean getshowOnlyDailyOffer() {
 
-    return this.isDishOfTheDay;
+    return this.showOnlyDailyOffer;
   }
 
-  public void setIsDishOfTheDay(boolean isDishOfTheDay) {
+  public void setshowOnlyDailyOffery(boolean showOnlyDailyOffer) {
 
-    this.isDishOfTheDay = isDishOfTheDay;
+    this.showOnlyDailyOffer = showOnlyDailyOffer;
   }
 
   /**

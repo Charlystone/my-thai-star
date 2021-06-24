@@ -8,7 +8,7 @@ export class Filter {
     maxPrice: number;
     minLikes: number;
     categories: { id: string }[];
-    isDishOfTheDay?: boolean;
+    showOnlyDailyOffer?: boolean;
 }
 
 export class FilterCockpit {
