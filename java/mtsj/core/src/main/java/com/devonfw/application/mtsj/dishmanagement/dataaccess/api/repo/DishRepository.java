@@ -35,6 +35,11 @@ public interface DishRepository extends DefaultRepository<DishEntity> {
       query.where(Alias.$(alias.getPrice()).lt(price));
     }
 
+    boolean isDishOfTheDay = criteria.getIsDishOfTheDay();
+    if (isDishOfTheDay == true) {
+      query.where(Alias.$(alias.getIsDishOfTheDay()).eq(true));
+    }
+
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, false);
   }
 }

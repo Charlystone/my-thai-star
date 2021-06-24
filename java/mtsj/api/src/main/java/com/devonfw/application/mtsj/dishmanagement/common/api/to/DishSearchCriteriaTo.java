@@ -26,6 +26,8 @@ public class DishSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private boolean isFav;
 
+  private boolean isDishOfTheDay;
+
   private StringSearchConfigTo searchByOption;
 
   /**
@@ -34,6 +36,16 @@ public class DishSearchCriteriaTo extends AbstractSearchCriteriaTo {
   public DishSearchCriteriaTo() {
 
     super();
+  }
+
+  public boolean getIsDishOfTheDay() {
+
+    return this.isDishOfTheDay;
+  }
+
+  public void setIsDishOfTheDay(boolean isDishOfTheDay) {
+
+    this.isDishOfTheDay = isDishOfTheDay;
   }
 
   /**

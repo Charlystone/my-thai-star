@@ -64,6 +64,7 @@ export class MenuService {
       maxPrice: filters.maxPrice,
       minLikes: filters.minLikes,
       isFav: undefined, // TODO: what is this field? It was present in interface but setting it will cause errors ...
+      isDishOfTheDay: false,
     };
   }
 
