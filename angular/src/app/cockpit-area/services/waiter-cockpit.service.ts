@@ -60,11 +60,12 @@ export class WaiterCockpitService {
     let path: string;
     filters.pageable = pageable;
     filters.pageable.sort = sorting;
-    if (filters.email || filters.bookingToken) {
+    if (filters.email || filters.bookingToken || filters.orderStates) {
       path = this.filterOrdersRestPath;
     } else {
       delete filters.email;
       delete filters.bookingToken;
+      delete filters.orderStates;
       path = this.getOrdersRestPath;
     }
     return this.restServiceRoot$.pipe(

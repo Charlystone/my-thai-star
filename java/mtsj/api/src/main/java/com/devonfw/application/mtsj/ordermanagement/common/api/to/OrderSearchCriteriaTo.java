@@ -10,6 +10,8 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
 
   private static final long serialVersionUID = 1L;
 
+  private String[] orderStates;
+
   private Long bookingId;
 
   private Long invitedGuestId;
@@ -34,6 +36,16 @@ public class OrderSearchCriteriaTo extends AbstractSearchCriteriaTo {
   public OrderSearchCriteriaTo() {
 
     super();
+  }
+
+  public String[] getOrderStates() {
+
+    return this.orderStates;
+  }
+
+  public void setOrderStates(String orderStates[]) {
+
+    this.orderStates = orderStates;
   }
 
   public Long getBookingId() {

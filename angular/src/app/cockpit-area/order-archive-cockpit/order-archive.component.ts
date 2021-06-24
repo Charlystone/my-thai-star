@@ -14,6 +14,7 @@ import { OrderListView } from '../../shared/view-models/interfaces';
 import { WaiterCockpitService } from '../services/waiter-cockpit.service';
 import { OrderDialogComponent } from '../order-cockpit/order-dialog/order-dialog.component';
 import {FormControl} from '@angular/forms';
+import { property } from 'lodash';
 @Component({
   selector: 'app-order-archive',
   templateUrl: './order-archive.component.html',
@@ -51,6 +52,7 @@ export class OrderArchiveComponent implements OnInit {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    orderStates: ['canceled', 'orderCompleted'],
   };
   
 
@@ -64,6 +66,10 @@ export class OrderArchiveComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sorting.push({
+      property: 'booking.bookingDate',
+      direction: 'asc',
+    });
     this.applyFilters();
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
@@ -92,14 +98,9 @@ export class OrderArchiveComponent implements OnInit {
         if (!data) {
           this.orders = [];
         } else {
-          this.orders = [];
-          for (let entry of data.content) {
-            if (entry.order.orderState == "canceled" || entry.order.orderState == "orderCompleted") {
-              this.orders.push(entry);
-            }
-          }
+          this.orders = data.content;
         }
-        this.totalOrders = this.orders.length;
+        this.totalOrders = data.totalElements;
       });
   }
 

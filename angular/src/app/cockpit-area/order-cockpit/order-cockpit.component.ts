@@ -62,6 +62,7 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
     bookingDate: undefined,
     email: undefined,
     bookingToken: undefined,
+    orderStates: ['orderTaken', 'orderDelivered'],
   };
 
   constructor(
@@ -76,6 +77,10 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.sorting.push({
+      property: 'booking.bookingDate',
+      direction: 'asc',
+    });
     this.applyFilters();
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
@@ -119,14 +124,8 @@ export class OrderCockpitComponent implements OnInit, OnDestroy {
           this.orders = [];
         } else {
           this.orders = data.content;
-          this.orders = [];
-          for (let entry of data.content) {
-            if (!(entry.order.orderState === "canceled" || entry.order.orderState === "orderCompleted")) {
-              this.orders.push(entry);
-            }
-          }
         }
-        this.totalOrders = this.orders.length;
+        this.totalOrders = data.totalElements;
       });
   }
 

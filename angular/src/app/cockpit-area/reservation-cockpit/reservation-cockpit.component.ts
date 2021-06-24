@@ -59,6 +59,10 @@ export class ReservationCockpitComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.sorting.push({
+      property: 'bookingDate',
+      direction: 'asc',
+    });
     this.translocoService.langChanges$.subscribe((event: any) => {
       this.setTableHeaders(event);
       moment.locale(this.translocoService.getActiveLang());

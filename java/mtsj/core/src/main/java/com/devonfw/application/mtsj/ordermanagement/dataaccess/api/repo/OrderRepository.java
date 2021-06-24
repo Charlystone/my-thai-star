@@ -71,6 +71,8 @@ public interface OrderRepository extends DefaultRepository<OrderEntity> {
     if ((bookingToken != null) && alias.getBooking() != null) {
       query.where(Alias.$(alias.getBooking().getBookingToken()).toLowerCase().eq(bookingToken.toLowerCase()));
     }
+    String[] orderStates = criteria.getOrderStates();
+    query.where(Alias.$(alias.getOrderState()).in(orderStates)); 
     return QueryUtil.get().findPaginated(criteria.getPageable(), query, true);
   }
 
