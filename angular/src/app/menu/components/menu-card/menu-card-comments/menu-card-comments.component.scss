@@ -11,5 +11,10 @@
     font-size: 0.8em;
     color: white;
   }
-}
 
+  @media (max-width: 1000px) {
+    mat-list-item {
+      opacity: 0;
+    }
+  }
+}
