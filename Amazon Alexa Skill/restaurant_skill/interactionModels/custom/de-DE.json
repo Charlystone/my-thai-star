@@ -1,0 +1,1566 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "my thai star restaurant",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "HelloWorldIntent",
+          "slots": [],
+          "samples": [
+            "hallo",
+            "wie gehts die",
+            "sage hi world",
+            "sage hi",
+            "hi",
+            "say hello world",
+            "say hello"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "price",
+          "slots": [
+            {
+              "name": "dish",
+              "type": "dish"
+            }
+          ],
+          "samples": [
+            "was kostet eine {dish}",
+            "was kostet ein {dish}",
+            "was kostet {dish}",
+            "was ist der Preis von {dish}"
+          ]
+        },
+        {
+          "name": "ConfirmOrderIntent",
+          "slots": [],
+          "samples": [
+            "dann möchte ich die bestellung abschließen",
+            "ich würde die bestellung dann abschließen",
+            "Bestellung abschließen",
+            "Ich bestätige die Bestellung",
+            "Bestätige",
+            "Bestätige die Bestellung"
+          ]
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": [
+            "Ja"
+          ]
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": [
+            "Nein"
+          ]
+        },
+        {
+          "name": "OrderIntent",
+          "slots": [
+            {
+              "name": "dish",
+              "type": "dish",
+              "samples": [
+                "ein {dish}",
+                "ich hätte gern {dish}",
+                "{dish}",
+                "{dish} mit {extra} {extra}",
+                "{dish} und bitte {comment}",
+                "{amount} {dish}",
+                "{amount} {dish} mit {extra}",
+                "{amount} {dish} {extra} und {comment}",
+                "{amount} {dish} {extra} bitte {comment}",
+                "{amount} {dish} {extra}  und bitte {comment}",
+                "{dish} mit {extra}",
+                "{amount} {dish} mit {extra}  und bitte {comment}",
+                "{amount} {dish} mit {extra}  bitte {comment}",
+                "{amount} {dish} {extra}"
+              ],
+              "multipleValues": {
+                "enabled": false
+              }
+            },
+            {
+              "name": "extra",
+              "type": "extra"
+            },
+            {
+              "name": "comment",
+              "type": "AMAZON.StreetName"
+            },
+            {
+              "name": "amount",
+              "type": "validAmounts"
+            },
+            {
+              "name": "extraToo",
+              "type": "extra"
+            }
+          ],
+          "samples": [
+            "noch etwas",
+            "noch was",
+            "weiter bestellen",
+            "noch was bestellen",
+            "noch ein gericht bestellen",
+            "noch etwas Bestellen",
+            "weitere Bestellung",
+            "Ich möchte noch etwas bestellen",
+            "Ich möchte etwas bestellen",
+            "Ich möchte bestellen",
+            "Ich möchte ein Gericht bestellen",
+            "Bestelle etwas",
+            "Ich möchte eine Bestellung aufgeben",
+            "eine weitere Bestellung hinzufügen"
+          ]
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": [
+            "do you want to add something"
+          ]
+        },
+        {
+          "name": "DishOfToday",
+          "slots": [],
+          "samples": [
+            "Was empfiehlst du",
+            "Was ist das Tagesgericht",
+            "Tagesgericht"
+          ]
+        },
+        {
+          "name": "GuestFilter",
+          "slots": [
+            {
+              "name": "filter",
+              "type": "filter"
+            }
+          ],
+          "samples": [
+            "welche {filter} gibt es",
+            "was gibt es zum {filter}",
+            "was gibt es zu {filter}",
+            "was gibt es {filter}",
+            "Welche {filter} Gerichte gibt es",
+            "{filter}",
+            "{filter} Gerichte",
+            "Sag mir {filter} Gerichte",
+            "Filter  {filter}"
+          ]
+        },
+        {
+          "name": "AskForOrderConfirmationIntent",
+          "slots": [],
+          "samples": [
+            "Keine weitere Bestellung",
+            "Keine weitere Bestellung hinzufügen",
+            "Bitte keine weitere Bestellung hinzufügen"
+          ]
+        },
+        {
+          "name": "AtRestaurant",
+          "slots": [
+            {
+              "name": "table",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "An der {table}",
+                "{table}",
+                "An Tisch {table}",
+                "An {table}"
+              ]
+            }
+          ],
+          "samples": [
+            "Im Restaurant",
+            "Ich bin im Restaurant"
+          ]
+        },
+        {
+          "name": "MenuIntent",
+          "slots": [],
+          "samples": [
+            "Welche Gerichte gibt es",
+            "Was steht auf der Speisekarte",
+            "Was ist das Menü heute",
+            "Menü"
+          ]
+        },
+        {
+          "name": "CancelOrder",
+          "slots": [],
+          "samples": [
+            "entferne das letzte Gericht wieder",
+            "entferne das letzte Gericht"
+          ]
+        },
+        {
+          "name": "CancelReservation",
+          "slots": [],
+          "samples": [
+            "storniere die Reservierung"
+          ]
+        },
+        {
+          "name": "IntuitiveOrderIntent",
+          "slots": [
+            {
+              "name": "dish",
+              "type": "dish"
+            },
+            {
+              "name": "extra",
+              "type": "extra"
+            },
+            {
+              "name": "comment",
+              "type": "AMAZON.StreetName"
+            },
+            {
+              "name": "amount",
+              "type": "validAmounts"
+            },
+            {
+              "name": "extraToo",
+              "type": "extra"
+            }
+          ],
+          "samples": [
+            "ich hätte für heute abend {amount} das {dish} mit extra {extra}",
+            "bitte noch {amount} {dish}",
+            "bitte noch {amount} {dish} dazu",
+            "bitte {amount} {dish} mit {extra} und {comment}",
+            "bitte {amount} {dish} mit {extra} und",
+            "bitte {amount} {dish} mit {extra} und bitte {comment}",
+            "bitte {amount} {dish} mit {extra} und bitte",
+            "bitte {amount} {dish} mit {extra} {comment}",
+            "bitte {amount} {dish} mit {extra} ",
+            "bitte {amount} {dish} mit und {comment}",
+            "bitte {amount} {dish} mit und",
+            "bitte {amount} {dish} mit und bitte {comment}",
+            "bitte {amount} {dish} mit und bitte",
+            "bitte {amount} {dish} mit  {comment}",
+            "bitte {amount} {dish} mit ",
+            "bitte {amount} {dish} mit extra {extra} und {comment}",
+            "bitte {amount} {dish} mit extra {extra} und",
+            "bitte {amount} {dish} mit extra {extra} und bitte {comment}",
+            "bitte {amount} {dish} mit extra {extra} und bitte",
+            "bitte {amount} {dish} mit extra {extra} {comment}",
+            "bitte {amount} {dish} mit extra {extra} ",
+            "bitte {amount} {dish} mit extra und {comment}",
+            "bitte {amount} {dish} mit extra und",
+            "bitte {amount} {dish} mit extra und bitte {comment}",
+            "bitte {amount} {dish} mit extra und bitte",
+            "bitte {amount} {dish} mit extra  {comment}",
+            "bitte {amount} {dish} mit extra ",
+            "bitte {amount} {dish} extra {extra} und {comment}",
+            "bitte {amount} {dish} extra {extra} und",
+            "bitte {amount} {dish} extra {extra} und bitte {comment}",
+            "bitte {amount} {dish} extra {extra} und bitte",
+            "bitte {amount} {dish} extra {extra} {comment}",
+            "bitte {amount} {dish} extra {extra} ",
+            "bitte {amount} {dish} extra und {comment}",
+            "bitte {amount} {dish} extra und",
+            "bitte {amount} {dish} extra und bitte {comment}",
+            "bitte {amount} {dish} extra und bitte",
+            "bitte {amount} {dish} extra  {comment}",
+            "bitte {amount} {dish} extra ",
+            "bitte {amount} {dish} {extra} und {comment}",
+            "bitte {amount} {dish} {extra} und",
+            "bitte {amount} {dish} {extra} und bitte {comment}",
+            "bitte {amount} {dish} {extra} und bitte",
+            "bitte {amount} {dish} {extra}  {comment}",
+            "bitte {amount} {dish} {extra} ",
+            "bitte {amount} {dish}  und {comment}",
+            "bitte {amount} {dish}  und",
+            "bitte {amount} {dish}  und bitte {comment}",
+            "bitte {amount} {dish}  und bitte",
+            "bitte {amount} {dish}   {comment}",
+            "bitte {amount} {dish}  ",
+            "bitte {dish} mit {extra} und {comment}",
+            "bitte {dish} mit {extra} und",
+            "bitte {dish} mit {extra} und bitte {comment}",
+            "bitte {dish} mit {extra} und bitte",
+            "bitte {dish} mit {extra}  {comment}",
+            "bitte {dish} mit {extra} ",
+            "bitte {dish} mit  und {comment}",
+            "bitte {dish} mit  und",
+            "bitte {dish} mit  und bitte {comment}",
+            "bitte {dish} mit  und bitte",
+            "bitte {dish} mit   {comment}",
+            "bitte {dish} mit  ",
+            "bitte {dish} mit extra {extra} und {comment}",
+            "bitte {dish} mit extra {extra} und",
+            "bitte {dish} mit extra {extra} und bitte {comment}",
+            "bitte {dish} mit extra {extra} und bitte",
+            "bitte {dish} mit extra {extra}  {comment}",
+            "bitte {dish} mit extra {extra} ",
+            "bitte {dish} mit extra  und {comment}",
+            "bitte {dish} mit extra  und",
+            "bitte {dish} mit extra  und bitte {comment}",
+            "bitte {dish} mit extra  und bitte",
+            "bitte {dish} mit extra   {comment}",
+            "bitte {dish} mit extra  ",
+            "bitte {dish} extra {extra} und {comment}",
+            "bitte {dish} extra {extra} und",
+            "bitte {dish} extra {extra} und bitte {comment}",
+            "bitte {dish} extra {extra} und bitte",
+            "bitte {dish} extra {extra}  {comment}",
+            "bitte {dish} extra {extra} ",
+            "bitte {dish} extra  und {comment}",
+            "bitte {dish} extra  und",
+            "bitte {dish} extra  und bitte {comment}",
+            "bitte {dish} extra  und bitte",
+            "bitte {dish} extra   {comment}",
+            "bitte {dish} extra  ",
+            "bitte {dish}  {extra} und {comment}",
+            "bitte {dish}  {extra} und",
+            "bitte {dish}  {extra} und bitte {comment}",
+            "bitte {dish}  {extra} und bitte",
+            "bitte {dish}  {extra}  {comment}",
+            "bitte {dish}  {extra} ",
+            "bitte {dish}   und {comment}",
+            "bitte {dish}   und",
+            "bitte {dish}   und bitte {comment}",
+            "bitte {dish}   und bitte",
+            "bitte {dish}    {comment}",
+            "bitte {dish}   ",
+            "bitte ein {amount} {dish} mit {extra} und {comment}",
+            "bitte ein {amount} {dish} mit {extra} und",
+            "bitte ein {amount} {dish} mit {extra} und bitte {comment}",
+            "bitte ein {amount} {dish} mit {extra} und bitte",
+            "bitte ein {amount} {dish} mit {extra} {comment}",
+            "bitte ein {amount} {dish} mit {extra} ",
+            "bitte ein {amount} {dish} mit und {comment}",
+            "bitte ein {amount} {dish} mit und",
+            "bitte ein {amount} {dish} mit und bitte {comment}",
+            "bitte ein {amount} {dish} mit und bitte",
+            "bitte ein {amount} {dish} mit  {comment}",
+            "bitte ein {amount} {dish} mit ",
+            "bitte ein {amount} {dish} mit extra {extra} und {comment}",
+            "bitte ein {amount} {dish} mit extra {extra} und",
+            "bitte ein {amount} {dish} mit extra {extra} und bitte {comment}",
+            "bitte ein {amount} {dish} mit extra {extra} und bitte",
+            "bitte ein {amount} {dish} mit extra {extra} {comment}",
+            "bitte ein {amount} {dish} mit extra {extra} ",
+            "bitte ein {amount} {dish} mit extra und {comment}",
+            "bitte ein {amount} {dish} mit extra und",
+            "bitte ein {amount} {dish} mit extra und bitte {comment}",
+            "bitte ein {amount} {dish} mit extra und bitte",
+            "bitte ein {amount} {dish} mit extra  {comment}",
+            "bitte ein {amount} {dish} mit extra ",
+            "bitte ein {amount} {dish} extra {extra} und {comment}",
+            "bitte ein {amount} {dish} extra {extra} und",
+            "bitte ein {amount} {dish} extra {extra} und bitte {comment}",
+            "bitte ein {amount} {dish} extra {extra} und bitte",
+            "bitte ein {amount} {dish} extra {extra} {comment}",
+            "bitte ein {amount} {dish} extra {extra} ",
+            "bitte ein {amount} {dish} extra und {comment}",
+            "bitte ein {amount} {dish} extra und",
+            "bitte ein {amount} {dish} extra und bitte {comment}",
+            "bitte ein {amount} {dish} extra und bitte",
+            "bitte ein {amount} {dish} extra  {comment}",
+            "bitte ein {amount} {dish} extra ",
+            "bitte ein {amount} {dish} {extra} und {comment}",
+            "bitte ein {amount} {dish} {extra} und",
+            "bitte ein {amount} {dish} {extra} und bitte {comment}",
+            "bitte ein {amount} {dish} {extra} und bitte",
+            "bitte ein {amount} {dish} {extra}  {comment}",
+            "bitte ein {amount} {dish} {extra} ",
+            "bitte ein {amount} {dish}  und {comment}",
+            "bitte ein {amount} {dish}  und",
+            "bitte ein {amount} {dish}  und bitte {comment}",
+            "bitte ein {amount} {dish}  und bitte",
+            "bitte ein {amount} {dish}   {comment}",
+            "bitte ein {amount} {dish}  ",
+            "bitte ein {dish} mit {extra} und {comment}",
+            "bitte ein {dish} mit {extra} und",
+            "bitte ein {dish} mit {extra} und bitte {comment}",
+            "bitte ein {dish} mit {extra} und bitte",
+            "bitte ein {dish} mit {extra}  {comment}",
+            "bitte ein {dish} mit {extra} ",
+            "bitte ein {dish} mit  und {comment}",
+            "bitte ein {dish} mit  und",
+            "bitte ein {dish} mit  und bitte {comment}",
+            "bitte ein {dish} mit  und bitte",
+            "bitte ein {dish} mit   {comment}",
+            "bitte ein {dish} mit  ",
+            "bitte ein {dish} mit extra {extra} und {comment}",
+            "bitte ein {dish} mit extra {extra} und",
+            "bitte ein {dish} mit extra {extra} und bitte {comment}",
+            "bitte ein {dish} mit extra {extra} und bitte",
+            "bitte ein {dish} mit extra {extra}  {comment}",
+            "bitte ein {dish} mit extra {extra} ",
+            "bitte ein {dish} mit extra  und {comment}",
+            "bitte ein {dish} mit extra  und",
+            "bitte ein {dish} mit extra  und bitte {comment}",
+            "bitte ein {dish} mit extra  und bitte",
+            "bitte ein {dish} mit extra   {comment}",
+            "bitte ein {dish} mit extra  ",
+            "bitte ein {dish} extra {extra} und {comment}",
+            "bitte ein {dish} extra {extra} und",
+            "bitte ein {dish} extra {extra} und bitte {comment}",
+            "bitte ein {dish} extra {extra} und bitte",
+            "bitte ein {dish} extra {extra}  {comment}",
+            "bitte ein {dish} extra {extra} ",
+            "bitte ein {dish} extra  und {comment}",
+            "bitte ein {dish} extra  und",
+            "bitte ein {dish} extra  und bitte {comment}",
+            "bitte ein {dish} extra  und bitte",
+            "bitte ein {dish} extra   {comment}",
+            "bitte ein {dish} extra  ",
+            "bitte ein {dish}  {extra} und {comment}",
+            "bitte ein {dish}  {extra} und",
+            "bitte ein {dish}  {extra} und bitte {comment}",
+            "bitte ein {dish}  {extra} und bitte",
+            "bitte ein {dish}  {extra}  {comment}",
+            "bitte ein {dish}  {extra} ",
+            "bitte ein {dish}   und {comment}",
+            "bitte ein {dish}   und",
+            "bitte ein {dish}   und bitte {comment}",
+            "bitte ein {dish}   und bitte",
+            "bitte ein {dish}    {comment}",
+            "bitte ein {dish}   ",
+            "ein {dish} mit {extra} und {comment}",
+            "ein {dish} mit {extra} und",
+            "ein {dish} mit {extra} und bitte {comment}",
+            "ein {dish} mit {extra} und bitte",
+            "ein {dish} mit {extra} {comment}",
+            "ein {dish} mit {extra} ",
+            "ein {dish} mit und {comment}",
+            "ein {dish} mit und",
+            "ein {dish} mit und bitte {comment}",
+            "ein {dish} mit und bitte",
+            "ein {dish} mit  {comment}",
+            "ein {dish} mit ",
+            "ein {dish} mit extra {extra} und {comment}",
+            "ein {dish} mit extra {extra} und",
+            "ein {dish} mit extra {extra} und bitte {comment}",
+            "ein {dish} mit extra {extra} und bitte",
+            "ein {dish} mit extra {extra} {comment}",
+            "ein {dish} mit extra {extra} ",
+            "ein {dish} mit extra und {comment}",
+            "ein {dish} mit extra und",
+            "ein {dish} mit extra und bitte {comment}",
+            "ein {dish} mit extra und bitte",
+            "ein {dish} mit extra  {comment}",
+            "ein {dish} mit extra ",
+            "ein {dish} {extra} und {comment}",
+            "ein {dish} {extra} und",
+            "ein {dish} {extra} und bitte {comment}",
+            "ein {dish} {extra} und bitte",
+            "ein {dish} {extra}  {comment}",
+            "ein {dish} {extra} ",
+            "ein {dish}  und {comment}",
+            "ein {dish}  und",
+            "ein {dish}  und bitte {comment}",
+            "ein {dish}  und bitte",
+            "ein {dish}   {comment}",
+            "ein {dish}  ",
+            "Ich hätte gerne {amount} {dish} mit {extra} und {comment}",
+            "Ich hätte gerne {amount} {dish} mit {extra} und",
+            "Ich hätte gerne {amount} {dish} mit {extra} und bitte {comment}",
+            "Ich hätte gerne {amount} {dish} mit {extra} und bitte",
+            "Ich hätte gerne {amount} {dish} mit {extra} {comment}",
+            "Ich hätte gerne {amount} {dish} mit {extra} ",
+            "Ich hätte gerne {amount} {dish} mit und {comment}",
+            "Ich hätte gerne {amount} {dish} mit und",
+            "Ich hätte gerne {amount} {dish} mit und bitte {comment}",
+            "Ich hätte gerne {amount} {dish} mit und bitte",
+            "Ich hätte gerne {amount} {dish} mit  {comment}",
+            "Ich hätte gerne {amount} {dish} mit ",
+            "Ich hätte gerne {amount} {dish} mit extra {extra} und {comment}",
+            "Ich hätte gerne {amount} {dish} mit extra {extra} und",
+            "Ich hätte gerne {amount} {dish} mit extra {extra} und bitte {comment}",
+            "Ich hätte gerne {amount} {dish} mit extra {extra} und bitte",
+            "Ich hätte gerne {amount} {dish} mit extra {extra} {comment}",
+            "Ich hätte gerne {amount} {dish} mit extra {extra} ",
+            "Ich hätte gerne {amount} {dish} mit extra und {comment}",
+            "Ich hätte gerne {amount} {dish} mit extra und",
+            "Ich hätte gerne {amount} {dish} mit extra und bitte {comment}",
+            "Ich hätte gerne {amount} {dish} mit extra und bitte",
+            "Ich hätte gerne {amount} {dish} mit extra  {comment}",
+            "Ich hätte gerne {amount} {dish} mit extra ",
+            "Ich hätte gerne {amount} {dish} {extra} und {comment}",
+            "Ich hätte gerne {amount} {dish} {extra} und",
+            "Ich hätte gerne {amount} {dish} {extra} und bitte {comment}",
+            "Ich hätte gerne {amount} {dish} {extra} und bitte",
+            "Ich hätte gerne {amount} {dish} {extra}  {comment}",
+            "Ich hätte gerne {amount} {dish} {extra} ",
+            "Ich hätte gerne {amount} {dish}  und {comment}",
+            "Ich hätte gerne {amount} {dish}  und",
+            "Ich hätte gerne {amount} {dish}  und bitte {comment}",
+            "Ich hätte gerne {amount} {dish}  und bitte",
+            "Ich hätte gerne {amount} {dish}   {comment}",
+            "Ich hätte gerne {amount} {dish}  ",
+            "Ich hätte gerne {dish} mit {extra} und {comment}",
+            "Ich hätte gerne {dish} mit {extra} und",
+            "Ich hätte gerne {dish} mit {extra} und bitte {comment}",
+            "Ich hätte gerne {dish} mit {extra} und bitte",
+            "Ich hätte gerne {dish} mit {extra}  {comment}",
+            "Ich hätte gerne {dish} mit {extra} ",
+            "Ich hätte gerne {dish} mit  und {comment}",
+            "Ich hätte gerne {dish} mit  und",
+            "Ich hätte gerne {dish} mit  und bitte {comment}",
+            "Ich hätte gerne {dish} mit  und bitte",
+            "Ich hätte gerne {dish} mit   {comment}",
+            "Ich hätte gerne {dish} mit  ",
+            "Ich hätte gerne {dish} mit extra {extra} und {comment}",
+            "Ich hätte gerne {dish} mit extra {extra} und",
+            "Ich hätte gerne {dish} mit extra {extra} und bitte {comment}",
+            "Ich hätte gerne {dish} mit extra {extra} und bitte",
+            "Ich hätte gerne {dish} mit extra {extra}  {comment}",
+            "Ich hätte gerne {dish} mit extra {extra} ",
+            "Ich hätte gerne {dish} mit extra  und {comment}",
+            "Ich hätte gerne {dish} mit extra  und",
+            "Ich hätte gerne {dish} mit extra  und bitte {comment}",
+            "Ich hätte gerne {dish} mit extra  und bitte",
+            "Ich hätte gerne {dish} mit extra   {comment}",
+            "Ich hätte gerne {dish} mit extra  ",
+            "Ich hätte gerne {dish}  {extra} und {comment}",
+            "Ich hätte gerne {dish}  {extra} und",
+            "Ich hätte gerne {dish}  {extra} und bitte {comment}",
+            "Ich hätte gerne {dish}  {extra} und bitte",
+            "Ich hätte gerne {dish}  {extra}  {comment}",
+            "Ich hätte gerne {dish}  {extra} ",
+            "Ich hätte gerne {dish}   und {comment}",
+            "Ich hätte gerne {dish}   und",
+            "Ich hätte gerne {dish}   und bitte {comment}",
+            "Ich hätte gerne {dish}   und bitte",
+            "Ich hätte gerne {dish}    {comment}",
+            "Ich hätte gerne {dish}   ",
+            "Bitte bringe mir {amount} {dish} mit {extra} und {comment}",
+            "Bitte bringe mir {amount} {dish} mit {extra} und",
+            "Bitte bringe mir {amount} {dish} mit {extra} und bitte {comment}",
+            "Bitte bringe mir {amount} {dish} mit {extra} und bitte",
+            "Bitte bringe mir {amount} {dish} mit {extra} {comment}",
+            "Bitte bringe mir {amount} {dish} mit {extra} ",
+            "Bitte bringe mir {amount} {dish} mit und {comment}",
+            "Bitte bringe mir {amount} {dish} mit und",
+            "Bitte bringe mir {amount} {dish} mit und bitte {comment}",
+            "Bitte bringe mir {amount} {dish} mit und bitte",
+            "Bitte bringe mir {amount} {dish} mit  {comment}",
+            "Bitte bringe mir {amount} {dish} mit ",
+            "Bitte bringe mir {amount} {dish} mit extra {extra} und {comment}",
+            "Bitte bringe mir {amount} {dish} mit extra {extra} und",
+            "Bitte bringe mir {amount} {dish} mit extra {extra} und bitte {comment}",
+            "Bitte bringe mir {amount} {dish} mit extra {extra} und bitte",
+            "Bitte bringe mir {amount} {dish} mit extra {extra} {comment}",
+            "Bitte bringe mir {amount} {dish} mit extra {extra} ",
+            "Bitte bringe mir {amount} {dish} mit extra und {comment}",
+            "Bitte bringe mir {amount} {dish} mit extra und",
+            "Bitte bringe mir {amount} {dish} mit extra und bitte {comment}",
+            "Bitte bringe mir {amount} {dish} mit extra und bitte",
+            "Bitte bringe mir {amount} {dish} mit extra  {comment}",
+            "Bitte bringe mir {amount} {dish} mit extra ",
+            "Bitte bringe mir {amount} {dish} {extra} und {comment}",
+            "Bitte bringe mir {amount} {dish} {extra} und",
+            "Bitte bringe mir {amount} {dish} {extra} und bitte {comment}",
+            "Bitte bringe mir {amount} {dish} {extra} und bitte",
+            "Bitte bringe mir {amount} {dish} {extra}  {comment}",
+            "Bitte bringe mir {amount} {dish} {extra} ",
+            "Bitte bringe mir {amount} {dish}  und {comment}",
+            "Bitte bringe mir {amount} {dish}  und",
+            "Bitte bringe mir {amount} {dish}  und bitte {comment}",
+            "Bitte bringe mir {amount} {dish}  und bitte",
+            "Bitte bringe mir {amount} {dish}   {comment}",
+            "Bitte bringe mir {amount} {dish}  ",
+            "Bitte bringe mir {dish} mit {extra} und {comment}",
+            "Bitte bringe mir {dish} mit {extra} und",
+            "Bitte bringe mir {dish} mit {extra} und bitte {comment}",
+            "Bitte bringe mir {dish} mit {extra} und bitte",
+            "Bitte bringe mir {dish} mit {extra}  {comment}",
+            "Bitte bringe mir {dish} mit {extra} ",
+            "Bitte bringe mir {dish} mit  und {comment}",
+            "Bitte bringe mir {dish} mit  und",
+            "Bitte bringe mir {dish} mit  und bitte {comment}",
+            "Bitte bringe mir {dish} mit  und bitte",
+            "Bitte bringe mir {dish} mit   {comment}",
+            "Bitte bringe mir {dish} mit  ",
+            "Bitte bringe mir {dish} mit extra {extra} und {comment}",
+            "Bitte bringe mir {dish} mit extra {extra} und",
+            "Bitte bringe mir {dish} mit extra {extra} und bitte {comment}",
+            "Bitte bringe mir {dish} mit extra {extra} und bitte",
+            "Bitte bringe mir {dish} mit extra {extra}  {comment}",
+            "Bitte bringe mir {dish} mit extra {extra} ",
+            "Bitte bringe mir {dish} mit extra  und {comment}",
+            "Bitte bringe mir {dish} mit extra  und",
+            "Bitte bringe mir {dish} mit extra  und bitte {comment}",
+            "Bitte bringe mir {dish} mit extra  und bitte",
+            "Bitte bringe mir {dish} mit extra   {comment}",
+            "Bitte bringe mir {dish} mit extra  ",
+            "Bitte bringe mir {dish}  {extra} und {comment}",
+            "Bitte bringe mir {dish}  {extra} und",
+            "Bitte bringe mir {dish}  {extra} und bitte {comment}",
+            "Bitte bringe mir {dish}  {extra} und bitte",
+            "Bitte bringe mir {dish}  {extra}  {comment}",
+            "Bitte bringe mir {dish}  {extra} ",
+            "Bitte bringe mir {dish}   und {comment}",
+            "Bitte bringe mir {dish}   und",
+            "Bitte bringe mir {dish}   und bitte {comment}",
+            "Bitte bringe mir {dish}   und bitte",
+            "Bitte bringe mir {dish}    {comment}",
+            "Bitte bringe mir {dish}   ",
+            "Bringe mir bitte {amount} {dish} mit {extra} und {comment}",
+            "Bringe mir bitte {amount} {dish} mit {extra} und",
+            "Bringe mir bitte {amount} {dish} mit {extra} und bitte {comment}",
+            "Bringe mir bitte {amount} {dish} mit {extra} und bitte",
+            "Bringe mir bitte {amount} {dish} mit {extra} {comment}",
+            "Bringe mir bitte {amount} {dish} mit {extra} ",
+            "Bringe mir bitte {amount} {dish} mit und {comment}",
+            "Bringe mir bitte {amount} {dish} mit und",
+            "Bringe mir bitte {amount} {dish} mit und bitte {comment}",
+            "Bringe mir bitte {amount} {dish} mit und bitte",
+            "Bringe mir bitte {amount} {dish} mit  {comment}",
+            "Bringe mir bitte {amount} {dish} mit ",
+            "Bringe mir bitte {amount} {dish} mit extra {extra} und {comment}",
+            "Bringe mir bitte {amount} {dish} mit extra {extra} und",
+            "Bringe mir bitte {amount} {dish} mit extra {extra} und bitte {comment}",
+            "Bringe mir bitte {amount} {dish} mit extra {extra} und bitte",
+            "Bringe mir bitte {amount} {dish} mit extra {extra} {comment}",
+            "Bringe mir bitte {amount} {dish} mit extra {extra} ",
+            "Bringe mir bitte {amount} {dish} mit extra und {comment}",
+            "Bringe mir bitte {amount} {dish} mit extra und",
+            "Bringe mir bitte {amount} {dish} mit extra und bitte {comment}",
+            "Bringe mir bitte {amount} {dish} mit extra und bitte",
+            "Bringe mir bitte {amount} {dish} mit extra  {comment}",
+            "Bringe mir bitte {amount} {dish} mit extra ",
+            "Bringe mir bitte {amount} {dish} {extra} und {comment}",
+            "Bringe mir bitte {amount} {dish} {extra} und",
+            "Bringe mir bitte {amount} {dish} {extra} und bitte {comment}",
+            "Bringe mir bitte {amount} {dish} {extra} und bitte",
+            "Bringe mir bitte {amount} {dish} {extra}  {comment}",
+            "Bringe mir bitte {amount} {dish} {extra} ",
+            "Bringe mir bitte {amount} {dish}  und {comment}",
+            "Bringe mir bitte {amount} {dish}  und",
+            "Bringe mir bitte {amount} {dish}  und bitte {comment}",
+            "Bringe mir bitte {amount} {dish}  und bitte",
+            "Bringe mir bitte {amount} {dish}   {comment}",
+            "Bringe mir bitte {amount} {dish}  ",
+            "Bringe mir bitte {dish} mit {extra} und {comment}",
+            "Bringe mir bitte {dish} mit {extra} und",
+            "Bringe mir bitte {dish} mit {extra} und bitte {comment}",
+            "Bringe mir bitte {dish} mit {extra} und bitte",
+            "Bringe mir bitte {dish} mit {extra}  {comment}",
+            "Bringe mir bitte {dish} mit {extra} ",
+            "Bringe mir bitte {dish} mit  und {comment}",
+            "Bringe mir bitte {dish} mit  und",
+            "Bringe mir bitte {dish} mit  und bitte {comment}",
+            "Bringe mir bitte {dish} mit  und bitte",
+            "Bringe mir bitte {dish} mit   {comment}",
+            "Bringe mir bitte {dish} mit  ",
+            "Bringe mir bitte {dish} mit extra {extra} und {comment}",
+            "Bringe mir bitte {dish} mit extra {extra} und",
+            "Bringe mir bitte {dish} mit extra {extra} und bitte {comment}",
+            "Bringe mir bitte {dish} mit extra {extra} und bitte",
+            "Bringe mir bitte {dish} mit extra {extra}  {comment}",
+            "Bringe mir bitte {dish} mit extra {extra} ",
+            "Bringe mir bitte {dish} mit extra  und {comment}",
+            "Bringe mir bitte {dish} mit extra  und",
+            "Bringe mir bitte {dish} mit extra  und bitte {comment}",
+            "Bringe mir bitte {dish} mit extra  und bitte",
+            "Bringe mir bitte {dish} mit extra   {comment}",
+            "Bringe mir bitte {dish} mit extra  ",
+            "Bringe mir bitte {dish}  {extra} und {comment}",
+            "Bringe mir bitte {dish}  {extra} und",
+            "Bringe mir bitte {dish}  {extra} und bitte {comment}",
+            "Bringe mir bitte {dish}  {extra} und bitte",
+            "Bringe mir bitte {dish}  {extra}  {comment}",
+            "Bringe mir bitte {dish}  {extra} ",
+            "Bringe mir bitte {dish}   und {comment}",
+            "Bringe mir bitte {dish}   und",
+            "Bringe mir bitte {dish}   und bitte {comment}",
+            "Bringe mir bitte {dish}   und bitte",
+            "Bringe mir bitte {dish}    {comment}",
+            "Bringe mir bitte {dish}   ",
+            "Ich bekomme {amount} {dish} mit {extra} und {comment}",
+            "Ich bekomme {amount} {dish} mit {extra} und",
+            "Ich bekomme {amount} {dish} mit {extra} und bitte {comment}",
+            "Ich bekomme {amount} {dish} mit {extra} und bitte",
+            "Ich bekomme {amount} {dish} mit {extra} {comment}",
+            "Ich bekomme {amount} {dish} mit {extra} ",
+            "Ich bekomme {amount} {dish} mit und {comment}",
+            "Ich bekomme {amount} {dish} mit und",
+            "Ich bekomme {amount} {dish} mit und bitte {comment}",
+            "Ich bekomme {amount} {dish} mit und bitte",
+            "Ich bekomme {amount} {dish} mit  {comment}",
+            "Ich bekomme {amount} {dish} mit ",
+            "Ich bekomme {amount} {dish} mit extra {extra} und {comment}",
+            "Ich bekomme {amount} {dish} mit extra {extra} und",
+            "Ich bekomme {amount} {dish} mit extra {extra} und bitte {comment}",
+            "Ich bekomme {amount} {dish} mit extra {extra} und bitte",
+            "Ich bekomme {amount} {dish} mit extra {extra} {comment}",
+            "Ich bekomme {amount} {dish} mit extra {extra} ",
+            "Ich bekomme {amount} {dish} mit extra und {comment}",
+            "Ich bekomme {amount} {dish} mit extra und",
+            "Ich bekomme {amount} {dish} mit extra und bitte {comment}",
+            "Ich bekomme {amount} {dish} mit extra und bitte",
+            "Ich bekomme {amount} {dish} mit extra  {comment}",
+            "Ich bekomme {amount} {dish} mit extra ",
+            "Ich bekomme {amount} {dish} {extra} und {comment}",
+            "Ich bekomme {amount} {dish} {extra} und",
+            "Ich bekomme {amount} {dish} {extra} und bitte {comment}",
+            "Ich bekomme {amount} {dish} {extra} und bitte",
+            "Ich bekomme {amount} {dish} {extra}  {comment}",
+            "Ich bekomme {amount} {dish} {extra} ",
+            "Ich bekomme {amount} {dish}  und {comment}",
+            "Ich bekomme {amount} {dish}  und",
+            "Ich bekomme {amount} {dish}  und bitte {comment}",
+            "Ich bekomme {amount} {dish}  und bitte",
+            "Ich bekomme {amount} {dish}   {comment}",
+            "Ich bekomme {amount} {dish}  ",
+            "Ich bekomme {dish} mit {extra} und {comment}",
+            "Ich bekomme {dish} mit {extra} und",
+            "Ich bekomme {dish} mit {extra} und bitte {comment}",
+            "Ich bekomme {dish} mit {extra} und bitte",
+            "Ich bekomme {dish} mit {extra}  {comment}",
+            "Ich bekomme {dish} mit {extra} ",
+            "Ich bekomme {dish} mit  und {comment}",
+            "Ich bekomme {dish} mit  und",
+            "Ich bekomme {dish} mit  und bitte {comment}",
+            "Ich bekomme {dish} mit  und bitte",
+            "Ich bekomme {dish} mit   {comment}",
+            "Ich bekomme {dish} mit  ",
+            "Ich bekomme {dish} mit extra {extra} und {comment}",
+            "Ich bekomme {dish} mit extra {extra} und",
+            "Ich bekomme {dish} mit extra {extra} und bitte {comment}",
+            "Ich bekomme {dish} mit extra {extra} und bitte",
+            "Ich bekomme {dish} mit extra {extra}  {comment}",
+            "Ich bekomme {dish} mit extra {extra} ",
+            "Ich bekomme {dish} mit extra  und {comment}",
+            "Ich bekomme {dish} mit extra  und",
+            "Ich bekomme {dish} mit extra  und bitte {comment}",
+            "Ich bekomme {dish} mit extra  und bitte",
+            "Ich bekomme {dish} mit extra   {comment}",
+            "Ich bekomme {dish} mit extra  ",
+            "Ich bekomme {dish}  {extra} und {comment}",
+            "Ich bekomme {dish}  {extra} und",
+            "Ich bekomme {dish}  {extra} und bitte {comment}",
+            "Ich bekomme {dish}  {extra} und bitte",
+            "Ich bekomme {dish}  {extra}  {comment}",
+            "Ich bekomme {dish}  {extra} ",
+            "Ich bekomme {dish}   und {comment}",
+            "Ich bekomme {dish}   und",
+            "Ich bekomme {dish}   und bitte {comment}",
+            "Ich bekomme {dish}   und bitte",
+            "Ich bekomme {dish}    {comment}",
+            "Ich bekomme {dish}   ",
+            "Ich bekomme bitte {amount} {dish} mit {extra} und {comment}",
+            "Ich bekomme bitte {amount} {dish} mit {extra} und",
+            "Ich bekomme bitte {amount} {dish} mit {extra} und bitte {comment}",
+            "Ich bekomme bitte {amount} {dish} mit {extra} und bitte",
+            "Ich bekomme bitte {amount} {dish} mit {extra} {comment}",
+            "Ich bekomme bitte {amount} {dish} mit {extra} ",
+            "Ich bekomme bitte {amount} {dish} mit und {comment}",
+            "Ich bekomme bitte {amount} {dish} mit und",
+            "Ich bekomme bitte {amount} {dish} mit und bitte {comment}",
+            "Ich bekomme bitte {amount} {dish} mit und bitte",
+            "Ich bekomme bitte {amount} {dish} mit  {comment}",
+            "Ich bekomme bitte {amount} {dish} mit ",
+            "Ich bekomme bitte {amount} {dish} mit extra {extra} und {comment}",
+            "Ich bekomme bitte {amount} {dish} mit extra {extra} und",
+            "Ich bekomme bitte {amount} {dish} mit extra {extra} und bitte {comment}",
+            "Ich bekomme bitte {amount} {dish} mit extra {extra} und bitte",
+            "Ich bekomme bitte {amount} {dish} mit extra {extra} {comment}",
+            "Ich bekomme bitte {amount} {dish} mit extra {extra} ",
+            "Ich bekomme bitte {amount} {dish} mit extra und {comment}",
+            "Ich bekomme bitte {amount} {dish} mit extra und",
+            "Ich bekomme bitte {amount} {dish} mit extra und bitte {comment}",
+            "Ich bekomme bitte {amount} {dish} mit extra und bitte",
+            "Ich bekomme bitte {amount} {dish} mit extra  {comment}",
+            "Ich bekomme bitte {amount} {dish} mit extra ",
+            "Ich bekomme bitte {amount} {dish} {extra} und {comment}",
+            "Ich bekomme bitte {amount} {dish} {extra} und",
+            "Ich bekomme bitte {amount} {dish} {extra} und bitte {comment}",
+            "Ich bekomme bitte {amount} {dish} {extra} und bitte",
+            "Ich bekomme bitte {amount} {dish} {extra}  {comment}",
+            "Ich bekomme bitte {amount} {dish} {extra} ",
+            "Ich bekomme bitte {amount} {dish}  und {comment}",
+            "Ich bekomme bitte {amount} {dish}  und",
+            "Ich bekomme bitte {amount} {dish}  und bitte {comment}",
+            "Ich bekomme bitte {amount} {dish}  und bitte",
+            "Ich bekomme bitte {amount} {dish}   {comment}",
+            "Ich bekomme bitte {amount} {dish}  ",
+            "Ich bekomme bitte {dish} mit {extra} und {comment}",
+            "Ich bekomme bitte {dish} mit {extra} und",
+            "Ich bekomme bitte {dish} mit {extra} und bitte {comment}",
+            "Ich bekomme bitte {dish} mit {extra} und bitte",
+            "Ich bekomme bitte {dish} mit {extra}  {comment}",
+            "Ich bekomme bitte {dish} mit {extra} ",
+            "Ich bekomme bitte {dish} mit  und {comment}",
+            "Ich bekomme bitte {dish} mit  und",
+            "Ich bekomme bitte {dish} mit  und bitte {comment}",
+            "Ich bekomme bitte {dish} mit  und bitte",
+            "Ich bekomme bitte {dish} mit   {comment}",
+            "Ich bekomme bitte {dish} mit  ",
+            "Ich bekomme bitte {dish} mit extra {extra} und {comment}",
+            "Ich bekomme bitte {dish} mit extra {extra} und",
+            "Ich bekomme bitte {dish} mit extra {extra} und bitte {comment}",
+            "Ich bekomme bitte {dish} mit extra {extra} und bitte",
+            "Ich bekomme bitte {dish} mit extra {extra}  {comment}",
+            "Ich bekomme bitte {dish} mit extra {extra} ",
+            "Ich bekomme bitte {dish} mit extra  und {comment}",
+            "Ich bekomme bitte {dish} mit extra  und",
+            "Ich bekomme bitte {dish} mit extra  und bitte {comment}",
+            "Ich bekomme bitte {dish} mit extra  und bitte",
+            "Ich bekomme bitte {dish} mit extra   {comment}",
+            "Ich bekomme bitte {dish} mit extra  ",
+            "Ich bekomme bitte {dish}  {extra} und {comment}",
+            "Ich bekomme bitte {dish}  {extra} und",
+            "Ich bekomme bitte {dish}  {extra} und bitte {comment}",
+            "Ich bekomme bitte {dish}  {extra} und bitte",
+            "Ich bekomme bitte {dish}  {extra}  {comment}",
+            "Ich bekomme bitte {dish}  {extra} ",
+            "Ich bekomme bitte {dish}   und {comment}",
+            "Ich bekomme bitte {dish}   und",
+            "Ich bekomme bitte {dish}   und bitte {comment}",
+            "Ich bekomme bitte {dish}   und bitte",
+            "Ich bekomme bitte {dish}    {comment}",
+            "Ich bekomme bitte {dish}   "
+          ]
+        },
+        {
+          "name": "OrderDishOfToday",
+          "slots": [],
+          "samples": [
+            "ich möchte das Tagesgericht bestellen",
+            "bestell mal das Tagesgericht"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "id": "29",
+              "name": {
+                "value": "Macha Tee"
+              }
+            },
+            {
+              "id": "28",
+              "name": {
+                "value": "Chai Tee"
+              }
+            },
+            {
+              "id": "27",
+              "name": {
+                "value": "Eistee"
+              }
+            },
+            {
+              "id": "26",
+              "name": {
+                "value": "Limonade"
+              }
+            },
+            {
+              "id": "25",
+              "name": {
+                "value": "Cola"
+              }
+            },
+            {
+              "id": "24",
+              "name": {
+                "value": "Tofu in frischer Tomatensauce und Frühlingszwiebeln"
+              }
+            },
+            {
+              "id": "23",
+              "name": {
+                "value": "Mini-Frühlingsrollen"
+              }
+            },
+            {
+              "id": "22",
+              "name": {
+                "value": "Tofu gebraten mit Chinakohl und Kaiserschoten"
+              }
+            },
+            {
+              "id": "21",
+              "name": {
+                "value": "Veganes Kokos-Curry"
+              }
+            },
+            {
+              "id": "20",
+              "name": {
+                "value": "Grüner Mangosalad mit Karotten"
+              }
+            },
+            {
+              "id": "19",
+              "name": {
+                "value": "Grünes Curry mit Gemüse"
+              }
+            },
+            {
+              "id": "18",
+              "name": {
+                "value": "Massaman Thai Curry mit Kokosmilch"
+              }
+            },
+            {
+              "id": "17",
+              "name": {
+                "value": "Reis mit Ente und Ei"
+              }
+            },
+            {
+              "id": "16",
+              "name": {
+                "value": "Reis mit Rindfleisch und Soja Sauce"
+              }
+            },
+            {
+              "id": "15",
+              "name": {
+                "value": "Chinesische Nudeln mit Hähnchenbrust"
+              }
+            },
+            {
+              "id": "14",
+              "name": {
+                "value": "Chinesische Nudeln mit Rindfleisch"
+              }
+            },
+            {
+              "id": "13",
+              "name": {
+                "value": "Gedämpfte Banane in gesüßter Kokosnussmilch"
+              }
+            },
+            {
+              "id": "12",
+              "name": {
+                "value": "Frittierte Sesambällchen mit süßer Mungobohnenfüllung"
+              }
+            },
+            {
+              "id": "11",
+              "name": {
+                "value": "Sommerrollen gefüllt mit Reisnudeln"
+              }
+            },
+            {
+              "id": "10",
+              "name": {
+                "value": "Frittierte Frühlingrollen gefüllt"
+              }
+            },
+            {
+              "id": "9",
+              "name": {
+                "value": "Gedämpfte Teigtaschen"
+              }
+            },
+            {
+              "id": "8",
+              "name": {
+                "value": "Erfrischende Zitronengrassuppe mit Lachs"
+              }
+            },
+            {
+              "id": "7",
+              "name": {
+                "value": "Hühnerfleisch gebraten mit Bambus und Sellerie"
+              }
+            },
+            {
+              "id": "6",
+              "name": {
+                "value": "Gegrillte Peking Ente mit Lauchzwiebeln",
+                "synonyms": [
+                  "tea"
+                ]
+              }
+            },
+            {
+              "id": "5",
+              "name": {
+                "value": "Gegrillte Hähnchenbrust mit frischen Zitronenblättern",
+                "synonyms": [
+                  "beer"
+                ]
+              }
+            },
+            {
+              "id": "4",
+              "name": {
+                "value": "Gegrilltes Lachsfilet mit süß sauer Sauce",
+                "synonyms": [
+                  "Thai Thighs Fish/Prawns"
+                ]
+              }
+            },
+            {
+              "id": "3",
+              "name": {
+                "value": "Gebratenen Garnelen mit buntem Gemüse",
+                "synonyms": [
+                  "Thai Peanut Beef"
+                ]
+              }
+            },
+            {
+              "id": "2",
+              "name": {
+                "value": "Knusprig gebackene Ente auf gebratenem Gemüse",
+                "synonyms": [
+                  "Thai green chicken curry"
+                ]
+              }
+            },
+            {
+              "id": "1",
+              "name": {
+                "value": "Gebratenes Rindfleisch mit Paprika",
+                "synonyms": [
+                  "Garlic Paradise Salad"
+                ]
+              }
+            },
+            {
+              "id": "0",
+              "name": {
+                "value": "Frühlingrollen mit Reisnudeln",
+                "synonyms": [
+                  "Thai Spicy Basil Fried Rice"
+                ]
+              }
+            }
+          ],
+          "name": "dish"
+        },
+        {
+          "values": [
+            {
+              "id": "1",
+              "name": {
+                "value": "yes"
+              }
+            },
+            {
+              "id": "0",
+              "name": {
+                "value": "no"
+              }
+            }
+          ],
+          "name": "decision"
+        },
+        {
+          "values": [
+            {
+              "id": "1",
+              "name": {
+                "value": "Extra curry",
+                "synonyms": [
+                  "curry"
+                ]
+              }
+            },
+            {
+              "id": "0",
+              "name": {
+                "value": "Tofu",
+                "synonyms": [
+                  "extra tofu"
+                ]
+              }
+            }
+          ],
+          "name": "extra"
+        },
+        {
+          "values": [
+            {
+              "id": "8",
+              "name": {
+                "value": "Drinks",
+                "synonyms": [
+                  "zum trinken",
+                  "getränk",
+                  "getränke"
+                ]
+              }
+            },
+            {
+              "id": "7",
+              "name": {
+                "value": "Vegetarian",
+                "synonyms": [
+                  "vegetarische",
+                  "vegetarischen",
+                  "vegetarisch"
+                ]
+              }
+            },
+            {
+              "id": "6",
+              "name": {
+                "value": "Vegan",
+                "synonyms": [
+                  "vegane",
+                  "vegan"
+                ]
+              }
+            },
+            {
+              "id": "5",
+              "name": {
+                "value": "Curry"
+              }
+            },
+            {
+              "id": "4",
+              "name": {
+                "value": "Rice",
+                "synonyms": [
+                  "reis"
+                ]
+              }
+            },
+            {
+              "id": "3",
+              "name": {
+                "value": "Noodle",
+                "synonyms": [
+                  "nudeln",
+                  "nudel"
+                ]
+              }
+            },
+            {
+              "id": "2",
+              "name": {
+                "value": "Dessert",
+                "synonyms": [
+                  "nachtisch"
+                ]
+              }
+            },
+            {
+              "id": "1",
+              "name": {
+                "value": "Starter",
+                "synonyms": [
+                  "vorspeisen",
+                  "vorspeise"
+                ]
+              }
+            },
+            {
+              "id": "0",
+              "name": {
+                "value": "Main Dishes",
+                "synonyms": [
+                  "hauptgerichte",
+                  "hauotgericht"
+                ]
+              }
+            }
+          ],
+          "name": "filter"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "Restaurant"
+              }
+            },
+            {
+              "name": {
+                "value": "Home"
+              }
+            }
+          ],
+          "name": "OrderPosition"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "10"
+              }
+            },
+            {
+              "name": {
+                "value": "9"
+              }
+            },
+            {
+              "name": {
+                "value": "8"
+              }
+            },
+            {
+              "name": {
+                "value": "7"
+              }
+            },
+            {
+              "name": {
+                "value": "6"
+              }
+            },
+            {
+              "name": {
+                "value": "5"
+              }
+            },
+            {
+              "name": {
+                "value": "4"
+              }
+            },
+            {
+              "name": {
+                "value": "3"
+              }
+            },
+            {
+              "name": {
+                "value": "2"
+              }
+            }
+          ],
+          "name": "validAmounts"
+        }
+      ]
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "OrderIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "dish",
+              "type": "dish",
+              "elicitationRequired": true,
+              "confirmationRequired": true,
+              "prompts": {
+                "confirmation": "Confirm.Slot.1313292627119.985441845053",
+                "elicitation": "Elicit.Slot.1501217755627.1311074609435"
+              },
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.1097449067987.888703819740.1024607114410"
+                }
+              ]
+            },
+            {
+              "name": "extra",
+              "type": "extra",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "comment",
+              "type": "AMAZON.StreetName",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "amount",
+              "type": "validAmounts",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            }
+          ],
+          "delegationStrategy": "ALWAYS"
+        },
+        {
+          "name": "ConfirmOrderIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": []
+        },
+        {
+          "name": "AskForOrderConfirmationIntent",
+          "confirmationRequired": true,
+          "prompts": {
+            "confirmation": "Confirm.Intent.695481926345"
+          },
+          "slots": []
+        },
+        {
+          "name": "AtRestaurant",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "table",
+              "type": "AMAZON.NUMBER",
+              "elicitationRequired": true,
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.330013387069.306238802763"
+              }
+            }
+          ]
+        },
+        {
+          "name": "HelloWorldIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": []
+        },
+        {
+          "name": "price",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "dish",
+              "type": "dish",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            }
+          ]
+        },
+        {
+          "name": "IntuitiveOrderIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "dish",
+              "type": "dish",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {},
+              "validations": [
+                {
+                  "type": "hasEntityResolutionMatch",
+                  "prompt": "Slot.Validation.1414796084780.1249163351360.139444354491"
+                }
+              ]
+            },
+            {
+              "name": "extra",
+              "type": "extra",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "comment",
+              "type": "AMAZON.StreetName",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "amount",
+              "type": "validAmounts",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "extraToo",
+              "type": "extra",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            }
+          ],
+          "delegationStrategy": "SKILL_RESPONSE"
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.1402436128646.999449157316",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "When would you like to make a reservation"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1402436128646.78254940556",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "What time would you like to make a reservation?"
+          },
+          {
+            "type": "PlainText",
+            "value": "What time would you like the reservation?"
+          },
+          {
+            "type": "PlainText",
+            "value": "What time would you like the reservation for?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1402436128646.928824319691",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Für wie viele Personen willst du reservieren?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1345695674565.1410765818522",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "An welchem Tag möchtest du reservieren?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1345695674565.1175056694810",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Zu welcher Zeit möchtest du reservieren?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Um wieviel Uhr willst du reservieren?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.175846350166.1284028618457",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Auf welchen Namen möchtest du reservieren?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Auf welchen Namen soll die Reservierung gehen?"
+          }
+        ]
+      },
+      {
+        "id": "Confirm.Intent.373701581405",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "is the reservation with name {name} on {day}  at {time} with {numberOfGuests} guests, correct?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.1501217755627.1311074609435",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Welches Gericht möchtest du Bestellen?"
+          },
+          {
+            "type": "PlainText",
+            "value": "Was möchtest du Bestellen?"
+          }
+        ]
+      },
+      {
+        "id": "Confirm.Slot.1313292627119.985441845053",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Du hast dich für {dish} entschieden, ist das richtig?"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1097449067987.888703819740.1024607114410",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "{dish} existiert nicht, bitte nehme ein Gericht aus der Karte."
+          }
+        ]
+      },
+      {
+        "id": "Confirm.Intent.927983397952",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Do you want to confirm the order?"
+          }
+        ]
+      },
+      {
+        "id": "Confirm.Intent.695481926345",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Bitte bestätige deine Bestellung"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.330013387069.306238802763",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "An welchem Tisch sitzt du?"
+          }
+        ]
+      },
+      {
+        "id": "Confirm.Intent.267644201958",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "ok"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.1414796084780.1249163351360.139444354491",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "wir führen kein {dish}"
+          }
+        ]
+      }
+    ]
+  },
+  "version": "42"
+}
