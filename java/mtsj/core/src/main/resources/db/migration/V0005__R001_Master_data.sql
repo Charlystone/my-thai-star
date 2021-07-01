@@ -3,10 +3,10 @@ INSERT INTO UserRole(id, modificationCounter, name, active) VALUES (1, 1, 'Waite
 INSERT INTO UserRole(id, modificationCounter, name, active) VALUES (2, 1, 'Manager', true);
 INSERT INTO UserRole(id, modificationCounter, name, active) VALUES (3, 1, 'Admin', true);
 
-INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (0, 1, 'Abdullah Abdulkarim', '{bcrypt}$2a$10$1CAKyUHbX6RJqT5cUP6/aOMTIlYYvGIO/a3Dt/erbYKKgmbgJMGsG', false, 'abdullah@ctro4.de', 1);
-INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (1, 1, 'Manager', '{bcrypt}$2a$10$IsTlZemkiPKE2gjtnSMlJOX5.uitNHXNRpLYyvyxNbHEhjpY.XdTq', false, 'manager@ctro4.de', 2);
-INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (2, 1, 'Admin', '{bcrypt}$2a$10$qPM1WjcRKAffHxWXYEfPJOh2vGPlT/Fdv.hJX/LaZjzg/Wtj2csqO', false, 'admin@ctro4.de', 3);
-INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (3, 1, 'Nicholas Klag', '{bcrypt}$2a$10$qPM1WjcRKAffHxWXYEfPJOh2vGPlT/Fdv.hJX/LaZjzg/Wtj2csqO', false, 'nicholas.klag@gmail.com', 0);
+INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (0, 1, 'Waiter', '{bcrypt}$2a$10$1CAKyUHbX6RJqT5cUP6/aOMTIlYYvGIO/a3Dt/erbYKKgmbgJMGsG', false, 'waiter@mythaistar.de', 1);
+INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (1, 1, 'Manager', '{bcrypt}$2a$10$gCcf75k2hLp3yU2QOycPXOef6EegPGYtA0YAjtLcLbjMAIEC.yU6u', false, 'manager@mythaistar.de', 2);
+INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (2, 1, 'Admin', '{bcrypt}$2a$10$R07w/Bq3nP7Wt4qaNIWZ4eTUutUuQdH9AsdGi.jhQRU/vKsIrdcyK', false, 'admin@mythaistar.de', 3);
+INSERT INTO User(id, modificationCounter, username, password, twoFactorStatus, email, idRole) VALUES (3, 1, 'John Doe', '{bcrypt}$2a$10$P1L55wMFHsBY3zD/yey2VOfEknteWnKVMkAVZwUL3P7zENG6uKoY2', false, 'JohnDoe@gmail.com', 0);
 
 
 INSERT INTO "Table"(id, modificationCounter, seatsNumber) VALUES 
