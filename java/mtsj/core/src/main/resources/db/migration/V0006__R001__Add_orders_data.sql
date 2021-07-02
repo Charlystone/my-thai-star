@@ -1,17 +1,17 @@
 INSERT INTO "ORDERS"(id, orderState, paymentState, modificationCounter, idBooking, idInvitedGuest, idHost) VALUES
-(1000021, 'orderDelivered', 'pending', 1, 1000001, NULL, NULL),
+(1000021, 'orderTaken', 'pending', 1, 1000001, NULL, NULL),
 (1000026, 'orderTaken', 'pending', 1, 1000002, NULL, NULL),
-(1000031, 'orderDelivered', 'paid', 2, 1000003, NULL, NULL),
+(1000031, 'orderTaken', 'pending', 2, 1000003, NULL, NULL),
 (1000037, 'orderTaken', 'pending', 0, 1000004, NULL, NULL),
 (1000038, 'orderTaken', 'pending', 1, 1000005, NULL, NULL),
 (1000040, 'canceled', 'canceled', 1, 1000006, NULL, NULL),
 (1000043, 'orderTaken', 'pending', 1, 1000007, NULL, NULL),
 (1000046, 'orderTaken', 'pending', 1, 1000008, NULL, NULL),
-(1000049, 'orderDelivered', 'pending', 1, 1000009, NULL, NULL),
-(1000054, 'orderCompleted', 'paid', 3, 1000010, NULL, NULL),
+(1000049, 'orderTaken', 'pending', 1, 1000009, NULL, NULL),
+(1000054, 'orderTaken', 'pending', 3, 1000010, NULL, NULL),
 (1000056, 'orderTaken', 'pending', 0, 1000012, NULL, NULL),
-(1000058, 'orderTaken', 'paid', 1, 1000017, NULL, NULL),
-(1000063, 'orderCompleted', 'paid', 3, 1000016, NULL, NULL);
+(1000058, 'orderTaken', 'pending', 1, 1000017, NULL, NULL),
+(1000063, 'orderTaken', 'pending', 3, 1000016, NULL, NULL);
 
 INSERT INTO "ORDERLINE"(id, modificationCounter, idDish, amount, comment, idOrder) VALUES
 (1000022, 0, 8, 1, NULL, 1000021),

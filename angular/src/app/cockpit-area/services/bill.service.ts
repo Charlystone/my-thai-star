@@ -13,7 +13,7 @@ export class BillService {
 
     createBillAsPDF(selectedOrder: OrderListView) {
         const doc = new jsPDF.jsPDF();
-        const docTitle = 'RE-' + selectedOrder.booking.bookingToken.toString().split('_')[2];
+        const docTitle = 'RE-' + selectedOrder.booking.bookingToken.toString().split('_')[2].substring(0, 10);
 
         const orderLines = selectedOrder.orderLines;
         let totalPrice = 0;
@@ -47,7 +47,7 @@ export class BillService {
         ], 110, 55);
 
         doc.text([
-            'RE-' + selectedOrder.booking.bookingToken.toString().split('_')[2]
+            'RE-' + selectedOrder.booking.bookingToken.toString().split('_')[2].substring(0, 10)
         ], 160, 55);
 
         doc.text([
@@ -116,9 +116,15 @@ export class BillService {
 
         // print unit prices
         for (let index = 0; index < orderLines.length; index++) {
-            doc.text([
-                orderLines[index].dish.price.toString() + ' €'
-            ], 110, 100 + (10 * index));
+            if (orderLines[index].dish.isDishOfTheDay) {
+                doc.text([
+                    orderLines[index].dish.dailyPrice.toString() + ' €'
+                ], 110, 100 + (10 * index));
+            } else {
+                doc.text([
+                    orderLines[index].dish.price.toString() + ' €'
+                ], 110, 100 + (10 * index));
+            } 
         }
 
         // print amount
@@ -130,10 +136,17 @@ export class BillService {
 
         // print position price
         for (let index = 0; index < orderLines.length; index++) {
-            doc.text([
-                (orderLines[index].dish.price * orderLines[index].orderLine.amount).toString() + ' €'
-            ], 160, 100 + (10 * index));
-            totalPrice += orderLines[index].dish.price * orderLines[index].orderLine.amount;
+            if (orderLines[index].dish.isDishOfTheDay) {
+                doc.text([
+                    (orderLines[index].dish.dailyPrice * orderLines[index].orderLine.amount).toString() + ' €'
+                ], 160, 100 + (10 * index));
+                totalPrice += orderLines[index].dish.dailyPrice * orderLines[index].orderLine.amount;
+            } else {
+                doc.text([
+                    (orderLines[index].dish.price * orderLines[index].orderLine.amount).toString() + ' €'
+                ], 160, 100 + (10 * index));
+                totalPrice += orderLines[index].dish.price * orderLines[index].orderLine.amount;
+            } 
         }
 
         doc.line(25, 95 + (10 * orderLines.length), 180, 95 + (10 * orderLines.length));
