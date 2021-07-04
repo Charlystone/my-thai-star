@@ -139,6 +139,7 @@ public class DishmanagementImpl extends AbstractComponentFacade implements Dishm
     List<DishCto> ctos = new ArrayList<>();
     Page<DishCto> pagListTo = null;
     Page<DishEntity> searchResult = getDishDao().findDishs(criteria);
+    int totalDishAmount = getDishDao().findAll().size();
 
     for (DishEntity dish : searchResult.getContent()) {
       DishCto cto = new DishCto();
@@ -160,7 +161,7 @@ public class DishmanagementImpl extends AbstractComponentFacade implements Dishm
     }
     if (ctos.size() > 0) {
       Pageable pagResultTo = PageRequest.of(criteria.getPageable().getPageNumber(), ctos.size());
-      pagListTo = new PageImpl<>(ctos, pagResultTo, pagResultTo.getPageSize());
+      pagListTo = new PageImpl<>(ctos, pagResultTo, totalDishAmount);
     }
     return pagListTo;
 

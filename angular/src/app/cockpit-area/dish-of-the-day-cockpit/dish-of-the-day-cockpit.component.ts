@@ -18,7 +18,7 @@ export class DishOfTheDayCockpitComponent implements OnInit, OnDestroy {
   private translocoSubscription = Subscription.EMPTY;
 
   private pageable: Pageable = {
-    pageSize: 32,
+    pageSize: 8,
     pageNumber: 0,
     sort: [
       {
@@ -29,7 +29,7 @@ export class DishOfTheDayCockpitComponent implements OnInit, OnDestroy {
   };
 
   pageSizes: number[];
-  pageSize = 32;
+  pageSize = 8;
 
   @ViewChild('pagingBar', { static: true }) pagingBar: MatPaginator;
 
